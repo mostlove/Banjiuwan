@@ -1,0 +1,160 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+
+
+<mapper namespace="com.magicbeans.banjiuwan.mapper.ISpecialActMapper">
+    <resultMap id="BaseSpecialAct" type="com.magicbeans.banjiuwan.beans.SpecialAct">
+        <result column="id" property="id" javaType="java.lang.Integer"/>
+        <result column="top_banner" property="topBanner" javaType="java.lang.String"/>
+        <result column="banners" property="banners" javaType="java.lang.String"/>
+        <result column="units" property="units" javaType="java.lang.String"/>
+        <result column="name" property="name" javaType="java.lang.String"/>
+        <result column="recommendation_index" property="recommendationIndex" javaType="java.lang.Integer"/>
+        <result column="remarks" property="remarks" javaType="java.lang.String"/>
+        <result column="programmes" property="programmes" javaType="java.lang.String"/>
+        <result column="price" property="price" javaType="java.lang.Double"/>
+        <result column="create_time" property="createTime" javaType="java.util.Date"/>
+        <result column="food_category_id" property="foodCategoryId" javaType="java.lang.Integer"/>
+        <result column="sales" property="sales" javaType="java.lang.Integer"/>
+        <result column="countNumber" property="countNumber" javaType="java.lang.Integer"/>
+    </resultMap>
+
+    <update id="batchUpdateSale">
+        <foreach collection="specialActs" item="specialAct" index="index" separator=";">
+            UPDATE `special_act`
+            SET `sales`=`sales`+ #{specialAct.sales}
+            WHERE  `id`=#{specialAct.id}
+        </foreach>
+    </update>
+
+    <select id="querySpecialActOtherInfo" resultMap="BaseSpecialAct">
+        SELECT
+            sa.*
+        <if test="userId != null">
+            ,sc.number AS `countNumber`
+        </if>
+        FROM
+            special_act sa
+        LEFT JOIN shop_car sc ON sa.id = sc.food_id
+        AND sa.food_category_id = sc.food_category_id
+        <if test="userId != null">
+            AND sc.user_id = #{userId}
+        </if>
+        WHERE
+            sa.id = #{actId}
+    </select>
+
+    <select id="batchQuery" resultMap="BaseSpecialAct">
+        SELECT `id`,`top_banner`,`units`,`name`,`price`
+        FROM `special_act`
+        WHERE id IN
+        <foreach collection="ids" index="index" item="id" separator="," close=")" open="(">
+            #{id}
+        </foreach>
+    </select>
+    
+    <insert id="addSpecialAct">
+
+        INSERT INTO `special_act`
+        (`banners`,`top_banner`,`name`,`remarks`,`price`,`food_category_id`,`units`,`programmes`,`recommendation_index`,`create_time`,
+        `sales`)
+        VALUES
+        (#{specialAct.banners},#{specialAct.topBanner},#{specialAct.name},#{specialAct.remarks}
+        ,#{specialAct.price},#{specialAct.foodCategoryId},#{specialAct.units},#{specialAct.programmes},#{specialAct.recommendationIndex}
+        ,NOW(),#{specialAct.sales})
+    </insert>
+
+    <update id="updateSpecialAct">
+
+        UPDATE `special_act`
+        <set>
+          <if test="specialAct.sales != null">
+              `sales`=#{specialAct.sales},
+          </if>
+          <if test="specialAct.banners != null">
+              `banners`=#{specialAct.banners},
+          </if>
+          <if test="specialAct.topBanner != null">
+              `top_banner`=#{specialAct.topBanner},
+          </if>
+          <if test="specialAct.units != null">
+              `units`=#{specialAct.units},
+          </if>
+          <if test="specialAct.name != null">
+              `name`=#{specialAct.name},
+          </if>
+          <if test="specialAct.remarks != null">
+              `remarks`=#{specialAct.remarks},
+          </if>
+          <if test="specialAct.price != null">
+              `price`=#{specialAct.price},
+          </if>
+          <if test="specialAct.foodCategoryId != null">
+              `food_category_id`=#{specialAct.foodCategoryId},
+          </if>
+          <if test="specialAct.programmes != null">
+              `programmes`=#{specialAct.programmes},
+          </if>
+          <if test="specialAct.recommendationIndex != null">
+              `recommendation_index`=#{specialAct.recommendationIndex},
+          </if>
+        </set>
+        WHERE id=#{specialAct.id}
+    </update>
+
+
+    <select id="queryAllAct" resultMap="BaseSpecialAct">
+        SELECT * FROM `special_act`
+    </select>
+
+    <delete id="delSpecialAct">
+        DELETE FROM `special_act` WHERE id=#{id}
+    </delete>
+
+    <select id="queryByName" resultMap="BaseSpecialAct">
+
+        SELECT * FROM `special_act` WHERE 1=1
+        <if test="name != null">
+          AND `name` LIKE '%${name}%'
+        </if>
+
+        ORDER BY `create_time` DESC
+
+        <if test="limit != null and limitSize != null">
+            LIMIT #{limit},#{limitSize}
+        </if>
+
+    </select>
+
+    <select id="countByName" resultType="java.lang.Integer">
+        SELECT COUNT(*) FROM `special_act` WHERE 1=1
+        <if test="name != null">
+            AND `name` LIKE '%${name}%'
+        </if>
+    </select>
+
+    <select id="queryActById" resultMap="BaseSpecialAct">
+        SELECT * FROM `special_act` WHERE id=#{id}
+    </select>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</mapper>

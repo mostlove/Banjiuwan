@@ -1,0 +1,191 @@
+/**
+ * 购物车页面自定义css
+ * */
+.mui-content{
+	padding-bottom: 110px;
+}
+
+.car-title{
+	height: 50px;
+	line-height: 50px;
+	padding: 0 15px;
+	background: #fff;
+	margin-top: 10px;
+}
+.car-title .name{
+	font-size: 16px;
+	color: #666;
+}
+.car-title .clear-right{
+	float: right;
+	font-size: 16px;
+	color: #666;
+}
+.car-title .clear-right i{
+	font-size: 20px;
+	color: #666;
+	background: #fff;
+}
+/*购物车商品列表*/
+.commodity-list{
+	
+}
+.commodity-list .commodity-list-img{
+	max-width: 100px;
+	width: 100px;
+	height: 80px;
+}
+.commodity-list .commodity-list-name{
+	font-size: 16px;
+	font-weight: 500;
+	color: #222222;
+	padding-bottom: 2px;
+}
+.commodity-list .commodity-list-money{
+	font-size: 18px;
+	font-weight: 600;
+	color: #D72C22;
+	padding-bottom: 4px;
+}
+.commodity-list .commodity-list-refresh{
+	font-size: 14px;
+	color: #D72C22;
+}
+.commodity-list .commodity-list-refresh i{
+	font-size: 18px;
+	margin-right: 5px;
+	font-weight: bold;
+}
+/*加减按钮组*/
+.addBtnBox{
+	top: 0px;
+}
+.commodity-list .addBtnBox{
+	position: absolute;
+	background: rgba(0,0,0,0);
+	right: 0;
+	top:44px;
+	margin-right: 15px;
+}
+
+/**覆盖样式*/
+.commodity-list .mui-table-view-chevron .mui-table-view-cell{
+	padding-right: 0px !important;
+}
+.commodity-list .mui-table-view-chevron .mui-table-view-cell>a:not(.mui-btn){
+	margin-right: 0px !important;
+}
+.commodity-list .mui-navigate-right:after, .mui-push-right:after{
+	content: '';
+}
+
+/*服务*/
+.car-service-hint{
+	padding: 15px;
+	color: #999;
+	font-size: 14px;
+	background: #fff;
+}
+.car-service-title{
+	height: 50px;
+	line-height: 50px;
+	padding: 0 15px;
+	background: #fff;
+	margin-top: 10px;
+	font-size: 16px;
+	color: #666;
+	border-bottom: 1px solid #eee;
+}
+/**不浮动的加减按钮*/
+.number-box-clear{
+	border-bottom: 1px solid #eee;
+	background: #fff;
+	padding: 15px;
+}
+.number-box-clear .mui-numbox{
+
+}
+.service-title{
+	font-size: 16px;
+	font-family: "微软雅黑" !important;
+	color: #101010;
+	width: 60% !important;
+}
+.service-title .service-money{
+	color: #D72C22;
+	margin-left: 5px;
+	font-weight: 600;
+}
+
+/**购物车底部*/
+.car-bottom{
+	height: 50px;
+	background: #fff;
+	z-index: 999;
+	max-width: 640px;
+	margin: 0 auto;
+	bottom: 0px;
+}
+.car-popup{
+	position: relative;
+	width: 50px;
+}
+.car-popup .mui-badge{
+	position: absolute;
+	top:10px;
+	right:0px;
+	background: #D72E22;
+	color: #fff;
+	border: 2px solid #fff;
+}
+.car-popup img{
+	width: 40px;
+	height: 40px;
+	margin-top: 5px;
+}
+.car-bottom .mui-btn-danger{
+	margin: 0;
+	top:0;
+	background: #D72E22;
+	border-radius: 30px;
+	padding-left: 30px;
+	padding-right: 30px;
+	border-color: #D72C22;
+}
+.car-popup-left{
+	text-align: left;
+	padding-left: 15px;
+}
+.car-popup-right{
+	text-align: right !important;
+	padding-right: 15px;
+}
+.car-popup-price{
+	position: relative;
+	top:-12px;
+	left: 10px;
+	font-size: 2rem;
+	font-weight: 600;
+	color: #D72E22;
+}
+.margin-top26{
+	margin-top: 26px;
+}
+.exchangeBtn{
+	padding: 0;
+	color: #D72C22;
+	background-color: rgba(0, 0, 0, 0);
+}
+.exchangeBtn:active,.exchangeBtn:focus{
+	color: #D72C22 !important;
+	background: rgba(0, 0, 0, 0) !important;
+}
+
+/*iphone6*/
+@media screen and (max-width:375px) {
+	
+}
+/*iphone5*/
+@media screen and (max-width:320px) {
+	
+}

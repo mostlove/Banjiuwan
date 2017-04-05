@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.magicbeans.banjiuwan.mapper.IWaiterTimeConfigMapper">
+
+
+    <insert id="addWaiterTimeConfig">
+        INSERT INTO `waiter_time_config`
+        (`timeConfigId`,`waiterId`)
+        VALUES
+        (#{waiterTime.timeConfigId},#{waiterTime.waiterId})
+    </insert>
+
+
+    <insert id="batchAddWaiterTimeConfig">
+        INSERT INTO `waiter_time_config`
+        (`timeConfigId`,`waiterId`)
+        VALUES
+        <foreach collection="waiterTimeConfigs" index="index" item="waiterTime" separator=",">
+            (#{waiterTime.timeConfigId},#{waiterTime.waiterId})
+        </foreach>
+    </insert>
+
+
+    <delete id="delWaiterTimeByWaiter">
+        DELETE FROM `waiter_time_config` WHERE `waiterId`=#{waiterId}
+    </delete>
+
+
+    <select id="queryByTimeConfig" resultType="com.magicbeans.banjiuwan.beans.Waiter">
+       SELECT
+            c.`name` AS `name`,
+            c.id AS id
+        FROM
+            `waiter` c,
+            waiter_time_config ctc,
+            order_time_config otc
+        WHERE
+            c.id = ctc.waiterId
+        AND otc.id = ctc.timeConfigId
+        AND otc.time = #{timeConfig}
+    </select>
+
+    <select id="queryByWaiterId" resultType="com.magicbeans.banjiuwan.beans.WaiterTimeConfig">
+        SELECT * FROM `waiter_time_config`
+        WHERE `waiterId`=#{waiterId}
+    </select>
+
+</mapper>

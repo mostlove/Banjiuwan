@@ -1,0 +1,87 @@
+.mui-content .top{
+	padding-bottom: 8px;
+	border-bottom: 1px solid #E1E1E1;
+	background:#F2F2F2;
+}
+.mui-content .info{
+	padding: 20px;
+	border-bottom: 1px solid #E1E1E1;
+	background: #fff;
+}
+.media{
+	position: relative;
+}
+.media a.phone{
+	position: absolute;
+	top: 3px;
+	right: 0;
+}
+.media a.chat{
+	position: absolute;
+	top: 3px;
+	right: 40px;
+}
+.media a img{
+	width: 20px;
+	height: 20px;
+}
+.media .media-left{
+	display: table-cell;
+	vertical-align: middle;
+	padding-right: 10px;
+}
+.media .media-body{
+	display: table-cell;
+	vertical-align: middle;
+}
+.media .media-left img{
+	width: 80px;
+	height: 80px;
+	border-radius:50%;
+}
+.media .media-body p{
+	margin-bottom: 6px;
+	color:#464646;
+	font-size: 14px;
+}
+.media .media-body .media-heading p{
+	color:#363636;
+	font-size: 20px;
+}
+.mui-content .header{
+	background: #fff;
+	height: 50px;
+	font-size: 16px;
+	color: #999999;
+	line-height: 50px;
+	border-bottom: 1px solid #E1E1E1;
+	padding: 0 15px 0 20px;
+}
+.mui-content .header .count{
+	float: right;
+}
+small{
+	font-size: 16px;
+	color:#FF9031;
+}
+.mui-content .bottom .media .media-left img{
+	width: 50px;
+	height: 50px;
+}
+.mui-content .bottom .media .media-body{
+	position: relative;
+}
+.mui-content .bottom .media .media-body p.car-name{
+	color:#333333;
+	font-size: 18px;
+}
+.mui-content .bottom .media .media-body p.car-plate{
+	color:#5F5F5F;
+	font-size: 15px;
+}
+.mui-content .bottom .media a{
+	position: absolute;
+	color: #B6B6B9;
+	top: 0;
+	right: 10px;
+}

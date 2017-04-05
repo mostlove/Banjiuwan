@@ -1,0 +1,437 @@
+/**
+ * 菜谱详情页面自定义css
+ * */
+
+/*顶部*/
+.detail-header{
+	position: fixed;
+	z-index: 99999;
+	top: 0px;
+	left: 0;
+	right: 0;
+	width: 100%;
+	display: none;
+}
+.detail-header img{
+	width: 30px;
+	height: 30px;
+}
+.detail-header .return-icon{
+	float: left;
+	position: relative;
+	left: 10px;
+	top: 10px;
+}
+.detail-header .car-icon{
+	float: right;
+	position: relative;
+	right: 10px;
+	top: 10px;
+}
+
+/**swiper*/
+
+.swiper-container {
+	width: 100%;
+	height: 300px;
+	margin-left: auto;
+	margin-right: auto;
+	z-index: 9;
+	top: 0;
+}
+
+.swiper-pagination {
+	bottom: 10% !important;
+}
+
+.swiper-pagination span {
+	background: #fff;
+	transition: 0.3s all;
+}
+
+.swiper-pagination-bullet {
+	opacity: 1;
+	width: 10px;
+	height: 10px;
+}
+
+.swiper-container-horizontal>.swiper-pagination .swiper-pagination-bullet {
+	margin: 0 8px;
+}
+
+.swiper-pagination-bullet-active {
+	background: red !important;
+	transition: 0.3s all;
+}
+.swiper-slide img{
+	width: 100%;
+	height: 100%;
+}
+
+/*商品详情*/
+.commodity-detail{
+	padding:15px;
+	padding-bottom: 5px;
+	background: #fff;
+	border-bottom: 1px solid #F2F2F2;
+}
+.commodity-row{
+	margin:0;
+}
+.commodity-row .commodity-name{
+	font-size: 1.5rem;
+	color: #0c0c0c;
+	font-weight: 600;
+}
+.commodity-context{
+	font-size: 1.2rem;
+	color: #929292;
+	margin: 5px 0;
+}
+.commodity-row .commodity-price{
+	font-size: 2rem;
+	font-weight: 600;
+	color: #D72C22;
+	position: relative;
+	top:1px;
+}
+.commodity-row .commodity-price #danWei{
+	font-size: 12px;
+	color: #929292;
+	margin-left: 5px;
+	font-weight: normal;
+}
+.commodity-row .commodity-price .price{
+
+}
+.commodity-row .commodity-price span:nth-child(2){
+	color: rgb(185, 185, 185);
+	font-size: 12px;
+	font-weight: normal;
+	margin-left: 2px;
+}
+.commodity-row .commodity-price .fiveRise{
+	margin-left: 5px;
+	color: #D72C22;
+	font-size: 12px;
+	font-weight: normal;
+}
+.commodity-sales{
+	color: rgb(155, 155, 155);
+	font-size: 12px;
+}
+.commodity-index-mark{
+	color: rgb(155, 155, 155);
+	font-size: 12px;
+	margin-left: 10px;
+}
+.commodity-index-mark i{
+	font-size: 16px;
+	color: #D72C22;
+}
+
+.commodity-introduce{
+	padding: 15px;
+	background: #fff;
+	font-size: 12px;
+}
+.commodity-introduce table{
+	width: 100%;
+}
+.introduce-label{
+	float: left;
+	width: 20%;
+}
+.introduce-text{
+	float: left;
+	width: 80%;
+}
+
+/*评价栏*/
+.evaluate{
+	margin-top: 10px;
+	background: #fff;
+}
+.evaluate-title{
+	height: 50px;
+	line-height: 50px;
+	padding: 0 15px;
+	font-size: 16px;
+	color: #666;
+	border-bottom: 1px solid #F2F2F2;
+}
+.deuce-bar{
+	border-bottom: 1px solid #F2F2F2;
+	padding: 15px;
+	height: 98px;
+}
+.comprehensive-deuce{
+	float: left;
+	width: 30%;
+	border-right: 1px solid #F2F2F2;
+	text-align: center;
+}
+.deuce-max-num{
+	font-size: 2.6rem;
+	color: #D72C22;
+	margin: 0;
+}
+.comprehensive-deuce-name{
+	font-size: 1.3rem;
+	color: #0c0c0c;
+	margin: 0;
+}
+.person-deuce{
+	margin: 0;
+	font-size: 1rem;
+}
+
+.item-deuce{
+	float: left;
+	width: 70%;
+	text-align: center;
+}
+.deuce-classify{
+	margin: 0;
+}
+.deuce-classify .deuce-name{
+	font-size: 1.5rem;
+}
+.deuce-classify i{
+	font-size: 18px;
+	color: #FE6D00;
+}
+.deuce-classify .fraction{
+	font-size: 14px;
+	color: #FE6D00;
+	position: relative;
+	top: 1px;
+}
+
+/**用户评论列表*/
+.user-deuce-list .user-head{
+	border-radius: 50%;
+	max-width: 50px;
+	width: 50px;
+	height: 50px;
+}
+.user-deuce-list .vip-img{
+	width: 30px;
+	height: 13px;
+}
+.user-deuce-list .user-deuce-time{
+	float: right;
+	font-size: 1.2rem;
+	color: #8f8f94;
+}
+.user-deuce-list .user-deuce i{
+	font-size: 18px;
+	color: #FE6D00;
+}
+.user-deuce-list .user-deuce-context{
+	white-space:normal;
+	color: #666;
+	font-size: 12px;
+}
+.user-deuce-img{
+	padding-top: 10px;
+}
+.user-deuce-list .user-deuce-img img{
+	max-width: 142px;
+	max-height: 142px;
+	width: 33%;
+	height: 80px;
+	display: block;
+	margin: 0 1px;
+	float: left;
+}
+.user-deuce{
+	margin-bottom: 5px;
+}
+.mui-pull-caption{
+	font-weight: normal;
+}
+
+/*坝坝宴客服经理样式*/
+.call-bar p{
+	margin: 0;
+	font-size: 14px;
+}
+.call-bar p:nth-child(2){
+	margin-bottom: 5px;
+}
+.call-bar input{
+	font-size: 14px;
+	text-align: left;
+}
+.call-btn{
+	padding: 5px 10px;
+	color: #fff;
+	background: #D72C22;
+	border-color: #D72C22;
+	text-align: center;
+	width: 50%;
+	border-radius: 50px;
+}
+.call-btn:active, .call-btn:focus{
+	color: #fff !important;
+	background: #D72C22 !important;
+}
+
+/*专业服务样式*/
+.service-price{
+	font-size: 2rem;
+	font-weight: 600;
+	color: #D72C22;
+	position: relative;
+	top:1px;
+	float: right;
+}
+.service-price span:nth-child(2){
+	color: rgb(185, 185, 185);
+	font-size: 12px;
+	font-weight: normal;
+	margin-left: 2px;
+}
+.select-gender{
+	padding: 15px 0 5px 0;
+}
+.select-gender button{
+	padding: 6px 20px;
+	text-align: center;
+	border-radius: 2px;
+	border: 1px solid #929292;
+	color: #929292;
+	margin-right: 10px;
+	transition: all;
+	-webkit-transition-timing-function: linear;
+	transition-timing-function: linear;
+	-webkit-transition-duration: 0s;
+	transition-duration: 0s;
+}
+.select-gender button:active,.select-gender button:focus{
+	background-color: rgba(0, 0, 0, 0) !important;
+	color: #929292 !important;
+}
+
+.select-gender .gender-active{
+	color: #D72C22;
+	border: 1px solid #D72C22;
+	background: url("../../img/icon/gougou.png") right bottom no-repeat;
+	background-size: 16px;
+}
+.service-flow p{
+	margin: 0;
+	color: #000;
+}
+
+/**婚庆详情页面样式*/
+.mui-table-view:before{
+	height: 0;
+}
+.mui-table-view:after{
+	height: 0;
+}
+.mui-navigate-right{
+	font-size: 14px;
+}
+.mui-table-view-cell.mui-active{
+	background: #fff;
+}
+.mui-table-view-cell.mui-active .mui-navigate-right{
+	border-bottom: 1px solid #eee;
+}
+.mui-table-view-cell.mui-collapse .mui-collapse-content{
+	padding: 15px;
+}
+.mui-collapse-content img{
+	width: 100%;
+	height: 200px;
+}
+.mui-collapse-content .carPopup-item{
+	padding-left: 0;
+	padding-right: 0;
+	position: relative;
+}
+.mui-collapse-content .carPopup-item .commodity-unit-Price span:nth-child(2){
+	color: #929292;
+	font-size: 13px;
+	font-weight: normal;
+	margin-left: 2px;
+}
+.more-btn{
+	font-size: 14px;
+	color: #D72C22;
+	text-align: center;
+	padding-top: 15px;
+	display: inline-block;
+	width: 100%;
+}
+.more-btn img{
+	width: 10px;
+	height: 10px;
+	margin-left: 2px;
+}
+.more-btn:active, .more-btn:focus{
+	color: #D72C22 !important;
+}
+
+
+/**发现样式*/
+.swiper-container2{
+	overflow: hidden;
+}
+.recommend-bar{
+	padding: 15px;
+	text-align: center;
+}
+.recommend-bar .recommend-img{
+	width: 100%;
+	height: 80px;
+}
+.recommend-bar p{
+	margin: 0;
+}
+.recommend-bar .recommend-name{
+	font-size: 14px;
+	color: #0c0c0c;
+}
+.sale-price{
+	color: #929292;
+	font-size: 12px;
+	text-decoration: line-through;
+}
+.now-price{
+	color: #D72C22;
+	font-size: 16px;
+}
+
+.notData{
+	padding: 20px;
+	color: #929292;
+	text-align: center;
+
+}
+
+.foodList .food-title{
+	text-align: center;
+	font-size: 14px;
+}
+.food-type{
+	text-align: center;
+	font-size: 12px;
+}
+
+
+/*iphone6*/
+@media screen and (max-width:375px) {
+	.recommend-bar .recommend-img{
+		height: 60px;
+	}
+}
+/*iphone5*/
+@media screen and (max-width:320px) {
+	.swiper-container{
+		height: 250px;
+	}
+}

@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+
+<mapper namespace="com.magicbeans.banjiuwan.mapper.IRoleMapper">
+
+    <resultMap id="BaseRole" type="com.magicbeans.banjiuwan.beans.Role">
+        <result column="id" property="id" javaType="java.lang.Integer"/>
+        <result column="role_name" property="roleName" javaType="java.lang.String"/>
+        <association property="menus" column="id" select="com.magicbeans.banjiuwan.mapper.IMenuMapper.queryMenuByRole"/>
+    </resultMap>
+
+    <select id="queryRoleById" resultMap="BaseRole">
+        SELECT * FROM `role` WHERE id=#{id}
+    </select>
+
+    <delete id="delRoleMenu">
+        DELETE FROM `role_menu`
+        WHERE `role_id`=#{roleId}
+    </delete>
+
+    <insert id="batchAddRoleMenu">
+        INSERT INTO `role_menu` (`role_id`,`meun_id`)
+        VALUES 
+        <foreach collection="roleMenus" index="index" item="roleMenu" separator=",">
+            (#{roleMenu.roleId},#{roleMenu.menuId})
+        </foreach>
+    </insert>
+</mapper>

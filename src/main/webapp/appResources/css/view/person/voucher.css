@@ -1,0 +1,93 @@
+/**
+ * 抵用券页面自定义css
+ * */
+.mui-content{
+    padding-bottom: 20px;
+}
+.voucher-list{
+    margin-top: 20px;
+    background: #fff;
+    padding: 10px 15px;
+    height: 93px;
+    position: relative;
+}
+.voucher-title{
+    font-size: 16px;
+    margin-bottom: 10px;
+}
+.voucher-time-hint{
+    font-size: 12px;
+    color: #929292;
+}
+.voucher-time{
+    font-size: 12px;
+    color: #929292;
+}
+
+/**徽章*/
+.voucher-badge:after{
+    content: "";
+    position: absolute;
+    height: 0;
+    width: 0;
+    border-top: 7px solid #D72C22;
+    border-left: 7px solid transparent;
+    left: -7px;
+    bottom: 0px;
+}
+.voucher-badge{
+    display: inline-block;
+    width: 100px;
+    height: 107px;
+    text-align: center;
+    background: #D72C22;
+    position: absolute;
+    right: 15px;
+    top: -7px;
+    text-align: center;
+}
+.voucher-badge:before{
+    content: "";
+    position: absolute;
+    height: 0;
+    width: 0;
+    border-bottom: 7px solid #D72C22;
+    border-left: 7px solid transparent;
+    left: -7px;
+    top: 0;
+}
+.voucher-context{
+    margin-top: 30px;
+}
+.voucher-symbol{
+    font-size: 14px;
+    color: #fff;
+}
+.voucher-money{
+    font-size: 30px;
+    color: #fff;
+}
+.voucher-condition{
+    font-size: 12px;
+    color: #fff;
+}
+.notFaceValue{
+    margin-top: 36px;
+}
+
+.not-voucher{
+    color: #929292;
+    text-align: center;
+    padding-top: 50px;
+    font-size: 14px;
+}
+
+
+/*iphone6*/
+@media screen and (max-width:375px) {
+	
+}
+/*iphone5*/
+@media screen and (max-width:320px) {
+	
+}

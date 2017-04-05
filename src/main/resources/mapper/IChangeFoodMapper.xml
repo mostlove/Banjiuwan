@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+
+
+<mapper namespace="com.magicbeans.banjiuwan.mapper.IChangeFoodMapper">
+    <resultMap id="BaseChangeFood" type="com.magicbeans.banjiuwan.beans.ChangeFood">
+        <result column="id" property="id" javaType="java.lang.Integer"/>
+        <result column="food_id" property="foodId" javaType="java.lang.Integer"/>
+        <result column="second_food_id" property="secondFoodId" javaType="java.lang.Integer"/>
+    </resultMap>
+
+
+    <insert id="batchAddChangeFood">
+        INSERT INTO `change_food` (`food_id`,`second_food_id`)
+        VALUES 
+        <foreach collection="changeFoods" index="index" item="changeFood" separator=",">
+            (#{changeFood.foodId},#{changeFood.secondFoodId})
+        </foreach>
+    </insert>
+
+    <delete id="delChangeFood">
+        DELETE FROM `change_food`
+        WHERE `food_id`=#{foodId}
+    </delete>
+
+    <select id="querySingleFoodByFoodId" resultType="com.magicbeans.banjiuwan.beans.SingleFood" parameterType="java.lang.Integer">
+        SELECT
+            fs.id AS id,fs.food_name AS `foodName`
+        FROM
+            food_singlefood fs,
+            change_food cf
+        WHERE
+            fs.id = cf.second_food_id  AND cf.`food_id`=#{id}
+    </select>
+
+    <select id="querySingleFoodByFoodIdForApp" resultType="com.magicbeans.banjiuwan.beans.SingleFood">
+        SELECT
+            fs.id AS id,
+            fs.food_name AS `foodName`,
+            fs.cover_img AS coverImg,
+            fs.price AS price,
+            fs.promotion_price AS promotionPrice,
+            fs.recommendation_index AS recommendationIndex,
+            fs.sales AS sales,
+            fs.units AS units,
+            fs.food_category_id AS foodCategoryId,
+            sc.number AS countNumber
+        FROM
+            change_food cf
+        LEFT JOIN food_singlefood fs ON fs.id = cf.second_food_id
+        LEFT JOIN shop_car sc ON cf.`food_id` = sc.food_id
+        AND sc.child_category_id = 1
+        AND sc.user_id = #{userId}
+        WHERE
+            cf.`food_id` = #{foodId}
+    </select>
+
+
+
+</mapper>

@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.magicbeans.banjiuwan.mapper.IHomeBannerMapper">
+
+    <resultMap id="BaseHomeBanner" type="com.magicbeans.banjiuwan.beans.HomeBanner">
+        <result column="id" property="id" javaType="java.lang.Integer"/>
+        <result column="type" property="type" javaType="java.lang.Integer"/>
+        <result column="banner" property="banner" javaType="java.lang.String"/>
+        <result column="title" property="title" javaType="java.lang.String"/>
+        <result column="content" property="content" javaType="java.lang.String"/>
+        <result column="create_time" property="createTime" javaType="java.util.Date"/>
+    </resultMap>
+
+    <insert id="addHomeBanner">
+        INSERT INTO `home_banner`
+        (`banner`,`title`, `content`,`create_time`,`type`)
+        VALUES
+        (#{banner.banner},#{banner.title},#{banner.content},#{banner.createTime},#{banner.type})
+    </insert>
+
+    <update id="updateHomeBanner">
+        UPDATE `home_banner`
+        <set>
+            <if test="banner.banner != null">
+                `banner`=#{banner.banner},
+            </if>
+            <if test="banner.type != null">
+                `type`=#{banner.type},
+            </if>
+            <if test="banner.title != null">
+                `title`=#{banner.title},
+            </if>
+            <if test="banner.content != null">
+                `content`=#{banner.content},
+            </if>
+        </set>
+        WHERE `id`=#{banner.id}
+    </update>
+
+    <select id="queryAllHomeBanner" resultMap="BaseHomeBanner">
+        SELECT * FROM `home_banner` WHERE 1=1
+        <if test="type != null">
+            AND `type`=#{type}
+        </if>
+    </select>
+    
+    <delete id="delHomeBanner">
+        DELETE FROM `home_banner` WHERE id=#{id}
+    </delete>
+
+    <select id="queryHomeBannerById" resultMap="BaseHomeBanner">
+        SELECT * FROM `home_banner` WHERE id=#{id}
+    </select>
+</mapper>

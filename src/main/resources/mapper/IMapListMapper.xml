@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.magicbeans.banjiuwan.mapper.IMapListMapper">
+
+
+   <resultMap id="BaseMapList" type="com.magicbeans.banjiuwan.beans.MapList">
+       <result column="id" property="id" javaType="java.lang.Integer"/>
+       <result column="remarket" property="reMarket" javaType="java.lang.String"/>
+       <result column="map_list" property="mapList" javaType="java.lang.String"/>
+   </resultMap>
+
+
+    <insert id="addMapList">
+        INSERT INTO `map_list` (`remarket`,`map_list`)
+        VALUES
+        (#{mapList.reMarket},#{mapList.mapList})
+    </insert>
+
+
+    <select id="queryMapListById" resultMap="BaseMapList">
+        SELECT * FROM `map_list`
+        WHERE `id`=#{id}
+    </select>
+
+
+    <update id="updateMapList">
+        UPDATE `map_list`
+        <set>
+            <if test="mapList.reMarket != null">
+                `remarket`=#{mapList.reMarket},
+            </if>
+            <if test="mapList.mapList != null">
+                `map_list`=#{mapList.mapList}
+            </if>
+        </set>
+        WHERE id=#{mapList.id}
+    </update>
+
+
+    <select id="queryMapListPage" resultMap="BaseMapList">
+        SELECT * FROM `map_list`
+        ORDER BY `id` DESC
+        <if test="limit != null and limitSize != null">
+            LIMIT #{limit},#{limitSize}
+        </if>
+    </select>
+
+    <select id="countMapListPage" resultType="java.lang.Integer">
+        SELECT COUNT(*) FROM `map_list`
+    </select>
+
+    <delete id="delMapList">
+        DELETE FROM `map_list` WHERE id=#{id}
+    </delete>
+
+
+
+
+</mapper>

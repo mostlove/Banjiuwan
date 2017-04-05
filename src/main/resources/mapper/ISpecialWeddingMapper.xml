@@ -1,0 +1,136 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+
+
+<mapper namespace="com.magicbeans.banjiuwan.mapper.ISpecialWeddingMapper">
+    <resultMap id="BaseSpecialWedding" type="com.magicbeans.banjiuwan.beans.SpecialWedding">
+        <result column="id" property="id" javaType="java.lang.Integer"/>
+        <result column="cover_img" property="coverImg" javaType="java.lang.String"/>
+        <result column="banners" property="banners" javaType="java.lang.String"/>
+        <result column="name" property="name" javaType="java.lang.String"/>
+        <result column="sales" property="sales" javaType="java.lang.Integer"/>
+        <result column="price" property="price" javaType="java.lang.Double"/>
+        <result column="recommendation_index" property="recommendationIndex" javaType="java.lang.Integer"/>
+        <result column="package_description" property="packageDescription" javaType="java.lang.String"/>
+        <result column="food_category_id" property="foodCategoryId" javaType="java.lang.Integer"/>
+        <result column="create_time" property="createTime" javaType="java.util.Date"/>
+    </resultMap>
+
+    <resultMap id="BaseSpecialWeddingById" type="com.magicbeans.banjiuwan.beans.SpecialWedding" extends="BaseSpecialWedding">
+        <association property="weddingChildCategories" column="id" select="com.magicbeans.banjiuwan.mapper.IWeddingChildCategoryMapper.queryWeddingChildCategoryByWeddingId"/>
+    </resultMap>
+
+    <select id="queryAllWedding" resultMap="BaseSpecialWeddingById">
+        SELECT * FROM `special_wedding` WHERE 1=1
+        ORDER BY `create_time` DESC
+        <if test="limit != null and limitSize != null">
+            LIMIT #{limit},#{limitSize}
+        </if>
+    </select>
+
+
+
+    <select id="queryWeddingOtherInfo" resultMap="BaseSpecialWeddingById">
+        SELECT * FROM `special_wedding` WHERE `id`=#{weddingId}
+    </select>
+
+
+
+    <select id="batchQuery" resultMap="BaseSpecialWeddingById">
+
+        SELECT `id`,`food_category_id` FROM `special_wedding`
+        WHERE `id` IN
+        <foreach collection="ids" index="index" item="id" close=")" open="(" separator=",">
+            #{id}
+        </foreach>
+
+    </select>
+    
+    <insert id="addSpecialWedding" useGeneratedKeys="true" keyProperty="specialWedding.id">
+
+        INSERT INTO `special_wedding`
+        (`banners`,`cover_img`,`name`,`sales`,`price`,`food_category_id`,`package_description`,`recommendation_index`,`create_time`)
+        VALUES
+        (#{specialWedding.banners},#{specialWedding.coverImg},#{specialWedding.name},#{specialWedding.sales},#{specialWedding.price},#{specialWedding.foodCategoryId}
+        ,#{specialWedding.packageDescription},#{specialWedding.recommendationIndex},NOW())
+
+    </insert>
+
+    <update id="updateSpecialWedding">
+
+        UPDATE `special_wedding`
+        <set>
+          <if test="specialWedding.banners != null">
+              `banners`=#{specialWedding.banners},
+          </if>
+          <if test="specialWedding.coverImg != null">
+              `cover_img`=#{specialWedding.coverImg},
+          </if>
+          <if test="specialWedding.packageDescription != null">
+              `package_description`=#{specialWedding.packageDescription},
+          </if>
+          <if test="specialWedding.name != null">
+              `name`=#{specialWedding.name},
+          </if>
+          <if test="specialWedding.price != null">
+              `price`=#{specialWedding.price},
+          </if>
+          <if test="specialWedding.foodCategoryId != null">
+              `food_category_id`=#{specialWedding.foodCategoryId},
+          </if>
+          <if test="specialWedding.recommendationIndex != null">
+              `recommendation_index`=#{specialWedding.recommendationIndex},
+          </if>
+        </set>
+        WHERE id=#{specialWedding.id}
+    </update>
+
+
+    <select id="queryPage" resultMap="BaseSpecialWedding">
+        SELECT * FROM `special_wedding` WHERE 1=1
+        <if test="name != null">
+            AND `name` LIKE '%${name}%'
+        </if>
+        ORDER BY `create_time` DESC
+        <if test="limit != null and limitSize != null">
+            LIMIT #{limit},#{limitSize}
+        </if>
+    </select>
+
+    <select id="countPage" resultType="java.lang.Integer">
+        SELECT COUNT(*) FROM `special_wedding` WHERE 1=1
+        <if test="name != null">
+            AND `name` LIKE '%${name}%'
+        </if>
+    </select>
+
+    <select id="queryWeddingById" resultMap="BaseSpecialWeddingById">
+        SELECT * FROM `special_wedding` WHERE id=#{id}
+    </select>
+
+    <delete id="delSpecialWedding">
+        DELETE FROM `special_wedding` WHERE id=#{id}
+    </delete>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</mapper>

@@ -1,0 +1,625 @@
+/**Reset**/
+
+/*隐藏联通流量插入HTML代码*/
+#tlbstoolbar{
+	display: none !important;
+}
+
+* {
+	margin: 0;
+	padding: 0;
+	/**阻止移动端长按图片复制行为*/
+	-webkit-touch-callout: none; 
+	/*禁用webkit内核浏览器的文字大小调整功能*/
+	-webkit-text-size-adjust: none; 
+	/*避免点击a标签或者注册了click事件的元素时产生高亮*/
+	-webkit-tap-highlight-color: rgba(0, 0, 0, 0);
+	/*禁止用户进行复制选择*/
+	-webkit-user-select: none; 
+}
+
+html {
+	font-size: 62.5%;
+}
+
+html,
+body {
+	font-size: 10px;
+	font-family: -apple-system, "helvetica Neue", arial, "PingFang SC", "Hiragino Sans GB", HelveticaNeue-Light, 'Helvetica Neue Light', "Droid Sans", "STHeiti", "microsoft yahei", "Microsoft JhengHei", "Source Han Sans SC", SimSun, sans-serif;
+	/*letter-spacing: 1px;*/
+	max-width: 640px !important;
+	margin: 0 auto;
+	-webkit-overflow-scrolling: touch;
+	line-height:inherit !important;
+}
+
+ul,
+li {
+	list-style: none;
+}
+
+a,
+a:hover {
+	text-decoration: none;
+	outline: none;
+}
+
+em,
+b,
+i {
+	font-style: normal;
+	font-weight: normal;
+}
+
+input,
+button {
+	border: none;
+	outline: none;
+	font-family: "microsoft yahei";
+}
+
+textarea {
+	font-family: "microsoft yahei";
+	resize: none;
+}
+
+input[type="text"]::-moz-placeholder,
+input[type="text"]::-webkit-input-placeholder {
+	color: #999999;
+}
+
+img {
+	max-width: 100%;
+}
+
+.padding0{padding:0}
+.padding5{padding: 5px;}
+.padding10{padding: 10px;}
+.padding15{padding: 15px;}
+.padding20{padding: 20px;}
+.padding25{padding: 25px;}
+.padding30{padding: 30px;}
+.padding35{padding: 35px;}
+.padding40{padding: 40px;}
+.padding45{padding: 45px;}
+.padding50{padding: 50px;}
+.padding-left5{padding-left: 5px;}
+.padding-left10{padding-left: 10px;}
+.padding-left15{padding-left: 15px;}
+.padding-right5{padding-right: 5px;}
+.padding-right10{padding-right: 10px;}
+.padding-right15{padding-right: 15px;}
+.margin-top-15{margin-top: -15px;}
+.text-align-center{text-align: center;}
+.text-align-left{text-align: left;}
+.text-align-right{text-align: right;}
+.margin-bottom-10{margin-bottom: 10px !important}
+.margin-left10{margin-left: 10px}
+.margin-left15{margin-left: 15px}
+.hide{display: none;}
+.show{display: block;}
+
+
+.mui-content,body,html{
+	background: #F2F2F2;
+}
+.mui-backdrop-action.mui-backdrop{
+	background-color: rgba(0,0,0,.6);
+}
+.mui-pull-bottom-pocket{
+	height:50px !important;
+	bottom: 0px;
+}
+
+/**底部导航条*/
+.mui-bar{
+	box-shadow: 0 0 1px rgba(0,0,0,0) !important;
+	border-top: 1px solid #e1e1e1 !important;
+	/*background: url("../img/icon/bottom-bg.png") no-repeat !important;*/
+}
+.tab-bottom{
+	height: 50px;
+	background: #fff;
+	z-index: 999;
+}
+.mui-bar-nav, .tab-bottom{
+	max-width: 640px;
+	margin: 0 auto;
+
+}
+.mui-content{
+	padding-bottom: 60px;
+	max-width: 640px;
+	margin: 0 auto;
+}
+.mui-scroll-wrapper{
+	left:50%;
+	transform: translate(-50%, -0%);
+	-webkit-transform: translate(-50%, -0%);
+	-moz-transform: translate(-50%, -0%);
+	-os-transform: translate(-50%, -0%);
+}
+
+.mui-tab-item .mui-tab-label{
+	font-size: 14px !important;
+}
+.mui-active{
+	color: #D72C22 !important;
+}
+
+.tab-bottom .mui-tab-item img {
+	width: 30px;
+	height: 28px;
+}
+.tab-bottom .mui-tab-item{
+	overflow: inherit;
+}
+#tabBottom .mui-tab-item{
+	width: 20%;
+	display: inline-block;
+	float: left;
+}
+.tab-icon{
+	line-height:0;
+}
+.find-icon{
+	position: relative;
+	display: inline-block;
+	border-radius: 50%;
+	color: rgb(255, 255, 255);
+	/*box-shadow: 0px 2px 11px rgba(25, 23, 23, 0.33);*/
+	border: 1px solid #e1e1e1;
+	text-align: center;
+	width: 5.0em;
+	height: 5.0em;
+	top: -1rem;
+	font-size: 1.2rem;
+	vertical-align: middle;
+	line-height: 4.5em;
+
+}
+.find-icon img{
+	width: 100% !important;
+	height: 100% !important;
+	border-radius: 50%;
+	position: relative;
+	z-index:999;
+	border: 6px solid #fff;
+}
+
+
+/*购物车底部*/
+.car-bottom{
+	background: #fff;
+	z-index: 2000;
+	max-width: 640px;
+	margin: 0 auto;
+	bottom: 0px;
+}
+
+.car-popup{
+	position: relative;
+	width: 50px;
+}
+.car-popup .mui-badge{
+	position: absolute;
+	top:10px;
+	right:0px;
+	background: #D72E22;
+	color: #fff;
+	border: 2px solid #fff;
+}
+.car-popup img{
+	width: 40px;
+	height: 40px;
+	margin-top: 5px;
+}
+.car-bottom .mui-btn-danger{
+	margin: 0;
+	top:0;
+	background: #D72E22;
+	border-radius: 30px;
+	padding-left: 30px;
+	padding-right: 30px;
+}
+.car-popup-left{
+	text-align: left;
+	padding-left: 15px;
+}
+.car-popup-right{
+	text-align: right !important;
+	padding-right: 15px;
+}
+.car-popup-price{
+	position: relative;
+	top:-12px;
+	left: 10px;
+	font-size: 2rem;
+	font-weight: 600;
+	color: #D72E22;
+	display: inline-block;
+	width: 150px;
+	text-align: left;
+}
+/*购物车底部商品*/
+.mui-popover-bottom{
+	max-width: 640px;
+	margin: 0 auto;
+}
+.carPopup-list{
+	padding-bottom: 50px;
+	background: #fff;
+}
+.carPopup-title{
+	height: 50px;
+	line-height: 50px;
+	padding: 0 15px;
+	background: #F2F2F2;
+}
+.carPopup-title .name{
+	font-size: 16px;
+	color: #666;
+}
+.carPopup-title .clear-right{
+	float: right;
+	font-size: 16px;
+	color: #666;
+}
+.carPopup-title .clear-right i{
+	font-size: 20px;
+	color: #666;
+}
+.carPopup-service-hint{
+	padding: 15px;
+	color: #E8ABA8;
+	font-size: 12px;
+	background: #F2F2F2;
+}
+
+.carPopup-controller{
+	max-height: 159px;
+	height: 159px;
+	overflow: auto;
+	position: relative;
+}
+.carPopup-controller .mui-scroll-wrapper{
+	margin: 0;
+}
+.carPopup-item{
+	padding:15px;
+	padding-bottom: 14px;
+	border-bottom: 1px solid #F2F2F2;
+}
+.carPopup-item .number-box{
+	position: absolute;
+	right: 0;
+	top : -2px;
+}
+.carPopup-item .commodity-name{
+	font-size: 13px;
+	color: #0c0c0c;
+	position: relative;
+	display: inline-block;
+	width: 100px;
+	top: 2px;
+}
+.carPopup-item .commodity-list-refresh{
+	font-size: 13px;
+	color: #D72C22;
+	position: relative;
+	margin-left: 3px;
+	top: -2px;
+
+}
+.carPopup-item .commodity-list-refresh i{
+	font-size: 15px;
+	margin-right: 5px;
+	font-weight: bold;
+}
+.carPopup-item .commodity-unit-Price{
+	font-size: 14px;
+	font-weight: 600;
+	color: #D72C22;
+	float: right;
+	margin-right: 110px;
+	position: relative;
+	top: 2px;
+}
+
+/*加减按钮组*/
+.mui-input-row{
+	overflow: inherit;
+}
+.number-box{
+	background: rgba(0,0,0,0);
+	position: relative;
+	top:-24px;
+}
+.number-box .mui-numbox{
+	margin: 0 !important;
+	height: 24px;
+	padding: 0 24px;
+	width: 80px;
+	border: 1px solid #D72C22;
+	background: rgba(0,0,0,0);
+	border-radius: 5px;
+}
+.number-box .mui-btn-numbox-minus{
+	width: 24px;
+	background: #D72C22;
+	border-color: #D72C22;
+	color: #fff;
+	font-size: 14px;
+	font-weight: bold;
+}
+.number-box .mui-input-numbox{
+	font-size: 12px;
+	border: none !important;
+}
+.number-box .mui-btn-numbox-plus{
+	width: 24px;
+	background: #D72C22;
+	border-color: #D72C22;
+	color: #fff;
+	font-size: 14px;
+	font-weight: bold;
+}
+.mui-btn-numbox-minus:active, .mui-btn-numbox-minus:focus, .mui-btn-numbox-plus:active, .mui-btn-numbox-plus:focus{
+	background: #D72C22; !important;
+	border-color: #D72C22 !important;
+	color: #fff !important;
+}
+.number-box .mui-btn-numbox-plus:active, .number-box .mui-btn-numbox-plus:focus, .number-box .mui-btn-numbox-minus:active, .number-box .mui-btn-numbox-minus:focus{
+	background: #D72C22; !important;
+	border-color: #D72C22 !important;
+	color: #fff !important;
+}
+
+/**单选框，多选框按钮颜色*/
+.mui-checkbox input[type=checkbox]:checked:before, .mui-radio input[type=radio]:checked:before{
+	color: #D72C22 !important;
+}
+
+/**开关*/
+.mui-switch-blue.mui-active{
+	border: 2px solid #D72C22;
+	background-color: #D72C22;
+}
+
+/*覆盖弹窗*/
+.mui-popup-title{
+	display: none;
+}
+.mui-popup-text{
+	padding: 15px;
+}
+.mui-popup-button{
+	color: #D72C22;
+	font-size: 14px;
+}
+.mui-popup-button-bold{
+	color: #555555;
+	font-weight: normal !important;
+}
+.mui-toast-message{
+	background-color: rgba(0, 0, 0, 0.8) !important;
+	color: #fff;
+}
+
+[ng-cloak] {
+	display: none;
+}
+.mui-popup-backdrop{
+	z-index: 8888;
+}
+
+/*loading--加载*/
+.whiteMask{
+	position: fixed;
+	background: #F2F2F2;
+	width: 100%;
+	height: 100%;
+	z-index: 99997;
+	-webkit-transition: all .4s ease;
+	transition: all .4s ease;
+	opacity: 1;
+	top: 0;
+	right: 0;
+	bottom: 0;
+	left: 0;
+}
+.loading-bar{
+	position: absolute;
+	z-index: 99999;
+	border-radius: 6px;
+	top: 50%;
+	left:50%;
+	transform: translate(-50%, -50%);
+	-webkit-transform: translate(-50%, -50%);
+	-moz-transform: translate(-50%, -50%);
+	-os-transform: translate(-50%, -50%);
+	text-align: center;
+}
+
+.loadingImg img{
+	width: 50px;
+	height: 50px;
+}
+.loading-hint{
+	font-size: 16px;
+	position: relative;
+	top: 3px;
+}
+
+/**抛物*/
+.parabolic{
+	width: 15px;
+	height: 15px;
+	background: #D72C22;
+	position: fixed;
+	z-index: 99999;
+	border-radius: 50%;
+	text-align: center;
+	color: #fff;
+	font-size: 10px;
+	line-height: 15px;
+}
+
+/*自定义上拉加载数据样式*/
+#loadingData{
+	display:none;
+	padding: 20px;
+	position: relative;
+}
+#loadingData .mui-spinner {
+	width: 24px;
+	height: 24px;
+	position: absolute;
+	right:0;
+}
+#loadingData span{
+	font-size: 12px;
+	position: relative;
+	top: 3px;
+	margin-left: 15px;
+}
+
+/*加入购物车loading*/
+.carLoading{
+	position: fixed;
+	background: rgba(0, 0, 0, 0.0);
+	width: 100%;
+	height: 100%;
+	z-index: 99998;
+	-webkit-transition: all .4s ease;
+	transition: all .4s ease;
+	opacity: 1;
+	top: 0;
+	right: 0;
+	bottom: 0;
+	left: 0;
+}
+.carLoading .loadingImg{
+	position: absolute;
+	z-index: 99999;
+	top: 50%;
+	left:50%;
+	transform: translate(-50%, -50%);
+	-webkit-transform: translate(-50%, -50%);
+	-moz-transform: translate(-50%, -50%);
+	-os-transform: translate(-50%, -50%);
+}
+
+/*自定义加减按钮组*/
+.addBtnBox{
+	right: 0;
+	text-align: right;
+	position: relative;
+	float: right;
+	top: -20px;
+}
+.addBtnBox .addOrReduceBtn{
+	width: 24px;
+	height: 24px;
+	background: #D72C22;
+	border-radius: 4px;
+	border: none;
+	transition-duration: .2s;
+	text-align: center;
+	vertical-align: top;
+	white-space: nowrap;
+	color: #fff;
+	padding: 0;
+	line-height: inherit;
+	font-size: 12px;
+	font-family: "楷体";
+}
+.addBtnBox .boxInput{
+	width: 40px;
+	height: 24px;
+	border: 1px solid #D72C22;
+	background: #fff;
+	font-size: 10px;
+	margin-left: 2px;
+	margin-right: 2px;
+	text-align: center;
+	padding: 0;
+	color: #000 !important;
+}
+/*弹窗加减按钮*/
+.carPopup-item .addBtnBox{
+	position: absolute;
+	background: rgba(0,0,0,0);
+	right: 0;
+	margin-top: 20px;
+}
+/*购物车暂无*/
+.not-car{
+	position: relative;
+	width: 100%;
+	height: 100%;
+}
+.not-car img{
+	position: absolute;
+	top: 50%;
+	left:50%;
+	transform: translate(-50%, -50%);
+	-webkit-transform: translate(-50%, -50%);
+	-moz-transform: translate(-50%, -50%);
+	-os-transform: translate(-50%, -50%);
+}
+.mui-preview-image.mui-fullscreen{
+	z-index: 10000 !important;
+}
+/*不是微信端的特定样式*/
+#tabBottom{
+	display: none;
+}
+#tabBottom2{
+	display: none;
+}
+
+/*自定义遮罩*/
+.alertShade{
+	position: fixed;
+	background: rgba(0, 0, 0, 0.5);
+	width: 100%;
+	height: 100%;
+	z-index: 99997;
+	-webkit-transition: all .4s ease;
+	transition: all .4s ease;
+	opacity: 1;
+	top: 0;
+	right: 0;
+	bottom: 0;
+	left: 0;
+}
+
+#shoppingCarTotal{
+	width: 150px;
+	display: inline-block;
+	text-align: left;
+}
+.xingxing{
+	width: 16px;
+	height: 16px;
+	position: relative;
+	top: 3px;
+	margin-right: 3px;
+}
+
+/*iphone6*/
+@media screen and (max-width:375px) {
+	.carPopup-item .commodity-name{
+		width: 80px;
+	}
+}
+/*iphone5*/
+@media screen and (max-width:320px) {
+	.carPopup-item .commodity-name{
+		width: 70px;
+	}
+	#shoppingCarTotal{
+		width: 100px;
+	}
+}

@@ -1,0 +1,268 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+
+
+<mapper namespace="com.magicbeans.banjiuwan.mapper.ISingleFoodMapper">
+    <resultMap id="BaseSingleFood" type="com.magicbeans.banjiuwan.beans.SingleFood">
+        <result column="id" property="id" javaType="java.lang.Integer"/>
+        <result column="banners" property="banners" javaType="java.lang.String"/>
+        <result column="cover_img" property="coverImg" javaType="java.lang.String"/>
+        <result column="food_name" property="foodName" javaType="java.lang.String"/>
+        <result column="marinade" property="marinade" javaType="java.lang.String"/>
+        <result column="accessories" property="accessories" javaType="java.lang.String"/>
+        <result column="introduction" property="introduction" javaType="java.lang.String"/>
+        <result column="foodCategoryName" property="foodCategoryName" javaType="java.lang.String"/>
+        <result column="units" property="units" javaType="java.lang.String"/>
+        <result column="price" property="price" javaType="java.lang.Double"/>
+        <result column="promotion_price" property="promotionPrice" javaType="java.lang.Double"/>
+        <result column="recommendation_index" property="recommendationIndex" javaType="java.lang.Integer"/>
+        <result column="sales" property="sales" javaType="java.lang.Integer"/>
+        <result column="number" property="number" javaType="java.lang.Integer"/>
+        <result column="food_category_id" property="foodCategoryId" javaType="java.lang.Integer"/>
+        <result column="countNumber" property="countNumber" javaType="java.lang.Integer"/>
+        <result column="create_time" property="createTime" javaType="java.util.Date"/>
+        <result column="promotion_time" property="promotionTime" javaType="java.util.Date"/>
+        <result column="recommendation_time" property="recommendationTime" javaType="java.util.Date"/>
+        <result column="is_promotion" property="isPromotion" javaType="java.lang.Boolean"/>
+        <result column="is_recommendation" property="isRecommendation" javaType="java.lang.Boolean"/>
+    </resultMap>
+
+    <resultMap id="SingleFoodIncludeSecondFood" type="com.magicbeans.banjiuwan.beans.SingleFood"  extends="BaseSingleFood" >
+        <association property="secondFoods" column="id"  select="com.magicbeans.banjiuwan.mapper.IChangeFoodMapper.querySingleFoodByFoodId"/>
+    </resultMap>
+
+    <update id="batchUpdateSales">
+        <foreach collection="singleFoods" item="singleFood" index="index" separator=";">
+            UPDATE `food_singlefood`
+            SET `sales`=`sales`+#{singleFood.sales}
+            WHERE `id`=#{singleFood.id}
+        </foreach>
+    </update>
+
+    <select id="batchQueryById" resultMap="BaseSingleFood">
+        SELECT `id`,`cover_img`,`food_name`,`units`,`price`,`promotion_price`
+        FROM `food_singlefood`
+        WHERE `id` IN
+        <foreach collection="ids" index="index" item="id" separator="," open="(" close=")">
+            #{id}
+        </foreach>
+    </select>
+    
+    <insert id="addSingleFood">
+
+        INSERT INTO `food_singlefood`
+        (`banners`,`food_name`,`marinade`,`accessories`,`introduction`,`price`,`promotion_price`,`recommendation_index`
+        ,`sales`,`food_category_id`,`units`,`cover_img`,`create_time`)
+        VALUES
+        (#{singleFood.banners},#{singleFood.foodName},#{singleFood.marinade},#{singleFood.accessories},#{singleFood.introduction}
+        ,#{singleFood.price},#{singleFood.promotionPrice},#{singleFood.recommendationIndex},#{singleFood.sales},#{singleFood.foodCategoryId}
+        ,#{singleFood.units},#{singleFood.coverImg},#{singleFood.createTime})
+
+    </insert>
+
+    <update id="updateSingleFood">
+
+        UPDATE `food_singlefood`
+        <set>
+          <if test="singleFood.banners != null">
+              `banners`=#{singleFood.banners},
+          </if>
+          <if test="singleFood.coverImg != null">
+              `cover_img`=#{singleFood.coverImg},
+          </if>
+          <if test="singleFood.units != null">
+              `units`=#{singleFood.units},
+          </if>
+          <if test="singleFood.foodName != null">
+              `food_name`=#{singleFood.foodName},
+          </if>
+          <if test="singleFood.marinade != null">
+              `marinade`=#{singleFood.marinade},
+          </if>
+          <if test="singleFood.accessories != null">
+              `accessories`=#{singleFood.accessories},
+          </if>
+          <if test="singleFood.introduction != null">
+              `introduction`=#{singleFood.introduction},
+          </if>
+          <if test="singleFood.price != null">
+              `price`=#{singleFood.price},
+          </if>
+          <if test="singleFood.promotionPrice != null">
+              `promotion_price`=#{singleFood.promotionPrice},
+          </if>
+          <if test="singleFood.recommendationIndex != null">
+              `recommendation_index`=#{singleFood.recommendationIndex},
+          </if>
+          <if test="singleFood.sales != null">
+              `sales`=#{singleFood.sales},
+          </if>
+          <if test="singleFood.foodCategoryId != null">
+              `food_category_id`=#{singleFood.foodCategoryId},
+          </if>
+        </set>
+        WHERE id=#{singleFood.id}
+    </update>
+
+
+
+    <select id="queryByCategoryForWeb" resultMap="SingleFoodIncludeSecondFood">
+
+        SELECT fs.*,fc.category_name AS foodCategoryName FROM `food_singlefood` fs,`food_category` fc
+        WHERE fs.food_category_id=fc.id
+        <if test="foodName != null">
+            AND fs.`food_name` LIKE '%${foodName}%'
+        </if>
+        <if test="foodCategoryIds != null and foodCategoryIds.length > 0">
+            AND fs.`food_category_id` IN
+            <foreach collection="foodCategoryIds" item="foodCategoryId" separator="," open="(" close=")">
+                #{foodCategoryId}
+            </foreach>
+        </if>
+        <if test="isPromotion != null">
+            AND fs.is_promotion = #{isPromotion}
+        </if>
+        <if test="isRecommendation != null">
+            AND fs.is_recommendation = #{isRecommendation}
+        </if>
+        <if test="recommendationIndex != null">
+            AND fs.recommendation_index = #{recommendationIndex}
+        </if>
+
+        ORDER BY fs.`create_time` DESC
+
+        <if test="limit != null and limitSize != null">
+            LIMIT #{limit},#{limitSize}
+        </if>
+
+    </select>
+
+
+    <select id="queryByCategory" resultMap="BaseSingleFood">
+
+        SELECT * FROM `food_singlefood`
+        WHERE 1=1
+        <if test="foodName != null">
+            AND `food_name` LIKE '%${foodName}%'
+        </if>
+        <if test="foodCategoryId != null">
+            AND `food_category_id`=#{foodCategoryId}
+        </if>
+
+        ORDER BY `create_time` DESC
+
+        <if test="limit != null and limitSize != null">
+            LIMIT #{limit},#{limitSize}
+        </if>
+
+    </select>
+
+    <select id="countByCategory" resultType="java.lang.Integer">
+
+        SELECT count(*) FROM `food_singlefood`
+        WHERE 1=1
+        <if test="foodName != null">
+            AND `food_name` LIKE '%${foodName}%'
+        </if>
+        <if test="foodCategoryIds != null and foodCategoryIds.length > 0">
+            AND `food_category_id` IN
+            <foreach collection="foodCategoryIds" item="foodCategoryId" separator="," open="(" close=")">
+                #{foodCategoryId}
+            </foreach>
+        </if>
+        <if test="isPromotion != null">
+            AND is_promotion = #{isPromotion}
+        </if>
+        <if test="isRecommendation != null">
+            AND is_recommendation = #{isRecommendation}
+        </if>
+        <if test="recommendationIndex != null">
+            AND recommendation_index = #{recommendationIndex}
+        </if>
+
+    </select>
+
+    <select id="queryById" resultMap="BaseSingleFood">
+
+        SELECT * FROM `food_singlefood` WHERE id=#{id}
+
+    </select>
+
+    <select id="querySingleFoodById" resultMap="BaseSingleFood">
+
+
+        SELECT
+        sc.number AS countNumber,
+        fs.*
+        FROM
+        `food_singlefood` fs
+        LEFT JOIN shop_car sc ON sc.food_id = fs.id
+        AND sc.user_id = #{userId}
+        AND sc.food_category_id = #{foodCategoryId}
+        WHERE
+        fs.id = #{foodId}
+
+    </select>
+
+    <delete id="delSingleFood">
+        DELETE FROM `food_singlefood` WHERE id=#{id}
+    </delete>
+
+    <select id="queryByPackage" resultMap="BaseSingleFood">
+        SELECT f.*,ps.number AS `number` FROM  food_singlefood f,package_singlefood ps
+        WHERE
+        f.id=ps.singlefood_id
+        AND
+        ps.package_id=#{packageId}
+    </select>
+
+    <!--<resultMap id="SingleFoodShopCarCountNumber" type="com.magicbeans.banjiuwan.beans.SingleFood" extends="BaseSingleFood">-->
+        <!--<association property="countNumber" column="{userId=}"-->
+    <!--</resultMap>-->
+
+    <!--<select id="queryByCategoryAndUser" resultMap="BaseSingleFood">-->
+
+        <!--&lt;!&ndash;SELECT * FROM `food_singlefood`&ndash;&gt;-->
+        <!--&lt;!&ndash;WHERE 1=1&ndash;&gt;-->
+        <!--&lt;!&ndash;<if test="foodName != null">&ndash;&gt;-->
+            <!--&lt;!&ndash;AND `food_name` LIKE '%${foodName}%'&ndash;&gt;-->
+        <!--&lt;!&ndash;</if>&ndash;&gt;-->
+        <!--&lt;!&ndash;<if test="foodCategoryId != null">&ndash;&gt;-->
+            <!--&lt;!&ndash;AND `food_category_id`=#{foodCategoryId}&ndash;&gt;-->
+        <!--&lt;!&ndash;</if>&ndash;&gt;-->
+
+        <!--&lt;!&ndash;ORDER BY `id` DESC&ndash;&gt;-->
+
+    <!--</select>-->
+
+
+
+
+
+
+
+    <!-- 获取推荐 促销菜品列表 -->
+    <select id="getRecommendationPromotion" resultMap="BaseSingleFood">
+        SELECT * FROM `food_singlefood` f
+        <if test="type == 1">
+            WHERE f.is_promotion = 1 ORDER BY f.promotion_time DESC
+        </if>
+        <if test="type == 2">
+            WHERE f.is_recommendation = 1 ORDER BY f.recommendation_time DESC
+        </if>
+    </select>
+
+    <!-- 更新是否促销或推荐 -->
+    <update id="updateRecommendationOrPromotion" >
+        UPDATE food_singlefood SET
+        <if test="type == 1">
+            is_promotion = #{bol} , promotion_time = now()
+        </if>
+        <if test="type == 2">
+            is_recommendation = #{bol} , recommendation_time = now()
+        </if>
+        WHERE id = #{id}
+    </update>
+
+</mapper>

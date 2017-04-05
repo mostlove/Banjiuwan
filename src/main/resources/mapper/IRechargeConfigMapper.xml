@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+
+<mapper namespace="com.magicbeans.banjiuwan.mapper.IRechargeConfigMapper">
+
+
+    <insert id="addRechargeConfig" useGeneratedKeys="true" keyProperty="rechargeConfig.id">
+        INSERT  INTO `recharge_config` (`balance`,`giveBalance`)
+        VALUES (#{rechargeConfig.balance},#{rechargeConfig.giveBalance})
+    </insert>
+
+
+    <update id="updateRechargeConfig">
+        UPDATE `recharge_config`
+        <set>
+            <if test="rechargeConfig.balance != null">
+                `balance`=#{rechargeConfig.balance},
+            </if>
+            <if test="rechargeConfig.giveBalance != null">
+                `giveBalance`=#{rechargeConfig.giveBalance},
+            </if>
+        </set>
+        WHERE `id`=#{rechargeConfig.id}
+    </update>
+
+    <delete id="delRechargeConfig">
+        DELETE FROM `recharge_config`
+        WHERE id=#{id}
+    </delete>
+
+    <select id="queryRechargeConfigByBalance" resultType="com.magicbeans.banjiuwan.beans.RechargeConfig">
+        SELECT * FROM `recharge_config` WHERE `balance`=#{balance}
+    </select>
+
+    <select id="queryRechargeConfigAll" resultType="com.magicbeans.banjiuwan.beans.RechargeConfig">
+        SELECT * FROM `recharge_config` ORDER BY `id` ASC
+    </select>
+
+    <select id="queryRechargeConfigById" resultType="com.magicbeans.banjiuwan.beans.RechargeConfig">
+        SELECT * FROM `recharge_config`WHERE `id`=#{id}
+    </select>
+
+
+
+</mapper>

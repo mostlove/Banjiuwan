@@ -1,0 +1,265 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+
+
+<mapper namespace="com.magicbeans.banjiuwan.mapper.IEvaluateMapper">
+
+    <resultMap id="BaseEvaluate" type="com.magicbeans.banjiuwan.beans.Evaluate">
+        <result column="id" property="id" javaType="java.lang.Integer"/>
+        <result column="evaluate_level" property="evaluateLevel" javaType="java.lang.Integer"/>
+        <result column="type" property="type" javaType="java.lang.Integer"/>
+        <result column="food_score" property="foodScore" javaType="java.lang.Double"/>
+        <result column="service_score" property="serviceScore" javaType="java.lang.Double"/>
+        <result column="cook_score" property="cookScore" javaType="java.lang.Double"/>
+        <result column="content" property="content" javaType="java.lang.String"/>
+        <result column="imgs" property="imgs" javaType="java.lang.String"/>
+        <result column="object_id" property="objectId" javaType="java.lang.Integer"/>
+        <result column="user_id" property="userId" javaType="java.lang.Integer"/>
+        <result column="user_type" property="userType" javaType="java.lang.Integer"/>
+        <result column="create_time" property="createTime" javaType="java.util.Date"/>
+        <result column="update_time" property="updateTime" javaType="java.util.Date"/>
+        <result column="is_pass" property="isPass" javaType="java.lang.Boolean"/>
+        <result column="package_cater_id" property="packageCaterId" javaType="java.lang.Integer"/>
+        <result column="order_id" property="orderId" javaType="java.lang.Integer"/>
+        <result column="avatar" property="avatar" javaType="java.lang.String"/>
+        <result column="foodIds" property="foodIds" javaType="java.lang.String"/>
+        <result column="phone_number" property="phoneNumber" javaType="java.lang.String"/>
+        <result column="categoryName" property="categoryName" javaType="java.lang.String"/>
+    </resultMap>
+
+    <!-- 评价 -->
+    <insert id="save" useGeneratedKeys="true" keyProperty="evaluate.id">
+      INSERT INTO `evaluate`
+        (
+            `evaluate_level`,
+            `type`,
+            `food_score`,
+            `service_score`,
+            `cook_score`,
+            `content`,
+            `imgs`,
+            `object_id`,
+            `user_id`,
+            `user_type`,
+            `create_time`,
+            `update_time`,
+            `is_pass`,
+            `package_cater_id`,
+            `order_id`,
+            `phone_number`,
+            `avatar`,
+            `foodIds`
+        )
+    VALUES
+        (
+            #{evaluate.evaluateLevel},
+            #{evaluate.type},
+            #{evaluate.foodScore},
+            #{evaluate.serviceScore},
+            #{evaluate.cookScore},
+            #{evaluate.content},
+            #{evaluate.imgs},
+            #{evaluate.objectId},
+            #{evaluate.userId},
+            #{evaluate.userType},
+            now(),
+            now(),
+            #{evaluate.isPass},
+            #{evaluate.packageCaterId},
+            #{evaluate.orderId},
+            #{evaluate.phoneNumber},
+            #{evaluate.avatar},
+            #{evaluate.foodIds}
+        )
+    </insert>
+
+    <!-- 更新评价状态 -->
+    <update id="updateIsPass">
+        UPDATE `evaluate`
+        SET
+         `update_time` = now(),
+         `is_pass` = #{isPass}
+        WHERE
+          `id` = #{id}
+    </update>
+
+    <!-- 获取评价列表 -->
+    <select id="list" resultMap="BaseEvaluate">
+        SELECT e.*,
+            CASE e.user_type WHEN 1 THEN u.user_name ELSE au.user_name END AS userName,
+        e.create_time AS createTime,
+        e.evaluate_level AS  evaluateLevel
+        FROM evaluate e LEFT JOIN users u ON e.user_type = 1 AND u.id = e.user_id LEFT JOIN
+              admin_users au ON e.user_type = 2 AND au.id = e.user_id
+        WHERE
+          e.is_pass = 1 AND e.type = #{type}
+          <if test="objectId != null">
+            AND e.object_id = #{objectId}
+          </if>
+          GROUP BY e.id ORDER BY e.id DESC
+          <if test="limit != null and limitSize != null">
+              LIMIT #{limit},#{limitSize}
+          </if>
+
+    </select>
+
+    <!-- 获取平均评分 -->
+    <select id="getAvgScore" resultMap="BaseEvaluate" >
+        SELECT
+        <if test="type == 1">
+            (SELECT AVG(e3.food_score) FROM evaluate e3 WHERE e3.is_pass = 1 AND e3.order_id =
+            (SELECT e2.order_id FROM evaluate e2 WHERE e2.is_pass = 1 AND e2.object_id = #{objectId} AND e2.type = #{type})) AS foodScore,
+        </if>
+        <if test="type == 2 or type == 5">
+            (SELECT AVG(e2.food_score) FROM evaluate e2 WHERE e2.is_pass = 1 AND e2.object_id = #{objectId} AND e2.type = #{type}) AS foodScore,
+        </if>
+        <if test="type == 3 or type == 4">
+            (SELECT AVG(e3.food_score) FROM evaluate e3 WHERE e3.is_pass = 1 AND e3.package_cater_id =
+            (SELECT e2.package_cater_id FROM evaluate e2 WHERE e2.is_pass = 1 AND e2.object_id = #{objectId} AND e2.type = #{type})) AS foodScore,
+        </if>
+        AVG(e.cook_score) AS cookScore ,
+        AVG(e.service_score) AS serviceScore
+        FROM evaluate e,
+        (SELECT e2.order_id FROM evaluate e2 WHERE e2.is_pass = 1 AND  (e2.object_id = #{objectId} AND e2.type = #{type})
+          OR (e2.foodIds LIKE ',${objectId},' AND e2.type = 1)GROUP BY e2.order_id) AS eo
+        WHERE
+        e.is_pass = 1 AND
+        (e.type = #{type} AND e.object_id IN
+        (SELECT e1.object_id FROM evaluate e1 WHERE e1.object_id = #{objectId} AND e1.type = #{type})) OR
+        (e.type = 1 AND e.object_id IN (eo.order_id))
+    </select>
+
+
+
+    <select id="getFoodListForWeb" resultMap="BaseEvaluate" >
+        SELECT
+            e.*,
+            CASE e.user_type WHEN 1 THEN u.user_name ELSE au.user_name END AS userName,
+            f.food_name AS foodName,
+            f.food_category_id AS  foodCategoryId,
+            fc.category_name AS categoryName
+
+        FROM
+            evaluate e
+        LEFT JOIN users u ON e.user_type = 1
+        AND e.user_id = u.id LEFT JOIN admin_users au ON au.id = e.user_id AND e.user_type = 2,
+         food_singlefood f LEFT JOIN food_category fc ON f.food_category_id=fc.id
+        WHERE
+            e.type = 2
+        AND f.id = e.object_id
+        <if test="objectIds != null and objectIds.length > 0">
+            AND e.object_id IN
+            <foreach collection="objectIds" open="(" close=")" item="objectId" separator=",">
+                #{objectId}
+            </foreach>
+        </if>
+        <if test="foodCategoryIds != null and foodCategoryIds.length > 0">
+            AND f.food_category_id IN
+            <foreach collection="foodCategoryIds" separator="," open="(" close=")" item="foodCategoryId">
+                #{foodCategoryId}
+            </foreach>
+        </if>
+        <if test="isPass != null">
+            AND e.is_pass = #{isPass}
+        </if>
+        <if test="userType != null">
+            AND e.user_type = #{userType}
+        </if>
+        <if test="evaluateLevel != null">
+            AND e.evaluate_level
+        </if>
+        GROUP BY e.id ORDER BY e.id DESC
+        <if test="limit != null and limitSize != null">
+            LIMIT #{limit},#{limitSize}
+        </if>
+    </select>
+
+    <select id="getFoodListForWebCount" resultType="java.lang.Integer">
+        SELECT
+        COUNT(*)
+        FROM
+        evaluate e
+        LEFT JOIN users u ON e.user_type = 1
+        AND e.user_id = u.id LEFT JOIN admin_users au ON au.id = e.user_id AND e.user_type = 2,
+        food_singlefood f
+        WHERE
+        e.type = 2
+        AND f.id = e.object_id
+        <if test="objectIds != null and objectIds.length > 0">
+            AND e.object_id IN
+            <foreach collection="objectIds" open="(" close=")" item="objectId" separator=",">
+                #{objectId}
+            </foreach>
+        </if>
+        <if test="foodCategoryIds != null and foodCategoryIds.length > 0">
+            AND f.food_category_id IN
+            <foreach collection="foodCategoryIds" separator="," open="(" close=")" item="foodCategoryId">
+                #{foodCategoryId}
+            </foreach>
+        </if>
+        <if test="isPass != null">
+            AND e.is_pass = #{isPass}
+        </if>
+        <if test="userType != null">
+            AND e.user_type = #{userType}
+        </if>
+        <if test="evaluateLevel != null">
+            AND e.evaluate_level
+        </if>
+    </select>
+
+
+
+    <select id="getOrderListForWeb" resultMap="BaseEvaluate" >
+        SELECT e.*,o.order_number AS orderNumber,
+        CASE e.user_type WHEN 1 THEN u.user_name ELSE au.user_name END AS userName
+        FROM evaluate e
+        LEFT JOIN users u ON e.user_type = 1
+        AND e.user_id = u.id LEFT JOIN admin_users au ON au.id = e.user_id AND e.user_type = 2
+        ,`order` o
+        WHERE o.id = e.object_id AND e.type = 1
+
+        <if test="isPass != null">
+            AND e.is_pass = #{isPass}
+        </if>
+        <if test="userType != null">
+            AND e.user_type = #{userType}
+        </if>
+        <if test="orderNumber != null">
+            AND o.order_number LIKE '%${orderNumber}%'
+        </if>
+        <if test="evaluateLevel != null">
+            AND e.evaluate_level
+        </if>
+        GROUP BY e.id ORDER BY e.id DESC
+        <if test="limit != null and limitSize != null">
+            LIMIT #{limit},#{limitSize}
+        </if>
+    </select>
+
+    <select id="getOrderListForWebCount" resultType="java.lang.Integer">
+        SELECT
+        COUNT(*)
+        FROM
+        evaluate e
+        LEFT JOIN users u ON e.user_type = 1
+        AND e.user_id = u.id LEFT JOIN admin_users au ON au.id = e.user_id AND e.user_type = 2
+        ,`order` o
+        WHERE o.id = e.object_id AND e.type = 1
+
+        <if test="isPass != null">
+            AND e.is_pass = #{isPass}
+        </if>
+        <if test="userType != null">
+            AND e.user_type = #{userType}
+        </if>
+        <if test="orderNumber != null">
+            AND o.order_number LIKE '%${orderNumber}%'
+        </if>
+        <if test="evaluateLevel != null">
+            AND e.evaluate_level
+        </if>
+    </select>
+
+</mapper>

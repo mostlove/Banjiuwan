@@ -1,0 +1,183 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+
+
+<mapper namespace="com.magicbeans.banjiuwan.mapper.ICookMapper">
+    <resultMap id="BaseCook" type="com.magicbeans.banjiuwan.beans.Cook">
+        <result column="id" property="id" javaType="java.lang.Integer"/>
+        <result column="real_name" property="realName" javaType="java.lang.String"/>
+        <result column="phone_number" property="phoneNumber" javaType="java.lang.String"/>
+        <result column="pwd" property="password" javaType="java.lang.String"/>
+        <result column="age" property="age" javaType="java.lang.Integer"/>
+        <result column="gender" property="gender" javaType="java.lang.Integer"/>
+        <result column="is_valid" property="isValid" javaType="java.lang.Integer"/>
+        <result column="device_type" property="deviceType" javaType="java.lang.Integer"/>
+        <result column="device_token" property="deviceToken" javaType="java.lang.String"/>
+        <result column="token" property="token" javaType="java.lang.String"/>
+        <result column="avatar" property="avatar" javaType="java.lang.String"/>
+        <result column="map_icon" property="mapIcon" javaType="java.lang.String"/>
+        <result column="signature" property="signature" javaType="java.lang.String"/>
+        <result column="email" property="email" javaType="java.lang.String"/>
+        <result column="create_time" property="createTime" javaType="java.util.Date"/>
+        <result column="update_time" property="updateTime" javaType="java.util.Date"/>
+        <result column="isOnline" property="isOnline" javaType="java.lang.Integer"/>
+    </resultMap>
+
+    <resultMap id="IncludeTimeConfig" type="com.magicbeans.banjiuwan.beans.Cook" extends="BaseCook">
+        <association property="cookTimeConfigs" column="id" select="com.magicbeans.banjiuwan.mapper.ICookTimeConfigMapper.queryByCookId"/>
+    </resultMap>
+
+    <select id="queryCookById" resultMap="BaseCook">
+        SELECT * FROM `cook` WHERE `id`=#{id}
+    </select>
+
+    <update id="updatePwdByPhone">
+        UPDATE `cook` SET `pwd`=#{pwd} WHERE phone_number=#{phone}
+    </update>
+
+    <select id="queryCookDeviceToken" resultMap="BaseCook">
+        SELECT `id`,`real_name`,`phone_number`,`device_type`,`device_token`,`email`
+        FROM `cook`
+        WHERE `id` IN 
+        <foreach collection="ids" index="index" item="id" separator="," close=")" open="(">
+            #{id}
+        </foreach>
+    </select>
+
+    <insert id="addCook" useGeneratedKeys="true" keyProperty="cook.id">
+        INSERT INTO `cook`
+        (`real_name`,`phone_number`,`pwd`,`age`,`gender`,`is_valid`,`create_time`,`update_time`
+        ,`device_type`,`device_token`,`token`,`avatar`,`signature`,`email`,`map_icon`)
+        VALUES
+        (#{cook.realName},#{cook.phoneNumber},#{cook.password},#{cook.age},#{cook.gender},#{cook.isValid}
+        ,NOW(),NOW(),#{cook.deviceType},#{cook.deviceToken},#{cook.token},#{cook.avatar},#{cook.signature},
+        #{cook.email},#{cook.mapIcon})
+    </insert>
+
+    <update id="updateCook">
+
+        UPDATE `cook`
+        <set>
+            <if test="cook.isOnline != null">
+                `isOnline`=#{cook.isOnline},
+            </if>
+            <if test="cook.email != null">
+                `email`=#{cook.email},
+            </if>
+            <if test="cook.signature != null">
+                `signature`=#{cook.signature},
+            </if>
+            <if test="cook.realName != null">
+                `real_name`=#{cook.realName},
+            </if>
+            <if test="cook.isValid != null">
+                `is_valid`=#{cook.isValid},
+            </if>
+            <if test="cook.avatar != null">
+                `avatar`=#{cook.avatar},
+                `map_icon` = #{cook.mapIcon},
+            </if>
+            <if test="cook.deviceType != null">
+                `device_type`=#{cook.deviceType},
+            </if>
+            <if test="cook.deviceToken != null">
+                `device_token`=#{cook.deviceToken},
+            </if>
+            <if test="cook.token != null">
+                `token`=#{cook.token},
+            </if>
+            <if test="cook.phoneNumber != null">
+                `phone_number`=#{cook.phoneNumber},
+            </if>
+            <if test="cook.password != null">
+                `pwd`=#{cook.password},
+            </if>
+            <if test="cook.age != null">
+                `age`=#{cook.age},
+            </if>
+            <if test="cook.gender != null">
+                `gender`=#{cook.gender},
+            </if>
+            <if test="cook.updateTime != null">
+                `update_time`=#{cook.updateTime},
+            </if>
+        </set>
+        WHERE id=#{cook.id}
+    </update>
+
+    <select id="queryByPhoneAndPwd" resultMap="BaseCook">
+        SELECT * FROM `cook` WHERE `phone_number`=#{phoneNumber}
+        <if test="password != null">
+            AND `pwd`=#{password}
+        </if>
+    </select>
+
+
+    <select id="queryCookByItem" resultMap="IncludeTimeConfig">
+        SELECT * FROM `cook`
+        WHERE 1=1
+        <if test="userName != null">
+            AND `real_name` LIKE '%${userName}%'
+        </if>
+        <if test="phoneNumber != null">
+            AND `phone_number` LIKE '%${phoneNumber}%'
+        </if>
+        ORDER BY `create_time` DESC
+        <if test="limit != null and limitSize != null">
+            LIMIT #{limit},#{limitSize}
+        </if>
+    </select>
+
+    <select id="countCookByItem" resultType="java.lang.Integer">
+        SELECT COUNT(*) FROM `cook`
+        WHERE 1=1
+        <if test="userName != null">
+            AND `real_name` LIKE '%${userName}%'
+        </if>
+        <if test="phoneNumber != null">
+            AND `phone_number` LIKE '%${phoneNumber}%'
+        </if>
+    </select>
+
+    <select id="queryCookByServiceDate" resultMap="BaseCook">
+        SELECT
+            c.*
+        FROM
+        cook c,
+        cook_time_config ctc,
+        order_time_config otc
+        WHERE
+            c.id = ctc.cookId
+        and ctc.timeConfigId = otc.id
+        AND otc.time = #{time}
+        AND c.id NOT IN (
+            SELECT
+                oc.cookId
+            FROM
+                `order` o,order_cook oc
+            WHERE o.id=oc.orderId AND oc.isLocking IS NULL
+
+        AND o.service_date=#{serviceDate} )
+
+
+    </select>
+
+
+
+
+    <!--获取厨师详情-->
+    <select id="getCookByIdForWeb" resultMap="BaseCook" >
+        SELECT * FROM cook WHERE id = #{id}
+    </select>
+
+
+
+
+
+
+
+
+
+
+</mapper>

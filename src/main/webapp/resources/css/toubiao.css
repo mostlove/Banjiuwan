@@ -1,0 +1,228 @@
+.mui-content .order{
+	height: 80px;
+	border-bottom: 1px solid #ddd;
+}
+.mui-content .order .order-item{
+	margin-top: 22px;
+	width: 20% !important;
+	position: relative;
+	float: left;
+}
+.mui-content .order .order-item .dot{
+	width: 20px;
+	height: 20px;
+	border-radius: 50%;	
+	margin: 0 auto;
+}
+.mui-content .order .order-item .dot.success{
+	background:#0794FD;
+}
+.mui-content .order .order-item .dot.fail{
+	background:#CCCCCC;
+}
+.mui-content .order .order-item p{
+	font-size: 14px;
+	text-align: center;
+	margin-top: 8px;
+}
+.mui-content .order .order-item p.success{
+	color: #0794FD;
+}
+.mui-content .order .order-item p.fail{
+	color: #CCCCCC;
+}
+.mui-content .order .order-item span.line{
+	height: 1px;
+	width: 100%;
+	display: inline-block;	
+	position: absolute;
+	left:50%;
+	top: 9px;
+	margin-left: 10px;
+}
+.mui-content .order .order-item span.line.success{
+	background:#0794FD;
+}
+.mui-content .order .order-item span.line.fail{
+	background:#CCCCCC;
+}
+.mui-content .order-info{
+	height: 70px;
+	border-bottom: 1px solid #ddd;
+	background:#F2F2F2;
+}
+.mui-content .order-info .order-detail{
+	line-height: 60px;
+	height: 60px;
+	background: #fff;
+	border-bottom: 1px solid #ddd;
+	padding: 0 20px;
+	position: relative;
+}
+.mui-content .order-info .order-detail span.order-num{
+	color: #CCCCCC;
+	font-size: 14px;
+}
+.mui-content .order-info .order-detail button{
+	position: absolute;	
+	top: 14px;
+	right: 16px;
+}
+.mui-content .order-info .order-detail button.success{
+	color: #0794FD;
+	border-color: #0794FD;
+}
+.mui-content .order-info .order-detail button.fail{
+	color: #BFBFBF;
+	border-color: #BFBFBF;
+}
+.mui-content .rental-order{
+	padding-bottom: 10px;
+	border-bottom: 1px solid #E4E4E4;
+	background: #F2F2F2;
+}
+.mui-content .rental-order ul{
+	list-style: none;
+	padding-left: 20px;
+	margin:0;
+	margin-top: 20px;
+	border-bottom: 1px solid #DCDCDC;
+	background: #fff;
+}
+.mui-content .rental-order ul li .left{
+	display: table-cell;
+	vertical-align: top;
+	padding-right: 10px;	
+}
+.mui-content .rental-order ul li .right{
+	display: table-cell;
+	vertical-align: top;
+	padding-right: 20px;
+}
+.mui-content .rental-order ul li img{
+	height: 16px;
+	width: 16px;
+	vertical-align: -2px;
+	margin-right: 6px;
+}
+.mui-content .rental-order ul li .left span{
+	color:#3E3E3E;
+	font-size: 16px;
+}
+.mui-content .rental-order ul li .right p{
+	color:#3E3E3E;
+	font-size: 16px;
+}
+.mui-content .bid-details{
+	padding-left: 20px;
+	height: 60px;
+	background: #F2F2F2;
+	border-bottom: 1px solid #DCDCDC;
+	line-height: 60px;
+	font-size: 18px;
+}
+ul.itemGroup li.item p.content.light{
+	color:#FF9F4D;
+}
+.mui-content .bid-num{
+	height: 60px;
+	line-height: 60px;
+	padding-left: 20px;
+}
+.mui-content .bid-num span{
+	color: #3E3E3E;
+	font-size: 17px;
+}
+.mui-content .bid-num span small{
+	font-size: 16px;
+	color:#999999;
+}
+.mui-content .bid-num button{
+	float: right;
+	border: none;
+	color: #0794FD;
+	font-size: 16px;
+	margin-top: 14px;
+	margin-right: 10px;
+}
+.mui-content .bid-option ul.bid-group{
+	margin: 0;
+	list-style: none;
+	padding-left: 20px;
+	border-bottom: 1px solid #DCDCDC;
+}
+.mui-content .bid-option ul.bid-group li.bid-item{
+	padding: 20px 0;
+	border-top: 1px solid #DCDCDC;
+}
+.mui-content .bid-option ul.bid-group li.bid-item .media{
+	position: relative;
+	margin-left: 30px;
+}
+.mui-content .bid-option ul.bid-group li.bid-item .media-left{
+	display: table-cell;
+	vertical-align: top;
+	padding-right: 15px;
+}
+.mui-content .bid-option ul.bid-group li.bid-item .media-body{
+	display: table-cell;
+	vertical-align: top;
+	position: relative;
+}
+.mui-content .bid-option ul.bid-group li.bid-item .media-left img{
+	width: 60px;
+	height: 60px;
+	border-radius: 50%;
+}
+.mui-content .bid-option ul.bid-group li.bid-item .media-body p.name{
+	color: #333333;
+	font-size: 16px;
+}
+.mui-content .bid-option ul.bid-group li.bid-item .media-body p.price span{
+	color:#FF881F;
+	font-size: 16px;
+}
+.mui-content .bid-option ul.bid-group li.bid-item .media-body span.tag{
+	font-size: 12px;
+	position: absolute;
+	top: 4px;
+	right: -28px;
+	padding: 0 4px;
+	height: 16px;
+	line-height: 16px;
+	color: #fff;
+	border-radius: 2px;	
+}
+.mui-content .bid-option ul.bid-group li.bid-item .media-body span.tag.personal{
+	background:#0794FD;
+}
+.mui-content .bid-option ul.bid-group li.bid-item .media-body span.tag.guide{
+	background:#BA78F7;
+}
+.mui-content .bid-option ul.bid-group li.bid-item .media a img{
+	width: 26px;
+	height: 26px;
+}
+.mui-content .bid-option ul.bid-group li.bid-item .media a.phone{
+	position: absolute;
+	top: 10px;
+	right: 15px;
+}
+.mui-content .bid-option ul.bid-group li.bid-item .media a.chat{
+	position: absolute;
+	top: 10px;
+	right: 60px;
+}
+.mui-content .bid-option ul.bid-group li.bid-item .media label{
+	width: 16px;
+	height: 16px;
+	display: inline-block;
+	background: url(../img/unchecked.png) no-repeat center;
+	background-size: cover;
+	position: absolute;
+	top: 20px;
+	left: -30px;
+}
+.mui-content .bid-option ul.bid-group li.bid-item .media label.checked{
+	background-image: url(../img/checked.png);
+}

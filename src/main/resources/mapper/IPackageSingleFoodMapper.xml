@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+
+<mapper namespace="com.magicbeans.banjiuwan.mapper.IPackageSingleFoodMapper">
+    
+    <resultMap id="basePSS" type="com.magicbeans.banjiuwan.beans.PackageSingleFood">
+        <result column="id" property="id" javaType="java.lang.Integer"/>
+        <result column="package_id" property="packageId" javaType="java.lang.Integer"/>
+        <result column="singlefood_id" property="singleFoodId" javaType="java.lang.Integer"/>
+        <result column="number" property="number" javaType="java.lang.Integer"/>
+    </resultMap>
+    
+    <insert id="batchAdd">
+        INSERT INTO `package_singlefood` (`package_id`,`singlefood_id`,`number`)
+        VALUES
+        <foreach collection="pss" index="index" item="ps" separator=",">
+            (#{ps.packageId},#{ps.singleFoodId},#{ps.number})
+        </foreach>
+    </insert>
+    
+    <delete id="delByPackage">
+        DELETE FROM `package_singlefood` WHERE package_id=#{packageId}
+    </delete>
+    
+    
+</mapper>

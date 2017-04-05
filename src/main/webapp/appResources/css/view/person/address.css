@@ -1,0 +1,116 @@
+/**
+ * 地址管理页面自定义css
+ * */
+
+.mui-content>.mui-table-view:first-child{
+	margin: 0;
+}
+.mui-content{
+	padding-bottom: 71px;
+}
+.mui-btn-red{
+	background: #D72C22;
+	text-align: center;
+}
+.mui-btn-red i{
+	font-size: 30px !important;
+}
+.user-name{
+	color: #0c0c0c;
+	font-size: 14px;
+}
+.user-name .user-phone{
+	float: right;
+	position: relative;
+	right: 15px;
+}
+.user-name:after{
+	right: 0px;
+	content: '\e583';
+}
+.user-name:after{
+	font-family: Muiicons;
+	font-size: inherit;
+	line-height: 1;
+	position: absolute;
+	top: 50%;
+	display: inline-block;
+	-webkit-transform: translateY(-50%);
+	transform: translateY(-50%);
+	text-decoration: none;
+	color: #bbb;
+	-webkit-font-smoothing: antialiased;
+}
+.address{
+	font-size: 12px;
+	color: #929292;
+	padding-right: 15px;
+}
+.address .default-hint{
+	color: #D72C22;
+}
+
+.add-address-div{
+	position: fixed;
+	z-index: 1;
+	bottom: 0px;
+	width: 100%;
+	max-width: 640px;
+	text-align: center;
+	background: #fff;
+	padding: 15px 0;
+}
+.add-address-btn{
+	width: 90%;
+	text-align: center;
+	background: #D72C22;
+	color: #fff;
+	margin: 0 auto;
+	border-radius: 6px;
+	border-color: #D72C22;
+	padding: 10px;
+
+}
+.add-address-btn:active, .add-address-btn:focus{
+	background: #D72C22 !important;
+}
+.not-address{
+	color: #929292;
+	text-align: center;
+	background: rgba(0, 0, 0, 0);
+	padding-top: 50px;
+	font-size: 14px;
+}
+.notAf:after{
+	display: none;
+}
+.selectLabel{
+	font-family: "微软雅黑" !important;
+	padding: 0 !important;
+	padding-left: 38px !important;
+}
+.selectLabel .user-name{
+	margin-bottom: 5px;
+}
+.selectLabel .user-name .user-phone{
+	right: 0;
+}
+.selectLabel .address{
+	padding-right: 0;
+}
+.selectLabel .mui-checkbox.mui-left input[type=checkbox], .mui-radio.mui-left input[type=radio]{
+	left: 0 !important;
+}
+.selectLabel .mui-checkbox input[type=checkbox], .mui-radio input[type=radio]{
+	top: 0 !important;
+}
+
+
+/*iphone6*/
+@media screen and (max-width:375px) {
+	
+}
+/*iphone5*/
+@media screen and (max-width:320px) {
+	
+}

@@ -1,0 +1,64 @@
+/**
+ * 分享页面自定义css
+ * */
+
+body,html,.mui-content{
+	height: 100%;
+	background-image: url("../../img/icon/share-bg.png");
+	-webkit-background-size: 100% 100%;
+	background-size: 100% 100%;
+}
+.downloadBtn{
+	padding: 3px 15px;
+	background: #D72C22;
+	color: #fff;
+	border-radius: 30px;
+	font-size: 12px;
+	box-shadow: 0 15px 30px rgba(0, 0, 0, 0.1);
+	float: right;
+	position: relative;
+	top: -30px;
+	right: 30px;
+}
+.downloadBtn:active, .downloadBtn:focus{
+	color: #fff;
+}
+.context{
+	padding: 50px;
+	position: absolute;
+	bottom: 50px;
+	width: 100%;
+}
+
+.phone-input{
+	background: #fff;
+	text-align: center;
+	height: 50px;
+	font-size: 12px;
+	border-radius: 6px !important;
+	width: 100%;
+	border-color: #fff !important;
+}
+.submitBtn{
+	background: #D72C22;
+	text-align: center;
+	height: 40px;
+	font-size: 16px;
+	color: #fff;
+	border-radius: 6px;
+	width: 100%;
+	border-color: #D72C22;
+}
+.submitBtn:active,.submitBtn:focus{
+	background: #D72C22 !important;
+	color: #fff !important;
+}
+
+/*iphone6*/
+@media screen and (max-width:375px) {
+	
+}
+/*iphone5*/
+@media screen and (max-width:320px) {
+
+}

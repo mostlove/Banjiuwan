@@ -1,0 +1,92 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+
+<mapper namespace="com.magicbeans.banjiuwan.mapper.IVegetablesPriceMapper">
+
+
+    <insert id="addVegetablesPrice">
+        INSERT  INTO `vegetables_price` (`vegetablesId`,`price`,`time`)
+        VALUES (#{vegetablesPrice.vegetablesId},#{vegetablesPrice.price},#{vegetablesPrice.time})
+    </insert>
+    
+    <update id="updateVegetablesPrice">
+        UPDATE `vegetables_price`
+        <set>
+            <if test="vegetablesPrice.vegetablesId != null">
+                `vegetablesId`=#{vegetablesPrice.vegetablesId},
+            </if>
+            <if test="vegetablesPrice.price != null">
+                `price`=#{vegetablesPrice.price},
+            </if>
+            <if test="vegetablesPrice.time != null">
+                `time`=#{vegetablesPrice.time},
+            </if>
+        </set>
+        WHERE `id`=#{vegetablesPrice.id}
+    </update>
+
+    <delete id="delVegetablesPrice">
+        DELETE FROM `vegetables_price` WHERE `id`=#{id}
+    </delete>
+
+
+    <select id="queryVegetablesPriceByItem" resultType="com.magicbeans.banjiuwan.beans.VegetablesPrice">
+        SELECT
+            vp.*, vh.dishName,
+            vh.units
+        FROM
+            vegetables_house vh,
+            vegetables_price vp
+        WHERE
+            vh.id = vp.vegetablesId
+        <if test="vegetablesId != null">
+            AND vp.vegetablesId=#{vegetablesId}
+        </if>
+        <if test="time != null">
+            AND vp.time=#{time}
+        </if>
+        ORDER BY vp.`time`
+    </select>
+
+    <select id="queryVegetablesPriceByItemForWeb" resultType="com.magicbeans.banjiuwan.beans.VegetablesPrice">
+        SELECT
+        vp.*, vh.dishName,
+        vh.units
+        FROM
+        vegetables_house vh,
+        vegetables_price vp
+        WHERE
+        vh.id = vp.vegetablesId
+        <if test="vegetablesName != null">
+            AND vh.dishName LIKE '%${vegetablesName}%'
+        </if>
+        <if test="time != null">
+            AND vp.time=#{time}
+        </if>
+        ORDER BY vp.`time`
+
+        <if test="limit != null and limitSize != null">
+            LIMIT #{limit},#{limitSize}
+        </if>
+    </select>
+
+
+    <select id="countVegetablesPriceByItemForWeb" resultType="java.lang.Integer">
+        SELECT
+          COUNT(*)
+        FROM
+        vegetables_house vh,
+        vegetables_price vp
+        WHERE
+        vh.id = vp.vegetablesId
+        <if test="vegetablesName != null">
+            AND vh.dishName LIKE '%${vegetablesName}%'
+        </if>
+        <if test="time != null">
+            AND vp.time=#{time}
+        </if>
+    </select>
+
+
+</mapper>

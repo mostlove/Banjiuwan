@@ -1,0 +1,73 @@
+/**
+ * 客户自定义css
+ * */
+.mui-content, body, html{
+	background: #fff;
+}
+.customer-head{
+	text-align: center;
+	margin-top: -80px;
+	position: relative;
+	z-index:1;
+}
+.customer-head .customer-head-div{
+	border: 2px solid #D72C22;
+	border-radius: 50%;
+	width: 100px;
+	height: 100px;
+	margin: 0 auto;
+}
+.customer-head img{
+	border: 2px solid #fff;
+	border-radius: 50%;
+}
+.customer-name{
+	font-size: 28px;
+	color: #D72C22;
+	margin: 10px;
+}
+.customer-info{
+	font-size: 14px;
+	color: #888;
+}
+.call-bar{
+	width: 80%;
+	margin: 0 auto;
+	padding-top: 30px;
+}
+.call-bar p{
+	margin: 0;
+	color: #0c0c0c;
+	font-size: 14px;
+}
+.call-bar input{
+	font-size: 14px;
+	text-align: center;
+}
+.call-btn{
+	padding: 10px;
+	color: #fff;
+	background: #D72C22;
+	border-color: #D72C22;
+	text-align: center;
+	width: 100%;
+}
+.call-btn:active, .call-btn:focus{
+	color: #fff !important;
+	background: #D72C22 !important;
+}
+
+
+/*iphone6 + */
+@media screen and (max-width:415px){
+
+}
+/*iphone6*/
+@media screen and (max-width:375px) {
+
+}
+/*iphone5*/
+@media screen and (max-width:320px) {
+
+
+}

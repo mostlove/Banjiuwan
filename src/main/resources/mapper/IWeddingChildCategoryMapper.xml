@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+
+<mapper namespace="com.magicbeans.banjiuwan.mapper.IWeddingChildCategoryMapper">
+
+    <resultMap id="BaseChildCategory" type="com.magicbeans.banjiuwan.beans.WeddingChildCategory">
+        <result column="id" property="id" javaType="java.lang.Integer"/>
+        <result column="img" property="img" javaType="java.lang.String"/>
+        <result column="name" property="name" javaType="java.lang.String"/>
+        <result column="wedding_category_id" property="weddingCategoryId" javaType="java.lang.Integer"/>
+        <result column="create_time" property="createTime" javaType="java.util.Date"/>
+        <result column="category_name" property="weddingCategoryName" javaType="java.lang.String"/>
+    </resultMap>
+
+    <resultMap id="IncloudWeddingSonsChildCategory" type="com.magicbeans.banjiuwan.beans.WeddingChildCategory" extends="BaseChildCategory">
+        <association property="weddingSons" column="id" select="com.magicbeans.banjiuwan.mapper.IWeddingSonMapper.queryWeddingSonByChildCategory"/>
+    </resultMap>
+
+    <select id="queryWeddingChildCategoryByWeddingId" resultMap="IncloudWeddingSonsChildCategory">
+      SELECT wcc.*,swc.wedding_id,wc.category_name
+      FROM `wedding_child_category` wcc,`special_wedding_childcategory` swc,wedding_category wc
+      WHERE
+            wcc.id=swc.child_category_id
+        AND wcc.wedding_category_id=wc.id
+        AND swc.wedding_id=#{weddingId}
+    </select>
+    
+    <insert id="addWeddingChildCategory">
+        INSERT INTO `wedding_child_category` (`img`,`name`,`wedding_category_id`,`create_time`)
+        VALUES
+        (#{weddingChildCategory.img},#{weddingChildCategory.name},#{weddingChildCategory.weddingCategoryId},NOW())
+    </insert>
+
+    <update id="updateWeddingChildCategory">
+        UPDATE `wedding_child_category`
+        <set>
+            <if test="weddingChildCategory.img != null">
+                `img`=#{weddingChildCategory.img},
+            </if>
+            <if test="weddingChildCategory.name != null">
+                `name`=#{weddingChildCategory.name},
+            </if>
+        </set>
+        WHERE id=#{weddingChildCategory.id}
+    </update>
+
+    <delete id="delWeddingChildCategory">
+        DELETE FROM `wedding_child_category` WHERE id=#{id}
+    </delete>
+
+    <select id="queryChildCategoryPage" resultMap="BaseChildCategory">
+        SELECT * FROM `wedding_child_category` WHERE 1=1
+        <if test="name != null">
+            AND `name` LIKE '%${name}%'
+        </if>
+        <if test="weddingCategory != null">
+            AND `wedding_category_id`=#{weddingCategory}
+        </if>
+        ORDER  BY `create_time` DESC
+        <if test="limit != null and limitSize != null">
+          LIMIT #{limit},#{limitSize}
+        </if>
+    </select>
+
+    <select id="countChildCategoryPage" resultType="java.lang.Integer">
+        SELECT COUNT(*) FROM `wedding_child_category` WHERE 1=1
+        <if test="name != null">
+            AND `name` LIKE '%${name}%'
+        </if>
+        <if test="weddingCategory != null">
+            AND `wedding_category_id`=#{weddingCategory}
+        </if>
+    </select>
+
+
+</mapper>

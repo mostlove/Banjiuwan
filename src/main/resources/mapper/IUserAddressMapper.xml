@@ -1,0 +1,114 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+
+
+<mapper namespace="com.magicbeans.banjiuwan.mapper.IUserAddressMapper">
+    <resultMap id="BaseUserAddress" type="com.magicbeans.banjiuwan.beans.UserAddress">
+        <result column="id" property="id" javaType="java.lang.Integer"/>
+        <result column="contact" property="contact" javaType="java.lang.String"/>
+        <result column="contact_phone" property="contactPhone" javaType="java.lang.String"/>
+        <result column="address" property="address" javaType="java.lang.String"/>
+        <result column="detail_address" property="detailAddress" javaType="java.lang.String"/>
+        <result column="user_id" property="userId" javaType="java.lang.Integer"/>
+        <result column="is_valid" property="isValid" javaType="java.lang.Integer"/>
+        <result column="gender" property="gender" javaType="java.lang.Integer"/>
+        <result column="isDefault" property="isDefault" javaType="java.lang.Integer"/>
+        <result column="lngLat" property="lngLat" javaType="java.lang.String"/>
+        <result column="create_time" property="createTime" javaType="java.util.Date"/>
+    </resultMap>
+
+    <select id="countAddressByUser" resultType="java.lang.Integer">
+        SELECT COUNT(*)
+        FROM `user_address`
+        WHERE `is_valid`= 1
+        <if test="userId != null">
+            AND `user_id`=#{userId}
+        </if>
+    </select>
+
+    <delete id="delUserAddress">
+        DELETE FROM `user_address` WHERE id=#{id}
+    </delete>
+
+    <update id="updateIsDefaultOtherObj">
+        UPDATE `user_address` SET `isDefault`=0
+        WHERE `user_id`=#{userId} AND `id` != #{currentId}
+    </update>
+
+    <insert id="addAddress" useGeneratedKeys="true" keyProperty="userAddress.id">
+        INSERT INTO `user_address`
+        (`contact`,`contact_phone`,`address`,`detail_address`,`user_id`,`is_valid`,`lngLat`,`create_time`,`gender`,`isDefault`)
+        VALUES
+        (#{userAddress.contact},#{userAddress.contactPhone},#{userAddress.address},#{userAddress.detailAddress},
+        #{userAddress.userId},#{userAddress.isValid},#{userAddress.lngLat},NOW(),#{userAddress.gender},#{userAddress.isDefault})
+    </insert>
+
+    <update id="updateAddress">
+
+        UPDATE `user_address`
+        <set>
+            <if test="userAddress.contact != null">
+                `contact`=#{userAddress.contact},
+            </if>
+            <if test="userAddress.gender != null">
+                `gender`=#{userAddress.gender},
+            </if>
+            <if test="userAddress.isDefault != null">
+                `isDefault`=#{userAddress.isDefault},
+            </if>
+            <if test="userAddress.lngLat != null">
+                `lngLat`=#{userAddress.lngLat},
+            </if>
+            <if test="userAddress.contactPhone != null">
+                `contact_phone`=#{userAddress.contactPhone},
+            </if>
+            <if test="userAddress.address != null">
+                `address`=#{userAddress.address},
+            </if>
+            <if test="userAddress.detailAddress != null">
+                `detail_address`=#{userAddress.detailAddress},
+            </if>
+            <if test="userAddress.userId != null">
+                `user_id`=#{userAddress.userId},
+            </if>
+            <if test="userAddress.isValid != null">
+                `is_valid`=#{userAddress.isValid},
+            </if>
+        </set>
+        WHERE id=#{userAddress.id}
+    </update>
+
+    <select id="queryAddressByUser" resultMap="BaseUserAddress">
+        SELECT * FROM `user_address` WHERE `is_valid`= 1
+        <if test="userId != null">
+            AND `user_id`=#{userId}
+        </if>
+        <if test="limit != null and limitSize != null">
+            LIMIT #{limit},#{limitSize}
+        </if>
+    </select>
+
+    <select id="queryAddressById" resultMap="BaseUserAddress">
+        SELECT * FROM `user_address`
+        WHERE `id`=#{id}
+    </select>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</mapper>

@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+
+<mapper namespace="com.magicbeans.banjiuwan.mapper.IAgreementTextMapper">
+
+
+    <update id="updateAgreementText">
+        UPDATE `agreement_text`
+        <set>
+            <if test="agreementText.title != null">
+                `title`=#{agreementText.title},
+            </if>
+            <if test="agreementText.content != null">
+                `content`=#{agreementText.content},
+            </if>
+        </set>
+        WHERE `id`=#{agreementText.id}
+    </update>
+
+
+    <select id="queryAgreementTextList" resultType="com.magicbeans.banjiuwan.beans.AgreementText">
+        SELECT * FROM `agreement_text`
+    </select>
+
+    <select id="queryAgreementTextById" resultType="com.magicbeans.banjiuwan.beans.AgreementText">
+        SELECT * FROM `agreement_text` WHERE `id`=#{id}
+    </select>
+
+
+</mapper>

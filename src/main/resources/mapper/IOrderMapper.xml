@@ -1,0 +1,455 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.magicbeans.banjiuwan.mapper.IOrderMapper">
+
+    <resultMap id="BaseOrder" type="com.magicbeans.banjiuwan.beans.Order">
+
+        <result column="id" property="id" javaType="java.lang.Integer"/>
+        <result column="order_number" property="orderNumber" javaType="java.lang.String"/>
+        <result column="user_id" property="userId" javaType="java.lang.Integer"/>
+        <result column="admin_user_id" property="adminUserId" javaType="java.lang.Integer"/>
+        <result column="status" property="status" javaType="java.lang.Integer"/>
+        <result column="address_id" property="addressId" javaType="java.lang.Integer"/>
+        <result column="service_date" property="serviceDate" javaType="java.util.Date"/>
+        <result column="remarket" property="reMarket" javaType="java.lang.String"/>
+        <result column="remarket_admin" property="reMarketAdmin" javaType="java.lang.String"/>
+        <result column="price" property="price" javaType="java.lang.Double"/>
+        <result column="transportation_cost" property="transportationCost" javaType="java.lang.Double"/>
+        <result column="premium" property="premium" javaType="java.lang.Double"/>
+        <result column="coupon" property="coupon" javaType="java.lang.Double"/>
+        <result column="couponId" property="couponId" javaType="java.lang.Integer"/>
+        <result column="cashCouponId" property="cashCouponId" javaType="java.lang.Integer"/>
+        <result column="cash_coupon" property="cashCoupon" javaType="java.lang.Double"/>
+        <result column="accumulate" property="accumulate" javaType="java.lang.Double"/>
+        <result column="accumulate_config" property="accumulateConfig" javaType="java.lang.String"/>
+        <result column="balance" property="balance" javaType="java.lang.Double"/>
+        <result column="other_pay" property="otherPay" javaType="java.lang.Double"/>
+        <result column="serviceCost" property="serviceCost" javaType="java.lang.Double"/>
+        <result column="paymethod" property="payMethod" javaType="java.lang.Integer"/>
+        <result column="isMain" property="isMain" javaType="java.lang.Integer"/>
+        <result column="create_time" property="createTime" javaType="java.util.Date"/>
+        <result column="dispatchTime" property="dispatch_time" javaType="java.util.Date"/>
+        <result column="overTime" property="over_time" javaType="java.util.Date"/>
+        <result column="order_detail" property="orderDetail" javaType="java.lang.String"/>
+        <result column="userName" property="userName" javaType="java.lang.String"/>
+        <result column="userPhone" property="userPhone" javaType="java.lang.String"/>
+        <result column="adminName" property="adminName" javaType="java.lang.String"/>
+        <result column="adminPhone" property="adminPhone" javaType="java.lang.String"/>
+        <result column="address" property="address" javaType="java.lang.String"/>
+        <result column="payNumber" property="payNumber" javaType="java.lang.String"/>
+        <result column="is_enable" property="isEnable" javaType="java.lang.Boolean"/>
+        <result column="isConfirm" property="isConfirm" javaType="java.lang.Integer"/>
+        <result column="waiterNumber" property="waiterNumber" javaType="java.lang.Integer"/>
+        <result column="user_is_valid" property="userIsValid" javaType="java.lang.Integer"/>
+        <result column="cook_is_valid" property="cookIsValid" javaType="java.lang.Integer"/>
+        <result column="batchNO" property="batchNO" javaType="java.lang.String"/>
+        <result column="managerUser" property="managerUser" javaType="java.lang.String"/>
+        <result column="managerPhone" property="managerPhone" javaType="java.lang.String"/>
+    </resultMap>
+
+    <resultMap id="OrderIncludeCook" type="com.magicbeans.banjiuwan.beans.Order" extends="BaseOrder">
+        <association property="cooks" column="id" select="com.magicbeans.banjiuwan.mapper.IOrderCookMapper.queryOrderCookBySingleOrder"/>
+    </resultMap>
+
+    
+    <resultMap id="OrderIncludeOtherInfo" type="com.magicbeans.banjiuwan.beans.Order" extends="OrderIncludeCook">
+        <association property="user" column="user_id" select="com.magicbeans.banjiuwan.mapper.IUserMapper.queryUserById"/>
+        <association property="userAddress" column="address_id" select="com.magicbeans.banjiuwan.mapper.IUserAddressMapper.queryAddressById"/>
+        <association property="foodCategories" column="id" select="com.magicbeans.banjiuwan.mapper.IFoodCategoryMapper.querySingleFoodCategory"/>
+    </resultMap>
+
+
+    <select id="queryOrderByBatchNO" resultMap="BaseOrder">
+        SELECT * FROM `order` WHERE `batchNO`=#{batchNO}
+    </select>
+
+    <select id="countWaiterByServiceDate" resultType="java.lang.Integer">
+        SELECT SUM(waiterNumber)
+        FROM `order`
+        WHERE
+        `service_date`=#{serviceDate} AND `status` != 2001 AND `status` != 2009 AND `status` != 2010
+    </select>
+
+    <select id="queryOrderIncludeOtherInfo" resultMap="OrderIncludeOtherInfo">
+        SELECT
+        o.*,au.user_name AS managerUser,au.phone_number AS managerPhone
+        FROM
+        `order` o
+        LEFT JOIN users u ON u.id = o.user_id
+        LEFT JOIN admin_users au ON u.admin_user_id = au.id
+         <![CDATA[
+        AND u.admin_date <= o.create_time
+        ]]>
+        WHERE
+        o.`id` = #{id}
+    </select>
+
+    <select id="queryOrderById" resultMap="BaseOrder">
+        SELECT * FROM `order`
+        WHERE `id`=#{id}
+    </select>
+
+    <select id="queryOrdersByServiceDate" resultMap="OrderIncludeCook">
+      SELECT `id`,`order_number`,`service_date`
+      FROM `order`
+      WHERE
+      `service_date`=#{serviceDate}
+    </select>
+
+    <insert id="addOrder" useGeneratedKeys="true" keyProperty="order.id">
+
+        INSERT INTO `order`
+        (`order_number`,`user_id`,`admin_user_id`,`status`,`address_id`,`service_date`,`remarket`,`price`,
+        `transportation_cost`,`premium`,`coupon`,`cash_coupon`,`accumulate`,`balance`,`other_pay`,`paymethod`,
+        `create_time`,`order_detail`,`serviceCost`,`cashCouponId`,`couponId`,`accumulate_config`,`waiterNumber`,`user_is_valid`,
+        `cook_is_valid`)
+        VALUES
+        (#{order.orderNumber},#{order.userId},#{order.adminUserId},#{order.status},#{order.addressId},#{order.serviceDate},
+        #{order.reMarket},#{order.price},#{order.transportationCost},#{order.premium},#{order.coupon},#{order.cashCoupon},
+        #{order.accumulate},#{order.balance},#{order.otherPay},#{order.payMethod},NOW(),#{order.orderDetail},#{order.serviceCost}
+        ,#{order.cashCouponId},#{order.couponId},#{order.accumulateConfig},#{order.waiterNumber},1,1)
+    </insert>
+
+    <update id="updateOrder">
+        UPDATE `order`
+        <set>
+            <if test="order.cookIsValid != null">
+                `cook_is_valid`=#{order.cookIsValid},
+            </if>
+            <if test="order.userIsValid != null">
+                `user_is_valid`=#{order.userIsValid},
+            </if>
+            <if test="order.batchNO != null">
+                `batchNO`=#{order.batchNO},
+            </if>
+            <if test="order.payNumber != null">
+                `payNumber`=#{order.payNumber},
+            </if>
+            <if test="order.isConfirm != null">
+                `isConfirm`=#{order.isConfirm},
+            </if>
+            <if test="order.payMethod != null">
+                `paymethod`=#{order.payMethod},
+            </if>
+            <if test="order.otherPay != null">
+                `other_pay`=#{order.otherPay},
+            </if>
+            <if test="order.balance != null">
+                `balance`=#{order.balance},
+            </if>
+            <if test="order.accumulate != null">
+                `accumulate`=#{order.accumulate},
+            </if>
+            <if test="order.cashCoupon != null">
+                `cash_coupon`=#{order.cashCoupon},
+            </if>
+            <if test="order.coupon != null">
+                `coupon`=#{order.coupon},
+            </if>
+            <if test="order.premium != null">
+                `premium`=#{order.premium},
+            </if>
+            <if test="order.adminUserId != null">
+                `admin_user_id`=#{order.adminUserId},
+            </if>
+            <if test="order.status != null">
+                `status`=#{order.status},
+            </if>
+            <if test="order.addressId != null">
+                `address_id`=#{order.addressId},
+            </if>
+            <if test="order.serviceDate != null">
+                `service_date`=#{order.serviceDate},
+            </if>
+            <if test="order.reMarket != null">
+                `remarket`=#{order.reMarket},
+            </if>
+            <if test="order.price != null">
+                `price`=#{order.price},
+            </if>
+            <if test="order.transportationCost != null">
+                `transportation_cost`=#{order.transportationCost},
+            </if>
+        </set>
+        WHERE `id`=#{order.id}
+    </update>
+
+    <!--3001:待支付状态  3002:已支付  3003:完成   APP/USER端 订单状态请求 -->
+    <select id="queryOrderByItem" resultMap="OrderIncludeOtherInfo">
+        SELECT  o.*,ua.detail_address AS address,u.user_name as userName,u.phone_number as userPhone
+
+        FROM `order` o,user_address ua,users u
+        WHERE ua.id=o.address_id AND u.id=o.user_id
+        AND o.user_is_valid = 1
+        <if test="userId != null">
+            AND o.`user_id`=#{userId}
+        </if>
+        <if test="status == 3001">
+            AND (o.`status`=2001 OR ((o.`status`=2002 OR o.`status`=2003 OR o.`status`=2004 OR o.`status`=2008) AND o.paymethod = 2))
+        </if>
+        <if test="status == 3002">
+            AND (o.`status`=2002 OR o.`status`=2003 OR o.`status`=2004 OR o.`status`=2008) AND o.paymethod != 2
+        </if>
+        <if test="status == 3003">
+            AND (o.`status`=2005 OR o.`status`=2006 OR o.`status`=2007)
+        </if>
+        ORDER BY o.`create_time` DESC
+        <if test="limit != null and limitSize != null">
+            LIMIT #{limit},#{limitSize}
+        </if>
+    </select>
+
+    <select id="queryOrderByCook" resultMap="OrderIncludeOtherInfo">
+      SELECT
+        o.*,oc.isMain AS isMain ,ua.detail_address AS address,u.user_name as userName,u.phone_number as userPhone
+      FROM
+        `order` o,
+        order_cook oc,
+        user_address ua,
+        users u
+      WHERE
+        o.id = oc.orderId
+        AND  ua.id=o.address_id
+        AND u.id=o.user_id
+        AND o.cook_is_valid = 1
+      <if test="cookId != null">
+          AND oc.cookId = #{cookId}
+      </if>
+      <if test="status != null">
+          AND o.`status` = #{status}
+      </if>
+      ORDER BY o.`create_time` DESC
+      <if test="limit != null and limitSize != null">
+        LIMIT #{limit},#{limitSize}
+     </if>
+
+
+    </select>
+
+
+    <select id="queryOrderByItemForWeb" resultMap="OrderIncludeOtherInfo">
+        SELECT
+        o.*, u.user_name AS userName, u.phone_number as userPhone,
+        au.user_name AS adminName ,au.phone_number as adminPhone,
+        ua.detail_address as address
+        FROM
+        `order` o
+        LEFT JOIN users u ON o.user_id = u.id
+        LEFT JOIN admin_users au ON o.admin_user_id = au.id
+        LEFT JOIN user_address ua ON o.address_id=ua.id
+        WHERE 1=1
+          AND o.is_enable = #{type}
+        <if test="status != null and status.length > 0">
+            AND o.`status`IN
+            <foreach collection="status" item="s" open="(" close=")" separator="," >
+                #{s}
+            </foreach>
+        </if>
+        <if test="orderNumber != null and orderNumber != ''">
+            AND o.`order_number` LIKE '%${orderNumber}%'
+        </if>
+        <if test="userPhone != null and userPhone != ''">
+            AND u.`phone_number`LIKE '%${userPhone}%'
+        </if>
+        <if test="startTime != null">
+            AND o.`create_time` >= #{startTime}
+        </if>
+        <if test="endTime != null">
+            AND o.`create_time` <![CDATA[ <= ]]> #{endTime}
+        </if>
+        <if test="payMethod != null and payMethod.length > 0">
+            AND o.`paymethod`IN
+            <foreach collection="payMethod" item="p" open="(" close=")" separator="," >
+                #{p}
+            </foreach>
+        </if>
+        ORDER BY o.`create_time` DESC
+        <if test="limit != null and limitSize != null">
+            LIMIT #{limit},#{limitSize}
+        </if>
+    </select>
+
+
+    <select id="countOrderByItemForWeb" resultType="java.lang.Integer">
+        SELECT  COUNT(*) FROM `order` o LEFT JOIN users u ON o.user_id = u.id
+        WHERE 1=1
+         AND o.is_enable = #{type}
+        <if test="status != null and status.length > 0">
+            AND o.`status`IN
+            <foreach collection="status" item="s" open="(" close=")" separator="," >
+                #{s}
+            </foreach>
+        </if>
+        <if test="orderNumber != null and orderNumber != ''">
+            AND o.`order_number` LIKE '%${orderNumber}%'
+        </if>
+        <if test="userPhone != null and userPhone != ''">
+            AND u.`phone_number`LIKE '%${userPhone}%'
+        </if>
+        <if test="startTime != null">
+            AND o.`create_time` >= #{startTime}
+        </if>
+        <if test="endTime != null">
+            AND o.`create_time` <![CDATA[ <= ]]> #{endTime}
+        </if>
+        <if test="payMethod != null and payMethod.length > 0">
+            AND o.`paymethod`IN
+            <foreach collection="payMethod" item="p" open="(" close=")" separator="," >
+                #{p}
+            </foreach>
+        </if>
+        <!--<if test="payMethods != null">
+            AND o.`paymethod`=#{payMethod}
+        </if>-->
+    </select>
+
+    <update id="updateIsEnable" >
+        UPDATE `order` SET is_enable = #{isEnable} WHERE id = #{id}
+    </update>
+
+    <select id="statisticsOrderByManager" resultType="com.magicbeans.banjiuwan.beans.OrderSales">
+        SELECT
+            o.order_number AS orderNumber,
+            o.price AS price,
+            o.accumulate_config AS config,
+            o.create_time AS createTime,
+            u.user_name AS userName,
+            u.phone_number AS phoneNumber,
+            au.user_name AS managerName,
+            au.phone_number AS managerPhone
+        FROM
+            `order` o,
+            users u,
+            admin_users au
+        WHERE
+            o.user_id = u.id
+        AND u.admin_user_id = au.id
+        <![CDATA[
+        AND u.admin_date <= o.create_time
+        ]]>
+        AND (
+            (
+                o.paymethod != 2
+                AND (
+                    o.`status` = 2005
+                    OR o.`status` = 2006
+                    OR o.`status` = 2007
+                )
+            )
+            OR (
+                o.paymethod = 2
+                AND (
+                    o.`status` = 2005
+                    OR o.`status` = 2006
+                    OR o.`status` = 2007
+                )
+                AND o.isConfirm = 1
+            )
+        )
+        <if test="adminUserId != null">
+            AND u.admin_user_id=#{adminUserId}
+        </if>
+        <if test="adminUserName != null">
+            AND au.user_name LIKE '%${adminUserName}%'
+        </if>
+        <if test="startTime != null and endTime != null">
+            AND o.create_time BETWEEN #{startTime} AND #{endTime}
+        </if>
+        ORDER BY o.create_time
+        <if test="limit != null and limitSize != null">
+            LIMIT #{limit},#{limitSize}
+        </if>
+    </select>
+
+    <select id="countOrderByManager" resultType="java.lang.Integer">
+        SELECT
+          COUNT(*)
+        FROM
+            `order` o,
+            users u,
+            admin_users au
+        WHERE
+          o.user_id = u.id
+        AND u.admin_user_id = au.id
+        <![CDATA[
+        AND u.admin_date <= o.create_time
+        ]]>
+
+        AND (
+        (
+        o.paymethod != 2
+        AND (
+        o.`status` = 2005
+        OR o.`status` = 2006
+        OR o.`status` = 2007
+        )
+        )
+        OR (
+        o.paymethod = 2
+        AND (
+        o.`status` = 2005
+        OR o.`status` = 2006
+        OR o.`status` = 2007
+        )
+        AND o.isConfirm = 1
+        )
+        )
+        <if test="adminUserId != null">
+            AND u.admin_user_id=#{adminUserId}
+        </if>
+        <if test="adminUserName != null">
+            AND au.user_name LIKE '%${adminUserName}%'
+        </if>
+        <if test="startTime != null and endTime != null">
+            AND o.create_time BETWEEN #{startTime} AND #{endTime}
+        </if>
+    </select>
+
+    <!-- 填写备注 （财务确认收款） -->
+    <update id="saveReMarket">
+        UPDATE `order` SET remarket_admin = concat(CASE WHEN remarket_admin IS NULL THEN '' ELSE remarket_admin END,#{reMarketAdmin})
+        <if test="type == 1">
+           ,isConfirm = 1
+        </if>
+        WHERE id = #{id}
+    </update>
+
+
+    <select id="countHome" resultType="com.magicbeans.banjiuwan.beans.CountHome">
+    SELECT
+        (
+            SELECT
+                COUNT(*)
+            FROM
+                `order`
+            WHERE
+                `status` = 2002
+        ) AS pendingCount,
+        (
+            SELECT
+                COUNT(*)
+            FROM
+                `order`
+            WHERE
+                `status` != 2002
+            AND `status` != 2001
+        ) AS pendCount,
+        (
+            SELECT
+                COUNT(*)
+            FROM
+                call_myaccount
+            WHERE
+                is_handle = 0
+        ) AS pendingCall,
+        (
+            SELECT
+                COUNT(*)
+            FROM
+                `order`
+            WHERE
+                `status` = 2009 AND is_enable=1
+        ) AS applicationRefund
+    </select>
+</mapper>

@@ -1,0 +1,166 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+
+
+<mapper namespace="com.magicbeans.banjiuwan.mapper.ICouponMapper">
+    <resultMap id="BaseCoupon" type="com.magicbeans.banjiuwan.beans.Coupon">
+        <result column="id" property="id" javaType="java.lang.Integer"/>
+        <result column="face_value" property="faceValue" javaType="java.lang.Integer"/>
+        <result column="need_spend" property="needSpend" javaType="java.lang.Integer"/>
+        <result column="type" property="type" javaType="java.lang.Integer"/>
+        <result column="isNewUserCoupon" property="isNewUserCoupon" javaType="java.lang.Integer"/>
+        <result column="days" property="days" javaType="java.lang.Integer"/>
+        <result column="useInterval" property="useInterval" javaType="java.lang.String"/>
+    </resultMap>
+
+
+    <select id="queryCouponUseDetail" resultType="com.magicbeans.banjiuwan.beans.CouponUseDetail">
+        SELECT
+            c.face_value AS faceValue,
+            c.type AS type,
+            c.need_spend AS needSpend,
+            uc.start_time AS startTime,
+            uc.end_time AS endTime,
+            uc.days AS days,
+            uc.is_valid AS isValid,
+            uc.text AS text,
+            u.user_name AS userName,
+            u.phone_number AS phoneNumber
+        FROM
+            coupon c,
+            user_coupon uc,
+            users u
+        WHERE
+            c.id = uc.coupon_id
+        AND uc.user_id = u.id
+        <if test="phone != null">
+           AND (u.phone_number LIKE '%${phone}%' OR u.user_name LIKE '%${phone}%')
+        </if>
+        <if test="type != null">
+           AND c.type=#{type}
+        </if>
+        <if test="isValid != null">
+            AND uc.is_valid=#{isValid}
+        </if>
+        <if test="startTime != null">
+            AND uc.start_time <![CDATA[ >= ]]> #{startTime}
+        </if>
+        <if test="endTime != null">
+            AND uc.end_time <![CDATA[ <= ]]> #{endTime}
+        </if>
+        <if test="limit != null and limitSize != null">
+            LIMIT #{limit},#{limitSize}
+        </if>
+    </select>
+
+
+    <select id="countCouponUseDetail" resultType="java.lang.Integer">
+        SELECT
+            COUNT(*)
+        FROM
+            coupon c,
+            user_coupon uc,
+            users u
+        WHERE
+            c.id = uc.coupon_id
+            AND uc.user_id = u.id
+            <if test="phone != null">
+              AND  (u.phone_number LIKE '%${phone}%' OR u.user_name LIKE '%${phone}%')
+            </if>
+            <if test="type != null">
+              AND  c.type=#{type}
+            </if>
+            <if test="isValid != null">
+                AND uc.is_valid=#{isValid}
+            </if>
+            <if test="startTime != null">
+                AND uc.start_time <![CDATA[ >= ]]> #{startTime}
+            </if>
+            <if test="endTime != null">
+                AND uc.end_time <![CDATA[ <= ]]> #{endTime}
+            </if>
+    </select>
+
+    <insert id="addCoupon" useGeneratedKeys="true" keyProperty="coupon.id">
+        INSERT INTO `coupon`
+        (`face_value`,`need_spend`,`type`)
+        VALUES
+        (#{coupon.faceValue},#{coupon.needSpend},#{coupon.type})
+    </insert>
+
+    <update id="updateCoupon">
+
+        UPDATE `coupon`
+        <set>
+
+            <if test="coupon.needSpend != null">
+                `need_spend`=#{coupon.needSpend},
+            </if>
+            <if test="coupon.useInterval != null">
+                `useInterval`=#{coupon.useInterval},
+            </if>
+        </set>
+        WHERE id=#{need_spend.id} AND `type`=#{coupon.type}
+    </update>
+
+    <select id="queryByType" resultMap="BaseCoupon">
+        SELECT * FROM `coupon`
+        <where>
+            <if test="type != null">
+                `type`=#{type}
+            </if>
+        </where>
+    </select>
+
+    <resultMap id="CouponUp" type="com.magicbeans.banjiuwan.beans.Coupon" extends="BaseCoupon">
+        <association property="categories" column="id" select="com.magicbeans.banjiuwan.mapper.IFoodCategoryMapper.queryCategoryByIds"></association>
+    </resultMap>
+
+    <select id="queryAllCoupon" resultMap="CouponUp">
+        SELECT co.*,nc.id AS isNewUserCoupon,nc.days AS days
+        FROM `coupon` co LEFT JOIN `new_user_coupon` nc ON co.id=nc.coupon_id
+        WHERE 1=1
+        <if test="type != null">
+            AND co.`type`=#{type}
+        </if>
+        ORDER BY co.`id` DESC
+        <if test="limit != null and limitSize != null">
+            LIMIT #{limit},#{limitSize}
+        </if>
+    </select>
+
+    <select id="countAllCoupon" resultType="java.lang.Integer">
+        SELECT COUNT(*) FROM `coupon`
+        WHERE 1=1
+        <if test="type != null">
+            AND `type`=#{type}
+        </if>
+    </select>
+
+    <delete id="delCoupon">
+        DELETE FROM `coupon`
+        WHERE id=#{id}
+    </delete>
+
+
+
+
+    <select id="info" resultMap="BaseCoupon">
+        SELECT * FROM `coupon`
+        WHERE id = #{id}
+    </select>
+
+
+
+
+
+
+
+
+
+
+
+
+
+</mapper>

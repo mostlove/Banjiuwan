@@ -1,0 +1,279 @@
+/**
+ * 订单详情页面自定义css
+ * */
+.mui-content{
+	padding-bottom: 60px !important;
+}
+
+.status-bar{
+	padding: 15px;
+	background: #fff;
+}
+.status-bar table{
+	width: 100%;
+}
+.status-bar table tr td{
+	text-align: center;
+}
+.status-bar table tr td *{
+	font-size: 12px;
+	margin: 0;
+}
+.status-bar table tr td p{
+
+}
+.border-bar{
+	height: 30px;
+	line-height: 30px;
+}
+.img-active{
+	height: 27px;
+}
+.flow{
+	height: 18px;
+	width: 100%;
+	position: relative;
+	top: 3px;
+}
+.order-active{
+	width: 40px;
+}
+.order-active p{
+	color: #555555;
+}
+.order-font{
+	color: #555555;
+}
+
+/**地址栏*/
+.address-bar{
+	background: #fff;
+	margin-top: 10px;
+}
+.address-icon{
+	width: 25px !important;
+	max-width: 25px !important;
+	height: 34px !important;
+	margin-top: 5px;
+	margin-right: 20px !important;
+	margin-left: 10px;
+}
+.title-hint{
+	margin: 0;
+	color: #666;
+	font-size: 13px;
+	margin-bottom: 5px !important;
+}
+.user-phone{
+	float: right;
+}
+
+.mui-table-view-cell>a:not(.mui-btn){
+	white-space: normal !important;
+}
+
+.address-bar .mui-table-view:before{
+	height: 0;
+}
+.address-bar .mui-table-view:after{
+	height: 0;
+}
+
+.order-bar{
+	margin-top: 10px;
+	background: #fff;
+}
+.order-bar .order-num{
+	padding: 15px;
+	color: #666;
+	font-size: 16px;
+	border-bottom: 1px solid #F2F2F2;
+}
+.order-bar .order-num .order-status{
+	float: right;
+}
+.status-1{
+	color: #D72C22;
+}
+
+.goods-img{
+	max-width: 100px !important;
+	width: 100px !important;
+	height: 80px !important;
+}
+.goods-name{
+	font-size: 16px !important;
+	color: #000 !important;
+}
+.goods-p{
+	margin-top: 38px;
+}
+.goods-price{
+	font-size: 16px;
+	color: #D72C22;
+}
+.goods-num{
+	float: right;
+	color: #929292;
+	position: relative;
+	top: 3px;
+}
+.service-money{
+	max-width: 100px !important;
+	width: 100px !important;
+	line-height: 21px !important;
+	height: 10px !important;
+	color: #000;
+	font-size: 14px;
+}
+.use-time-bar{
+	border-bottom: 1px solid #e1e1e1;
+	padding: 15px;
+	color: #000;
+	font-size: 14px;
+}
+.use-time{
+	color: #000;
+	font-size: 13px;
+}
+.total-bar{
+	padding: 15px;
+	color: #929292;
+	font-size: 14px;
+	text-align: right;
+}
+.total-price{
+	font-size: 18px;
+	color: #D72C22;
+	position: relative;
+	top: 2px;
+}
+
+.cancel-btn{
+	padding: 5px 30px !important;
+	font-size: 12px;
+	background: rgba(0, 0, 0, 0) !important;
+	border: 1px solid #929292;
+	border-radius: 30px;
+	color: #929292;
+	margin-right: 10px !important;
+}
+.payment-btn{
+	padding: 5px 30px !important;
+	font-size: 12px;
+	background: #D72C22 !important;
+	border: 1px solid #D72C22 !important;
+	border-radius: 30px;
+	color: #fff;
+}
+.payment-btn:active, .payment-btn:focus{
+	background: #D72C22 !important;
+	color: #fff !important;
+}
+.order-info{
+	padding: 15px;
+	background: #fff;
+	margin-top: 10px;
+	margin-bottom: 10px;
+}
+.order-info p{
+	margin-bottom: 0px;
+}
+.cook-head{
+	max-width: 60px !important;
+	width: 60px;
+	height: 60px !important;
+	border-radius: 50%;
+}
+.cook-name{
+	font-size: 16px;
+	margin-bottom: 10px !important;
+	margin-top: 5px;
+	color: #000;
+}
+.cook-phone{
+	color: #000;
+}
+.cook-phone span{
+	color: #D72C22;
+}
+.dial-phone{
+	position: absolute;
+	right: 0;
+	top:15px;
+	width: 70px;
+	height: 50px;
+	text-align: center;
+	border-left: 1px solid #e1e1e1;
+}
+.dial-phone img{
+	width: 20px;
+	height: 30px;
+	margin-top: 10px;
+}
+
+/*支付弹窗样式*/
+.mui-backdrop-action.mui-backdrop.mui-active, .mui-bar-backdrop.mui-backdrop.mui-active{
+	z-index: 9998;
+}
+.mui-popover.mui-popover-action.mui-popover-bottom{
+	z-index: 9999;
+}
+.cancelBtn{
+	color: #000;
+}
+.paymentMode{
+	text-align: center;
+}
+.paymentMode img {
+	width: 70px;
+	height: 70px;
+}
+.paymentModeTitle{
+
+}
+.orderMoneyDiv{
+	text-align: center;
+	padding-bottom: 30px;
+	font-size: 16px;
+	color: #000;
+}
+.orderMoney{
+	font-size: 16px;
+	font-weight: 600;
+	color: #D72E22;
+}
+/**end*/
+
+.car-bottom{
+	bottom: 0 !important;
+}
+
+/*iphone6*/
+@media screen and (max-width:375px) {
+	.flow{
+		height: 14px;
+	}
+	.paymentMode img {
+		width: 60px;
+		height: 60px;
+	}
+}
+/*iphone5*/
+@media screen and (max-width:320px) {
+	.address-icon{
+		margin-left: 0;
+		margin-right: 10px !important;
+	}
+	.title-hint{
+		font-size: 12px;
+	}
+	.flow{
+		height: 13px;
+		top: 0;
+	}
+	.paymentMode img {
+		width: 50px;
+		height: 50px;
+	}
+}

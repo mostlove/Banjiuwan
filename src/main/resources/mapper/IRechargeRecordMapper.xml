@@ -1,0 +1,96 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+
+<mapper namespace="com.magicbeans.banjiuwan.mapper.IRechargeRecordMapper">
+
+
+    <resultMap id="BaseRechargeRecor" type="com.magicbeans.banjiuwan.beans.RechargeRecord">
+        <result column="id" property="id" javaType="java.lang.Integer"/>
+        <result column="userId" property="userId" javaType="java.lang.Integer"/>
+        <result column="balance" property="balance" javaType="java.lang.Integer"/>
+        <result column="giveBalance" property="giveBalance" javaType="java.lang.Integer"/>
+        <result column="createTime" property="createTime" javaType="java.util.Date"/>
+        <result column="status" property="status" javaType="java.lang.Integer"/>
+        <result column="payMethod" property="payMethod" javaType="java.lang.Integer"/>
+        <result column="remarket" property="reMarket" javaType="java.lang.String"/>
+        <result column="outTradeNo" property="outTradeNo" javaType="java.lang.String"/>
+    </resultMap>
+
+    <resultMap id="RechargeRecorIncludeUser" type="com.magicbeans.banjiuwan.beans.RechargeRecord" extends="BaseRechargeRecor">
+        <association property="user" column="userId" select="com.magicbeans.banjiuwan.mapper.IUserMapper.queryUserById"/>
+    </resultMap>
+
+    <insert id="addRechargeRecord" useGeneratedKeys="true" keyProperty="rechargeRecord.id">
+        INSERT INTO `recharge_record`
+        (`balance`,`giveBalance`,`userId`,`createTime`,`status`,`outTradeNo`,`payMethod`)
+        VALUES
+        (#{rechargeRecord.balance},#{rechargeRecord.giveBalance},#{rechargeRecord.userId},NOW(),#{rechargeRecord.status}
+        ,#{rechargeRecord.outTradeNo},#{rechargeRecord.payMethod})
+    </insert>
+
+    <select id="queryRechargeRecordById" resultType="com.magicbeans.banjiuwan.beans.RechargeRecord">
+        SELECT * FROM `recharge_record` WHERE `id`=#{id}
+    </select>
+
+    <update id="updateRechargeRecord">
+        UPDATE `recharge_record` SET `status`=#{rechargeRecord.status}
+        WHERE `id`=#{rechargeRecord.id}
+    </update>
+
+
+    <select id="queryRechargeRecordForWeb" resultMap="RechargeRecorIncludeUser">
+        SELECT rr.*
+        FROM users u,
+             recharge_record rr
+        WHERE 
+            u.id=rr.userId
+            <if test="userName != null">
+               AND u.user_name LIKE '%${userName}%'
+            </if>
+            <if test="phoneNumber != null">
+               AND u.phone_number LIKE '%${phoneNumber}%'
+            </if>
+            <if test="payMethod != null">
+                AND rr.payMethod=#{payMethod}
+            </if>
+            <if test="status != null">
+                AND rr.`status`=#{status}
+            </if>
+            <if test="startTime != null and endTime != null">
+                AND (rr.createTime BETWEEN #{startTime} AND #{endTime})
+            </if>
+        ORDER BY rr.`createTime` DESC
+        <if test="limit != null and limitSize != null">
+            LIMIT #{limit},#{limitSize}
+        </if>
+    </select>
+    <select id="countRechargeRecordForWeb" resultType="java.lang.Integer">
+        SELECT COUNT(*)
+        FROM users u,
+             recharge_record rr
+        WHERE
+            u.id=rr.userId
+            <if test="userName != null">
+               AND u.user_name LIKE '%${userName}%'
+            </if>
+            <if test="phoneNumber != null">
+               AND u.phone_number LIKE '%${phoneNumber}%'
+            </if>
+            <if test="payMethod != null">
+                AND rr.payMethod=#{payMethod}
+            </if>
+            <if test="status != null">
+                AND rr.`status`=#{status}
+            </if>
+            <if test="startTime != null and endTime != null">
+                AND (rr.createTime BETWEEN #{startTime} AND #{endTime})
+            </if>
+    </select>
+
+    <update id="saveReMarket">
+        UPDATE `recharge_record` SET remarket = concat(CASE WHEN remarket IS NULL THEN '' ELSE remarket END,#{reMarket})
+        WHERE id = #{id}
+    </update>
+
+</mapper>

@@ -1,0 +1,446 @@
+*{margin: 0;padding: 0;}
+ul li{list-style: none}
+a{text-decoration: none;}
+img{border:none }
+
+
+body{font: 14px/1.125 microsoft yahei,SimSun,Arial,Helvetica,sans-serif;}
+/*body{*/
+    /*font-family: "Microsoft Yahei";*/
+/*}*/
+/*注册协议*/
+.con{
+    width: 1200px;
+    margin: 0 auto;
+}
+.con:after{
+    content:"";
+    display: block;
+    clear: both;
+}
+.header{
+    width: 1200px;
+    height: 90px;
+}
+.header>.logodiv{
+    width: 200px;
+    height: 48px;
+    float: left;
+    margin-top: 20px;
+}
+.header>span{
+    display: block;
+    float: left;
+    width: 500px;
+    height: 30px;
+    font-size: 25px;
+    margin-top: 43px;
+    margin-left: 20px;
+}
+.middle{
+    width: 1200px;
+    height: 900px;
+    margin-top: 60px;
+}
+.schedule{
+    width: 913px;
+    height:70px;
+    margin: 0 auto;
+    background: url("../../img/hotel/6.png") no-repeat;
+    background-size: 100%;
+}
+.actt{
+    background: url("../../img/hotel/7.png") no-repeat;
+}
+.schedule-1{
+    width: 230px;
+    height:70px;
+    float: left;
+    margin-left: -2px;
+}
+.schedule-1>span{
+    color: white;
+    display: block;
+    font-size: 18px;
+    margin:5px 0 0 111px ;
+}
+.schedule-1>p{
+    width: 100%;
+    height:25px;
+    text-align: center;
+    color: #CCCCCC;
+    margin-top: 25px;
+    font-size: 16px;
+    padding-left: 5px;
+}
+.actt>p{
+    color: #35CAC4;
+}
+.agreement{
+   width: 100%;
+    min-height: 600px;
+    margin-top: 29px;
+    border: 1px solid #D6D6D6;
+    background-color:#F7F7F7;
+    padding: 35px;
+}
+.agreement:after{
+    content:"";
+    display: block;
+    clear: both;
+}
+.agreementcontent{
+    width: 1000px;
+    height: auto;
+    margin: 0 auto;
+    font-size: 18px;
+    margin-top: 20px;
+}
+
+.agreementcontent .p1b2{
+    text-decoration: underline;
+}
+.agreementcontent ul li{
+    line-height: 27px;
+}
+.agreementcontent .p4{
+    line-height: 27px;
+}
+.agreementcontent a{
+    width: 180px;
+    height: 45px;
+    background-color: #35CAC4;
+    border: 0;
+    outline: none;
+    font-size: 23px;
+    display: block;
+    margin: 30px auto;
+    color: white;
+    border-radius:10px ;
+}
+.agreementcontent a:hover{
+    color: #fff;
+}
+.bottom{
+    text-align: center;
+    width: 90%;
+    height: 25px;
+    color: black;
+    font-size: 18px;
+    margin: 0 auto;
+    margin-top: 100px;
+}
+/*注册协议结束*/
+/*账号注册*/
+.formDiv{
+    width: 350px;
+    margin: 0 auto;
+    margin-top: 60px;
+}
+.formDiv:after{
+    content:"";
+    display: block;
+    clear: both;
+}
+.formDiv form{
+    width: 100%;
+}
+.formDiv form>div{
+    width: 100%;
+    height: 50px;
+    border-radius: 10px;
+    border: 1px solid #D7D7D7;
+    margin-bottom: 25px;
+}
+.formDiv form>div>div:first-child{
+    width: 80px;
+    background-color: #B2EAE9;
+    height: 48px;
+    text-align: center;
+    line-height: 48px;
+    color: #0c0c0c;
+    float: left;
+    border-top-left-radius: 10px;
+    border-bottom-left-radius: 10px;
+}
+.formDiv form>div>div:last-child{
+    float: right;
+    width: 268px;
+    height: 48px;
+}
+
+#userName,.Mobile,#password,#confirmpassword{
+    width: 100%;
+    border-top-right-radius: 10px;
+    border-bottom-right-radius: 10px;
+    height: 100%;
+    /*text-indent: 15px;*/
+    border: 0;
+    outline: none;
+}
+#verification{
+    padding-left: 0px !important;
+}
+input[type=text], input[type=password]{
+    padding-left: 15px;
+}
+#verification{
+    width: 120px;
+    text-indent: 15px;
+    height: 100%;
+    border: 0;
+    outline: none;
+}
+#getting {
+    float: right;
+    height: 35px;
+    line-height: 35px;
+    padding: 0 10px;
+    text-align: center;
+    border:1px solid #CCCCCC;
+    border-radius: 5px;
+    margin: 7px 3px 0  0;
+    background: linear-gradient(0deg, #f4f2f2 0%,#fbf9f9 100%);
+    cursor: pointer;
+    outline: none;
+}
+.MobileRight>p,.passwordRight>p,.confirmpasswordRight>p{
+    color: red;
+    width: 100%;
+    height: 25px;
+    line-height: 25px;
+    text-align: right;
+}
+#submit{
+    width: 100%;
+    height: 40px;
+    background-color: #35CAC4;
+    border-radius:10px;
+    border: 0;
+    outline: none;
+    letter-spacing: 10px;
+    text-align: center;
+    font-size: 18px;
+    color: white;
+}
+/*账号注册结束*/
+
+/*资料填写开始*/
+.grogshopdiv{
+    width: 350px;
+    margin: 0 auto;
+    margin-top: 60px;
+}
+.grogshopdiv:after{
+    content:"";
+    display: block;
+    clear: both;
+}
+.grogshopdiv form{
+    width: 100%;
+}
+.grogshopdiv form>div{
+    width: 100%;
+    height: 50px;
+    border-radius: 10px;
+    border: 1px solid #D7D7D7;
+    margin-bottom: 25px;
+}
+.grogshopdiv form>div>div:first-child{
+    width: 80px;
+    background-color: #B2EAE9;
+    height: 48px;
+    text-align: center;
+    line-height: 48px;
+    color: #0c0c0c;
+    float: left;
+    border-top-left-radius: 10px;
+    border-bottom-left-radius: 10px;
+}
+.grogshopdiv form>div>div:last-child{
+    float: right;
+    width: 268px;
+    height: 48px;
+}
+#linkman,#phone,#email{
+    width: 100%;
+    border-top-right-radius: 10px;
+    border-bottom-right-radius: 10px;
+    height: 100%;
+    text-indent: 15px;
+    border: 0;
+    outline: none;
+}
+.emailRight>p{
+    color: red;
+    width: 100%;
+    height: 25px;
+    line-height: 25px;
+    text-align: right;
+}
+.elseRight1{
+    width: 218px;
+    text-indent: 15px;
+    height: 48px;
+    line-height: 48px;
+    font-size: 17px;
+    float: left;
+    border-top-right-radius: 10px;
+    border-bottom-right-radius: 10px;
+    border: 0;
+    outline: none;
+    cursor: pointer;
+}
+#star-error{
+    position: absolute;
+    top:50px;
+    right:0;
+}
+
+.elseRight2{
+    background-color: #CCCCCC;
+    width: 50px;
+    height: 48px;
+    float: right;
+    border-top-right-radius: 10px;
+    border-bottom-right-radius: 10px;
+}
+.triangle-up{
+    width: 0;
+    height: 0;
+    border-left: 8px solid transparent;
+    border-right: 8px solid transparent;
+    border-top: 13px solid white;
+    border-radius:5px ;
+    margin: 18px 0 0 16px;
+}
+.elseRight{
+    position: relative;
+    cursor: pointer;
+}
+.pulldown{
+    width: 100%;
+    height: 250px;
+    background-color: white;
+    border: 1px solid #CCCCCC;
+    position: absolute;
+    top:48px;
+    left: 0;
+    z-index: 10;
+    display: none;
+}
+.pulldown>ul>li{
+   width: 100%;
+    padding: 15px;
+    line-height: 20px;
+    font-size: 17px;
+}
+.pulldown>ul>li>span{
+    float: right;
+    display: none;
+}
+.pulldown>ul>li:hover{
+    color: #07BEBA;
+}
+.add{
+    color: #07BEBA;
+}
+
+
+.grogshopdiv .beizhu{
+    width: 100%;
+    height: 120px;
+    border: 0;
+}
+.beizhu>textarea{
+    resize:none;
+    outline: none;
+    padding: 10px;
+}
+
+/*企业性质*/
+.nature label{
+    font-weight:normal;
+    position: relative;
+    top:13px;
+    left:15px;
+    margin-right: 10px;
+    cursor: pointer;
+}
+.nature label span{
+    position: inherit;
+    top:-2px;
+    left:5px;
+}
+
+
+/*资料填写结束*/
+
+/*注册成功*/
+.succeed{
+    width: 100%;
+    height: 300px;
+    margin: 0 auto;
+    margin-top: 160px;
+}
+.succeedimg{
+    width: 121px;
+    height: 121px;
+    margin: 0 auto;
+    background: url("../../img/hotel/9.png")no-repeat;
+}
+
+.fail{
+    background: url("../../img/hotel/fail.png")no-repeat !important;
+}
+.succeedp1{
+    width: 100%;
+    margin: 0 auto;
+    margin-top: 20px;
+    text-align: center;
+    font-size: 25px;
+}
+
+.succeedp2{
+    width: 100%;
+    margin: 0 auto;
+    margin-top: 20px;
+    text-align: center;
+}
+
+
+
+/*注册成功结束*/
+/*审核*/
+.auditcon{
+    width: 1200px;
+    height: 600px;
+}
+.audit{
+    width: 100%;
+    height: 220px;
+    margin: 0 auto;
+    margin-top: 150px;
+}
+.auditimg{
+    width: 121px;
+    height: 121px;
+    margin: 0 auto;
+    background: url("../../img/hotel/10.png")no-repeat;
+}
+.auditp1{
+    width: 100%;
+    margin: 0 auto;
+    margin-top: 20px;
+    text-align: center;
+    font-size: 25px;
+}
+
+.auditp2{
+    width: 100%;
+    margin: 0 auto;
+    margin-top: 20px;
+    text-align: center;
+}
+
+/*审核结束*/

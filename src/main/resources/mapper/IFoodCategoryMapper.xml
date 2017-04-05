@@ -1,0 +1,112 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+
+<mapper namespace="com.magicbeans.banjiuwan.mapper.IFoodCategoryMapper">
+
+    <resultMap id="BaseCategory" type="com.magicbeans.banjiuwan.beans.FoodCategory">
+        <result column="id" property="id" javaType="java.lang.Integer"/>
+        <result column="category_name" property="categoryName" javaType="java.lang.String"/>
+        <result column="icon" property="icon" javaType="java.lang.String"/>
+        <result column="selectedIcon" property="selectedIcon" javaType="java.lang.String"/>
+        <result column="isInside" property="isInside" javaType="java.lang.Integer"/>
+        <result column="seriaNumber" property="seriaNumber" javaType="java.lang.Integer"/>
+        <result column="isShow" property="isShow" javaType="java.lang.Integer"/>
+        <result column="msg" property="msg" javaType="java.lang.String"/>
+    </resultMap>
+
+    <insert id="addFoodCategory">
+        INSERT INTO `food_category`(`category_name`,`icon`,`selectedIcon`,`seriaNumber`,`big_category_id`)
+        VALUES
+        (#{foodCategory.categoryName},#{foodCategory.icon},#{foodCategory.selectedIcon},#{foodCategory.seriaNumber},1)
+    </insert>
+
+    <update id="updateBigCategoryInside">
+        UPDATE `big_category`
+        SET isInside=0
+    </update>
+
+    <update id="updateBigCategoryMSG">
+        UPDATE `big_category`
+        <set>
+            <if test="bigFoodCategory.msg != null">
+                `msg`=#{bigFoodCategory.msg},
+            </if>
+        </set>
+        WHERE `id`=#{bigFoodCategory.id}
+    </update>
+
+
+    <update id="updateBigCategory">
+        <foreach collection="bigCategorys" index="index" item="bigCategory" separator=";">
+            UPDATE `big_category`
+            SET `isInside`=#{bigCategory.isInside}
+            WHERE `id`=#{bigCategory.id}
+        </foreach>
+    </update>
+
+    <select id="queryBigCategory" resultMap="BaseCategory">
+        SELECT * FROM `big_category`
+    </select>
+
+    <select id="queryCategoryByIds" resultMap="BaseCategory">
+        SELECT
+            fc.`id`,
+            fc.`category_name`
+        FROM
+            food_category fc,
+            coupon_food_category cfc
+        WHERE
+            fc.id = cfc.food_category_id
+        AND cfc.coupon_id = #{id}
+    </select>
+
+    <update id="updateCategory">
+        UPDATE `food_category`
+        <set>
+            <if test="category.isShow != null">
+              `isShow`=#{category.isShow},
+            </if>
+            <if test="category.seriaNumber != null">
+              `seriaNumber`=#{category.seriaNumber},
+            </if>
+            <if test="category.categoryName != null">
+              `category_name`=#{category.categoryName},
+            </if>
+            <if test="category.icon != null">
+                `icon`=#{category.icon},
+            </if>
+            <if test="category.selectedIcon != null">
+                `selectedIcon`=#{category.selectedIcon},
+            </if>
+        </set>
+        WHERE id=#{category.id}
+    </update>
+
+    <select id="queryAll" resultMap="BaseCategory">
+        SELECT * FROM `food_category`
+    </select>
+
+    <select id="queryCategoryById" resultMap="BaseCategory">
+        SELECT * FROM `food_category`
+        WHERE `id`=#{id}
+    </select>
+
+    <select id="querySingleFoodCategory" resultMap="BaseCategory">
+        SELECT * FROM `food_category`
+        WHERE `big_category_id`=1
+        ORDER BY `seriaNumber` DESC
+    </select>
+
+    <select id="querySingleFoodCategoryForApp" resultMap="BaseCategory">
+        SELECT * FROM `food_category`
+        WHERE `big_category_id`=1 AND `isShow`=1
+        ORDER BY `seriaNumber` DESC
+    </select>
+
+
+
+
+
+
+</mapper>

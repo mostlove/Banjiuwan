@@ -1,0 +1,16 @@
+{
+    "apkUrl":"http://7xnfyf.com1.z0.glb.clouddn.com/feast-24-1.0.5.4-test.apk",
+    "size":"9.5M",
+	"appName":"办酒碗",
+	"changeLog":"
+	1.推荐弹窗和卡片页固定高宽比例<br/>
+	2.收货地址中展示详细地址<br/>
+	",
+	"created_at":"2017-03-30",
+	"isForce":0,
+	"isAutoInstall":1,
+	"versionName":"1.0.5.4",
+	"updateTips":"更新",
+	"versionCode":"24",
+	"status":1
+}

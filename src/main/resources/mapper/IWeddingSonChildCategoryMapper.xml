@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+        
+<mapper namespace="com.magicbeans.banjiuwan.mapper.IWeddingSonChildCategoryMapper">
+    
+    <resultMap id="BaseSonCategory" type="com.magicbeans.banjiuwan.beans.WeddingSonChildCategory">
+        <result column="id" property="id" javaType="java.lang.Integer"/>
+        <result column="wedding_son_id" property="weddingSonId" javaType="java.lang.Integer"/>
+        <result column="wedding_child_category_id" property="childCategoryId" javaType="java.lang.Integer"/>
+        <result column="create_time" property="createTime" javaType="java.util.Date"/>
+        <result column="name" property="name" javaType="java.lang.String"/>
+        <result column="units" property="units" javaType="java.lang.String"/>
+        <result column="price" property="price" javaType="java.lang.Double"/>
+    </resultMap>
+
+
+    <insert id="addWeddingSonChildCategory">
+        INSERT  INTO `wedding_son_wedding_childcategory`
+          (`wedding_son_id`,`wedding_child_category_id`,`create_time`)
+        VALUES
+          (#{weddingSonChildCategory.weddingSonId},#{weddingSonChildCategory.childCategoryId},NOW())
+    </insert>
+
+    <delete id="delWeddingSonChildCategoryByChildCategory">
+        DELETE FROM `wedding_son_wedding_childcategory` WHERE `wedding_child_category_id`=#{childCategoryId}
+    </delete>
+
+    <delete id="delWeddingSonChildCategoryById">
+        DELETE FROM `wedding_son_wedding_childcategory` WHERE `id`=#{id}
+    </delete>
+
+    <select id="querySonChildCategory" resultMap="BaseSonCategory">
+
+      SELECT wsc.*,ws.name AS `name`, ws.price AS `price`, ws.units AS `units`  FROM `wedding_son_wedding_childcategory` wsc,`wedding_son` ws
+      WHERE wsc.wedding_son_id=ws.id
+      <if test="childCategoryId != null">
+          AND wsc.`wedding_child_category_id`=#{childCategoryId}
+      </if>
+      ORDER BY wsc.`create_time` DESC
+      <if test="limit != null and limitSize != null">
+          LIMIT #{limit},#{limitSize}
+      </if>
+
+    </select>
+
+    <select id="countSonChildCategory" resultType="java.lang.Integer">
+
+      SELECT COUNT(*)  FROM `wedding_son_wedding_childcategory` wsc,`wedding_son` ws
+      WHERE wsc.wedding_son_id=ws.id
+      <if test="childCategoryId != null">
+          AND wsc.`wedding_child_category_id`=#{childCategoryId}
+      </if>
+
+    </select>
+
+</mapper>

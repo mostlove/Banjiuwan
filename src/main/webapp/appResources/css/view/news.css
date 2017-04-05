@@ -1,0 +1,58 @@
+/**
+ * 分享页面自定义css
+ * */
+body,html,.mui-content{
+	background: #fff;
+	padding-bottom: 0;
+}
+.news-context{
+	padding: 10px;
+}
+.news-img{
+	min-height: 200px;
+	max-height: 300px;
+	width: 100%;
+}
+.news-title{
+	font-weight: 500;
+	margin: 0;
+	margin-bottom: 5px;
+}
+.commodity-index-mark{
+	color: #929292;
+}
+.commodity-index-mark i{
+	font-size: 18px;
+	color: #D72C22;
+}
+.context{
+	padding: 10px 0;
+}
+.returnBtn{
+	padding: 15px;
+	width: 100%;
+	text-align: center;
+}
+
+.returnBtn input{
+	background: #D72C22;
+	color: #fff;
+	border-color: #D72C22;
+	border-radius: 30px;
+	width: 200px;
+}
+.returnBtn input:active,.returnBtn input:focus{
+	background: #D72C22 !important;
+	color: #fff !important;
+}
+
+
+
+/*iphone6*/
+@media screen and (max-width:375px) {
+	
+}
+/*iphone5*/
+@media screen and (max-width:320px) {
+
+}

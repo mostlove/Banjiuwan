@@ -1,0 +1,142 @@
+/**
+ * 选择地址页面自定义css
+ * */
+
+.search-bar{
+	background: #D72C22;
+	height: 56px;
+	padding: 0 15px;
+	line-height: 56px;
+}
+.search-bar input{
+	width: 100%;
+	font-size: 12px;
+	padding: 8px 10px;
+	border-radius: 30px;
+	text-align: center;
+	transition: all 0.5s;
+	background: #fff;
+}
+.search-bar i{
+	position: absolute;
+	top: 17px;
+	color: #999999;
+	font-size: 18px;
+	left: 50%;
+	margin-left: -50px;
+	transition: all 0.5s;
+	font-weight: bold;
+}
+.cancel-btn{
+	font-size: 12px;
+	color: #fff;
+	opacity: 0;
+	transition: all 0.5s;
+	position: relative;
+	left: -100px;
+}
+.cancel-btn:active, .cancel-btn:focus{
+	color: #fff;
+}
+
+.active-input input{
+	text-align: left;
+	width: 80%;
+	padding-left: 30px;
+}
+.active-input i{
+	left: 0;
+	margin-left: 25px;
+}
+.active-input .cancel-btn{
+	opacity: 1;
+	left: 0px;
+	position: relative;
+	display: inline-block;
+}
+.title-hint{
+	padding: 15px;
+	color: #999999;
+	font-size: 14px;
+}
+.current{
+	padding: 15px;
+	background: #fff;
+	display: block;
+	color: #000;
+	font-size: 14px;
+}
+.current:active ,.current:focus{
+	color: #000;
+}
+.again-btn{
+	color: #089FFC;
+	text-align: right;
+	display: block;
+}
+.border-bottom{
+	border-bottom: 1px solid #eee;
+}
+.more-address{
+	color: #D72C22;
+	position: relative;
+}
+
+#searchAddress{
+	display: none;
+}
+.address-title{
+	margin: 0;
+	font-size: 14px;
+	color: #000;
+}
+.address-info{
+	margin: 0;
+	font-size: 12px;
+}
+.mui-loading .mui-spinner{
+	margin: 0 !important;
+}
+.mui-spinner{
+	width: 19px;
+	height: 19px;
+}
+
+/*服务地址*/
+.user-name{
+	font-size: 14px;
+	color: #000;
+}
+.user-gender{
+	font-size: 14px;
+	color: #000;
+	margin-left: 5px;
+}
+.user-phone{
+	margin-left: 15px;
+	font-size: 14px;
+	color: #000;
+}
+.address{
+	font-size: 14px;
+	color: #999999;
+	margin-top: 5px !important;
+	margin-bottom: 0;
+}
+.detailAddress{
+	font-size: 14px;
+	color: #000;
+	margin-top: 5px !important;
+	margin-bottom: 0;
+}
+
+/*iphone6*/
+@media screen and (max-width:375px) {
+	
+}
+/*iphone5*/
+@media screen and (max-width:320px) {
+	.classify-title{
+		font-size: 14px;
+	}
+}

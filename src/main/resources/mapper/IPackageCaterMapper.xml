@@ -1,0 +1,164 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+
+
+<mapper namespace="com.magicbeans.banjiuwan.mapper.IPackageCaterMapper">
+    <resultMap id="BasePackageCater" type="com.magicbeans.banjiuwan.beans.PackageCater">
+        <result column="id" property="id" javaType="java.lang.Integer"/>
+        <result column="banners" property="banners" javaType="java.lang.String"/>
+        <result column="name" property="name" javaType="java.lang.String"/>
+        <result column="topbanner" property="topBanner" javaType="java.lang.String"/>
+        <result column="introduction" property="introduction" javaType="java.lang.String"/>
+        <result column="units" property="units" javaType="java.lang.String"/>
+        <result column="price" property="price" javaType="java.lang.Double"/>
+        <result column="promotion_price" property="promotionPrice" javaType="java.lang.Double"/>
+        <result column="recommendation_index" property="recommendationIndex" javaType="java.lang.Integer"/>
+        <result column="sales" property="sales" javaType="java.lang.Integer"/>
+        <result column="food_category_id" property="foodCategoryId" javaType="java.lang.Integer"/>
+        <result column="least_number" property="leastNumber" javaType="java.lang.Integer"/>
+        <result column="countNumber" property="countNumber" javaType="java.lang.Integer"/>
+        <result column="create_time" property="createTime" javaType="java.util.Date"/>
+        <association property="singleFoodList" column="id" select="com.magicbeans.banjiuwan.mapper.ISingleFoodMapper.queryByPackage"/>
+    </resultMap>
+
+
+    <update id="batchUpdateSales">
+        <foreach collection="packageCaters" item="packageCater" index="index" separator=";">
+            UPDATE `package_cater`
+            SET `sales`=`sales` + #{packageCater.sales}
+            WHERE `id`=#{packageCater.id}
+        </foreach>
+    </update>
+
+    <select id="queryPackageCaterOtherInfo" resultMap="BasePackageCater">
+        SELECT
+            pc.*
+            <if test="userId != null">
+                ,sc.number AS `countNumber`
+            </if>
+        FROM
+            package_cater pc
+        LEFT JOIN shop_car sc ON pc.id = sc.food_id
+        AND pc.food_category_id = sc.food_category_id
+        <if test="userId != null">
+            AND sc.user_id = #{userId}
+        </if>
+        WHERE
+            pc.id = #{foodId}
+        AND pc.food_category_id = #{categoryId}
+        GROUP BY pc.id
+    </select>
+
+    <select id="batchQuery" resultMap="BasePackageCater">
+        SELECT `id`,`topbanner`,`name`,`price`,`units`,`promotion_price`,`least_number`
+        FROM `package_cater`
+        WHERE `id` IN
+        <foreach collection="ids" index="index" item="id" open="(" close=")" separator=",">
+            #{id}
+        </foreach>
+    </select>
+    
+    <insert id="addPackageCater" useGeneratedKeys="true" keyProperty="packageCater.id">
+
+        INSERT INTO `package_cater`
+        (`banners`,`name`,`topbanner`,`introduction`,`price`,`promotion_price`,`recommendation_index`
+        ,`sales`,`food_category_id`,`units`,`least_number`,`create_time`)
+        VALUES
+        (#{packageCater.banners},#{packageCater.name},#{packageCater.topBanner},#{packageCater.introduction}
+        ,#{packageCater.price},#{packageCater.promotionPrice},#{packageCater.recommendationIndex},#{packageCater.sales},
+        #{packageCater.foodCategoryId},#{packageCater.units},#{packageCater.leastNumber},#{packageCater.createTime})
+
+    </insert>
+
+    <update id="updatePackageCater">
+
+        UPDATE `package_cater`
+        <set>
+          <if test="packageCater.banners != null">
+              `banners`=#{packageCater.banners},
+          </if>
+          <if test="packageCater.leastNumber != null">
+              `least_number`=#{packageCater.leastNumber},
+          </if>
+          <if test="packageCater.units != null">
+              `units`=#{packageCater.units},
+          </if>
+          <if test="packageCater.name != null">
+              `name`=#{packageCater.name},
+          </if>
+          <if test="packageCater.topBanner != null">
+              `topbanner`=#{packageCater.topBanner},
+          </if>
+          <if test="packageCater.introduction != null">
+              `introduction`=#{packageCater.introduction},
+          </if>
+          <if test="packageCater.price != null">
+              `price`=#{packageCater.price},
+          </if>
+          <if test="packageCater.promotionPrice != null">
+              `promotion_price`=#{packageCater.promotionPrice},
+          </if>
+          <if test="packageCater.recommendationIndex != null">
+              `recommendation_index`=#{packageCater.recommendationIndex},
+          </if>
+          <if test="packageCater.sales != null">
+              `sales`=#{packageCater.sales},
+          </if>
+          <if test="packageCater.foodCategoryId != null">
+              `food_category_id`=#{packageCater.foodCategoryId},
+          </if>
+        </set>
+        WHERE id=#{packageCater.id}
+    </update>
+
+
+    <select id="queryByCategory" resultMap="BasePackageCater">
+        SELECT * FROM `package_cater`
+        WHERE 1=1
+        <if test="categoryId != null">
+            AND `food_category_id`=#{categoryId}
+        </if>
+    </select>
+
+    <select id="queryById" resultMap="BasePackageCater">
+        SELECT * FROM `package_cater` WHERE id=#{id}
+    </select>
+    
+    <delete id="delPackageCater">
+        DELETE FROM `package_cater` WHERE id=#{id}
+    </delete>
+
+    <select id="queryByNameOrCategory" resultMap="BasePackageCater">
+        SELECT * FROM `package_cater` WHERE 1=1
+        <if test="name != null">
+            AND `name` LIKE '%${name}%'
+        </if>
+        <if test="categoryId != null">
+            AND `food_category_id`=#{categoryId}
+        </if>
+
+        ORDER BY `create_time` DESC
+
+        <if test="limit != null  and limitSize != null">
+            LIMIT #{limit},#{limitSize}
+        </if>
+    </select>
+
+    <select id="countByNameOrCategory" resultType="java.lang.Integer">
+        SELECT COUNT(*) FROM `package_cater` WHERE 1=1
+        <if test="name != null">
+            AND `name` LIKE '%${name}%'
+        </if>
+        <if test="categoryId != null">
+            AND `food_category_id`=#{categoryId}
+        </if>
+    </select>
+
+
+
+
+
+
+
+</mapper>

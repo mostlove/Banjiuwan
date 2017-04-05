@@ -1,0 +1,124 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+
+<mapper namespace="com.magicbeans.banjiuwan.mapper.IAdminUserMapper">
+
+    <resultMap id="BaseAdminUser" type="com.magicbeans.banjiuwan.beans.AdminUser">
+        <result column="id" property="id" javaType="java.lang.Integer"/>
+        <result column="phone_number" property="phoneNumber" javaType="java.lang.String"/>
+        <result column="user_name" property="userName" javaType="java.lang.String"/>
+        <result column="pwd" property="password" javaType="java.lang.String"/>
+        <result column="code" property="code" javaType="java.lang.String"/>
+        <result column="create_time" property="createTime" javaType="java.util.Date"/>
+        <result column="is_valid" property="isValid" javaType="java.lang.Integer"/>
+        <result column="role_id" property="roleId" javaType="java.lang.Integer"/>
+    </resultMap>
+
+
+    <resultMap id="AdminUserIncludeRole" type="com.magicbeans.banjiuwan.beans.AdminUser" extends="BaseAdminUser">
+        <association property="role" column="role_id" select="com.magicbeans.banjiuwan.mapper.IRoleMapper.queryRoleById"/>
+    </resultMap>
+
+    <select id="queryAdminUserById" resultMap="BaseAdminUser">
+        SELECT  * FROM  `admin_users`
+        WHERE `id`=#{id}
+    </select>
+
+    <select id="queryAdminUserByUser" resultMap="BaseAdminUser">
+        SELECT
+            au.*
+        FROM
+            `admin_users` au,
+            `users` u
+        WHERE
+            au.id = u.admin_user_id
+        AND u.id = #{userId}
+    </select>
+
+    <select id="queryAdminUserByCode" resultMap="BaseAdminUser">
+        SELECT * FROM `admin_users` WHERE `code`=#{code}
+    </select>
+
+    <select id="queryAdminUserForWeb" resultMap="BaseAdminUser">
+        SELECT * FROM `admin_users`
+        WHERE  1=1
+        <if test="userName != null">
+            AND `user_name` LIKE '%${userName}%'
+        </if>
+        <if test="phoneNumber != null">
+            AND `phone_number` LIKE '%${phoneNumber}%'
+        </if>
+        ORDER BY `create_time` DESC
+        <if test="limit != null and limitSize != null">
+            LIMIT #{limit},#{limitSize}
+        </if>
+    </select>
+    <select id="countAdminUserForWeb" resultType="java.lang.Integer">
+        SELECT COUNT(*) FROM `admin_users`
+        WHERE  1=1
+        <if test="userName != null">
+            AND `user_name` LIKE '%${userName}%'
+        </if>
+        <if test="phoneNumber != null">
+            AND `phone_number` LIKE '%${phoneNumber}%'
+        </if>
+    </select>
+
+    <insert id="addAdmin" useGeneratedKeys="true" keyProperty="user.id">
+        INSERT INTO `admin_users`
+        (`phone_number`,`user_name`,`pwd`,`create_time`,`is_valid`,`role_id`,`code`)
+        VALUES
+        (#{user.phoneNumber},#{user.userName},#{user.password}
+        ,NOW(),#{user.isValid},#{user.roleId},#{user.code})
+    </insert>
+    
+    <update id="updateAdmin">
+        UPDATE `admin_users`
+        <set>
+            <if test="user.phoneNumber != null">
+              `phone_number`=#{user.phoneNumber},
+            </if>
+            <if test="user.userName != null">
+                `user_name`=#{user.userName},
+            </if>
+            <if test="user.password != null">
+                `pwd`=#{user.password},
+            </if>
+            <if test="user.isValid != null">
+                `is_valid`=#{user.isValid},
+            </if>
+            <if test="user.roleId != null">
+                `role_id`=#{user.roleId},
+            </if>
+        </set>
+        WHERE id=#{user.id}
+    </update>
+
+
+    <select id="queryByPhoneAndPwd" resultMap="AdminUserIncludeRole">
+        SELECT * FROM `admin_users`
+        WHERE `phone_number`=#{phoneNumber}
+        <if test="password != null">
+            AND  `pwd`= #{password}
+        </if>
+    </select>
+
+
+
+
+    <!-- 获取管理员详情 -->
+    <select id="getAdminUserByIdForWeb" resultMap="BaseAdminUser">
+        SELECT * FROM admin_users WHERE id = #{id}
+    </select>
+
+
+
+
+
+
+
+
+
+
+</mapper>

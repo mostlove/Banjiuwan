@@ -1,0 +1,137 @@
+/**
+ * 厨师登录页面自定义css
+ * */
+.area {
+	margin: 20px auto 0px auto;
+}
+
+.mui-input-group {
+	margin-top: 10px;
+}
+
+.mui-input-group:first-child {
+	margin-top: 10px;
+}
+
+.mui-input-group label {
+	width: 18%;
+}
+
+.mui-input-row label~input,
+.mui-input-row label~select,
+.mui-input-row label~textarea {
+	width: 82%;
+}
+.mui-checkbox label, .mui-radio label{
+	width: inherit;
+}
+.mui-btn {
+	padding: 10px;
+}
+.mui-btn-primary{
+	background: #D72C22;
+	border-color: #D72C22;
+	border-radius: 6px;
+	padding: 8px;
+}
+.mui-btn-primary:active, .mui-btn-primary:focus{
+	background: #D72C22 !important;
+	border-color: #D72C22 !important;
+}
+
+.link-area {
+	display: block;
+	margin-top: 25px;
+	text-align: center;
+}
+
+.spliter {
+	color: #bbb;
+	padding: 0px 8px;
+}
+
+.oauth-area {
+	position: absolute;
+	bottom: 20px;
+	left: 0px;
+	text-align: center;
+	width: 100%;
+	padding: 0px;
+	margin: 0px;
+}
+
+.oauth-area .oauth-btn {
+	display: inline-block;
+	width: 50px;
+	height: 50px;
+	background-size: 30px 30px;
+	background-position: center center;
+	background-repeat: no-repeat;
+	margin: 0px 20px;
+	/*-webkit-filter: grayscale(100%); */
+	border: solid 1px #ddd;
+	border-radius: 25px;
+}
+
+.oauth-area .oauth-btn:active {
+	border: solid 1px #aaa;
+}
+
+.oauth-area .oauth-btn.disabled {
+	background-color: #ddd;
+}
+.mui-input-row label{
+	font-size: 14px;
+	font-family: "微软雅黑";
+	float: none;
+}
+.mui-input-row label img{
+	width: 30px;
+	height: 34px;
+	margin-top: 3px;
+}
+.mui-input{
+	font-size: 12px;
+}
+
+.default-bar{
+	padding: 6px 0;
+	position: relative;
+	height: 40px;
+}
+.mui-checkbox input{
+	left: 15px !important;
+}
+.mui-checkbox label{
+	font-size: 14px;
+	color: #929292;
+	font-family: "微软雅黑";
+	padding-left: 50px !important;
+}
+.forgetPassword{
+	position: absolute;
+	right: 15px;
+	top: 15px;
+	font-size: 14px;
+	color: #929292;
+	font-family: "微软雅黑";
+}
+.login-icon-password{
+	width: 18px !important;
+	height: 25px !important;
+	margin-left: 6px;
+	margin-top: 6px !important;
+}
+
+
+
+/*iphone6*/
+@media screen and (max-width:375px) {
+
+}
+/*iphone5*/
+@media screen and (max-width:320px) {
+	.mui-input-group label{
+		padding: 5px 8px !important;
+	}
+}

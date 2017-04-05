@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.magicbeans.banjiuwan.mapper.IOrderCookMapper">
+
+
+    <insert id="addOrderCook">
+        INSERT INTO `order_cook` (`orderId`,`cookId`,`isMain`,`isLocking`)
+        VALUES
+        (#{orderCook.orderId},#{orderCook.cookId},#{orderCook.isMain},#{orderCook.isLocking})
+    </insert>
+
+    <insert id="batchAddOrderCook">
+        INSERT INTO `order_cook`
+        (`orderId`,`cookId`,`isMain`,`isLocking`)
+        VALUES
+        <foreach collection="orderCooks" index="index" item="orderCook" separator=",">
+            (#{orderCook.orderId},#{orderCook.cookId},#{orderCook.isMain},#{orderCook.isLocking})
+        </foreach>
+    </insert>
+
+
+    <delete id="batchDelOrderCook">
+        DELETE FROM `order_cook`
+        WHERE `id` IN
+        <foreach collection="ids" index="index" item="id" open="(" close=")" separator=",">
+            #{id}
+        </foreach>
+    </delete>
+
+    <delete id="delByOrder">
+        DELETE FROM `order_cook`
+        WHERE `orderId` =#{orderId}
+    </delete>
+
+    <select id="queryOrderCookByOrder" resultType="com.magicbeans.banjiuwan.beans.Cook">
+        SELECT
+        c.`real_name` AS `realName`,c.`phone_number` AS `phoneNumber`,c.id AS `id`
+        FROM
+            `cook` c,
+            order_cook oc
+        WHERE
+            c.id = oc.cookId
+        AND oc.orderId 
+        IN 
+        <foreach collection="orderIds" index="index" item="orderId" open="(" close=")" separator=",">
+            #{orderId}
+        </foreach>
+    </select>
+
+    <select id="queryOrderCookBySingleOrder" resultType="com.magicbeans.banjiuwan.beans.Cook">
+        SELECT
+        c.`real_name` AS `realName`,c.`phone_number` AS `phoneNumber`,c.id AS `id`,oc.isMain AS isMain
+        FROM
+            `cook` c,
+            order_cook oc
+        WHERE
+            c.id = oc.cookId
+        AND oc.orderId = #{orderId}
+--         AND oc.isLocking IS NULL
+    </select>
+
+
+</mapper>

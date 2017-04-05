@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+
+<mapper namespace="com.magicbeans.banjiuwan.mapper.IServiceConfigMapper">
+
+
+    <insert id="addServiceConfig" useGeneratedKeys="true" keyProperty="config.id">
+        INSERT INTO `service_config` (`price`,`addPrice`)
+        VALUES (#{config.price},#{config.addPrice})
+    </insert>
+
+    <update id="updateServiceConfig">
+        UPDATE `service_config`
+        <set>
+            <if test="config.price != null">
+                `price`=#{config.price},
+            </if>
+            <if test="config.addPrice != null">
+                `addPrice`=#{config.addPrice},
+            </if>
+        </set>
+        WHERE `id`=#{config.id}
+    </update>
+
+    <delete id="delServiceConfig">
+        DELETE FROM `service_config`
+        WHERE `id`=#{id}
+    </delete>
+
+    <select id="queryAllServiceConfig" resultType="com.magicbeans.banjiuwan.beans.ServiceConfig">
+        SELECT * FROM `service_config` ORDER BY `price` ASC
+    </select>
+
+    <select id="info" resultType="com.magicbeans.banjiuwan.beans.ServiceConfig">
+        SELECT * FROM `service_config` WHERE id = #{id}
+    </select>
+
+</mapper>

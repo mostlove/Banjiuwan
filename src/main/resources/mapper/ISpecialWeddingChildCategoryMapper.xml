@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+
+<mapper namespace="com.magicbeans.banjiuwan.mapper.ISpecialWeddingChildCategoryMapper">
+
+    <resultMap id="BaseWeddingChildCategory" type="com.magicbeans.banjiuwan.beans.SpecialWeddingChildCategory">
+        <result column="id" property="id" javaType="java.lang.Integer"/>
+        <result column="wedding_id" property="weddingId" javaType="java.lang.Integer"/>
+        <result column="child_category_id" property="childCategoryId" javaType="java.lang.Integer"/>
+    </resultMap>
+    
+    <insert id="batchAddWeddingChildCategory">
+        INSERT INTO `special_wedding_childcategory` (`wedding_id`,`child_category_id`)
+        VALUES 
+        <foreach collection="weddingChildCategorys" index="index" item="weddingChildCategory" separator=",">
+            (#{weddingChildCategory.weddingId},#{weddingChildCategory.childCategoryId})
+        </foreach>
+    </insert>
+
+
+    <delete id="delWeddingChildCategoryByWedding">
+        DELETE FROM `special_wedding_childcategory` WHERE `wedding_id`=#{weddingId}
+    </delete>
+
+</mapper>

@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+
+
+<mapper namespace="com.magicbeans.banjiuwan.mapper.ISpecialServiceMapper">
+    <resultMap id="BaseSpecialService" type="com.magicbeans.banjiuwan.beans.SpecialService">
+        <result column="id" property="id" javaType="java.lang.Integer"/>
+        <result column="banners" property="banners" javaType="java.lang.String"/>
+        <result column="units" property="units" javaType="java.lang.String"/>
+        <result column="service_idea" property="serviceIdea" javaType="java.lang.String"/>
+        <result column="service_flow" property="serviceFlow" javaType="java.lang.String"/>
+        <result column="service_standard" property="serviceStandard" javaType="java.lang.String"/>
+        <result column="price" property="price" javaType="java.lang.Double"/>
+        <result column="food_category_id" property="foodCategoryId" javaType="java.lang.Integer"/>
+    </resultMap>
+
+    
+    <insert id="addSpecialService">
+
+        INSERT INTO `special_service`
+        (`banners`,`service_idea`,`service_flow`,`service_standard`,`price`,`food_category_id`,`units`)
+        VALUES
+        (#{specialService.banners},#{specialService.serviceIdea},#{specialService.serviceFlow},#{specialService.serviceStandard}
+        ,#{specialService.price},#{specialService.foodCategoryId},#{specialService.units})
+
+    </insert>
+
+    <update id="updateSpecialService">
+
+        UPDATE `special_service`
+        <set>
+          <if test="specialService.banners != null">
+              `banners`=#{specialService.banners},
+          </if>
+          <if test="specialService.serviceIdea != null">
+              `service_idea`=#{specialService.serviceIdea},
+          </if>
+          <if test="specialService.units != null">
+              `units`=#{specialService.units},
+          </if>
+          <if test="specialService.serviceFlow != null">
+              `service_flow`=#{specialService.serviceFlow},
+          </if>
+          <if test="specialService.serviceStandard != null">
+              `service_standard`=#{specialService.serviceStandard},
+          </if>
+          <if test="specialService.price != null">
+              `price`=#{specialService.price},
+          </if>
+          <if test="specialService.foodCategoryId != null">
+              `food_category_id`=#{specialService.foodCategoryId},
+          </if>
+        </set>
+        WHERE id=#{specialService.id}
+    </update>
+
+
+    <select id="queryAll" resultMap="BaseSpecialService">
+        SELECT * FROM `special_service`
+    </select>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</mapper>

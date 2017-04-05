@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+
+<mapper namespace="com.magicbeans.banjiuwan.mapper.IAllConfigMapper">
+
+
+    
+    <select id="queryAllConfig" resultType="com.magicbeans.banjiuwan.beans.AllConfig">
+        select * from `all_config`;
+    </select>
+    
+    <update id="updateConfig">
+        UPDATE `all_config` 
+        <set>
+            <if test="allConfig.garnishTime != null">
+                `garnishTime`=#{allConfig.garnishTime},
+            </if>
+            <if test="allConfig.currentLocation != null">
+                `currentLocation`=#{allConfig.currentLocation},
+            </if>
+            <if test="allConfig.startPoint != null">
+                `startPoint`=#{allConfig.startPoint},
+            </if>
+            <if test="allConfig.accumulate != null">
+                `accumulate`=#{allConfig.accumulate},
+            </if>
+            <if test="allConfig.yuan != null">
+                `yuan`=#{allConfig.yuan},
+            </if>
+            <if test="allConfig.distribution != null">
+                `distribution`=#{allConfig.distribution},
+            </if>
+        </set>
+        WHERE `id`=#{allConfig.id}
+    </update>
+</mapper>

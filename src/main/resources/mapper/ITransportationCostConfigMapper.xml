@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.magicbeans.banjiuwan.mapper.ITransportationCostConfigMapper">
+
+
+
+    <insert id="addTransportationgCostConfig" useGeneratedKeys="true" keyProperty="config.id">
+        INSERT  INTO `transportation_cost_config` (`distance`,`price`)
+        VALUES
+        (#{config.distance},#{config.price})
+    </insert>
+
+    <delete id="delTransportationgCostConfig">
+        DELETE FROM `transportation_cost_config`
+        WHERE `id`=#{id}
+    </delete>
+
+    <update id="updateTransportationgCostConfig">
+        UPDATE `transportation_cost_config`
+        <set>
+            <if test="config.distance != null">
+                `distance`=#{config.distance},
+            </if>
+            <if test="config.price != null">
+                `price`=#{config.price},
+            </if>
+        </set>
+        WHERE  `id`=#{config.id}
+    </update>
+
+    <select id="queryConfig" resultType="com.magicbeans.banjiuwan.beans.TransportationCostConfig">
+        SELECT * FROM `transportation_cost_config`
+        ORDER BY `distance` DESC
+        <if test="limit != null and limitSize != null">
+            LIMIT #{limit},#{limitSize}
+        </if>
+    </select>
+
+    <select id="countConfig" resultType="java.lang.Integer">
+        SELECT COUNT(*) FROM `transportation_cost_config`
+    </select>
+
+    <select id="queryConfigByDistance" resultType="com.magicbeans.banjiuwan.beans.TransportationCostConfig">
+        SELECT * FROM `transportation_cost_config` WHERE `distance`=#{distance}
+    </select>
+
+    <select id="info" resultType="com.magicbeans.banjiuwan.beans.TransportationCostConfig">
+         SELECT * FROM `transportation_cost_config` WHERE `id`=#{id}
+    </select>
+</mapper>

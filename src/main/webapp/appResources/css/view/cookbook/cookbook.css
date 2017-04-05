@@ -1,0 +1,259 @@
+/**
+ * 菜谱页面自定义css
+ * */
+.mui-content{
+	padding-bottom: 50px !important;
+	background: #fff;
+}
+.mui-row.mui-fullscreen>[class*="mui-col-"] {
+	height: 100%;
+}
+
+.overflow {
+	overflow-y: auto;
+	height: 100%;
+}
+
+.mui-segmented-control .mui-control-item {
+	line-height: 50px;
+	width: 100%;
+}
+
+.mui-control-content {
+	display: block;
+}
+.mui-segmented-control .mui-control-item{
+	-webkit-transition: background-color 0s linear;
+	transition: background-color 0s linear;
+}
+.mui-segmented-control.mui-segmented-control-inverted .mui-control-item.mui-active {
+	background-color: #fff;
+}
+.mui-plus.mui-android header.mui-bar{
+	display: none;
+}
+header.mui-bar{
+	height: 40px;
+	padding: 0;
+}
+.mui-plus.mui-android .mui-bar-nav~.mui-content{
+	padding: 0;
+}
+.mui-bar-nav~.mui-content{
+	padding-top: 40px;
+}
+.mui-segmented-control.mui-segmented-control-inverted.mui-segmented-control-vertical .mui-control-item, .mui-segmented-control.mui-segmented-control-inverted.mui-segmented-control-vertical .mui-control-item.mui-active{
+	border-bottom: none;
+}
+.mui-segmented-control.mui-segmented-control-inverted .mui-control-item.mui-active{
+	border-bottom: none;
+}
+/*hm开头的表示仅为 Hello MUI示例定义*/
+.hm-description{
+	margin: .5em 0;
+}
+
+.hm-description>li {
+	font-size: 14px;
+	color: #8f8f94;
+}
+
+/*左侧菜单*/
+.mui-segmented-control .mui-control-item{
+	white-space: inherit;
+}
+.classify{
+	text-align: center;
+	border-bottom: 1px solid #eee;
+	background: #fff;
+	height: 40px;
+	line-height: 40px;
+}
+.classify .dian{
+	border-radius: 50%;
+	background: #D72C22;
+	width: 5px;
+	height: 5px;
+	display: inline-block;
+	position: relative;
+	top: -4px;
+}
+.classify .className{
+	font-weight:bold;
+	color: #D72C22;
+	margin-left: 3px;
+	font-size: 16px;
+}
+.cookbook-menu{
+	border-bottom: 1px solid #dedede !important;
+	background: rgba(0, 0, 0, 0);
+	display: block;
+	/*transition: transform .3s,opacity .3s;*/
+	/*transition: all 1s;*/
+}
+.cookbook-menu-item{
+	height: 62px;
+	line-height: 62px !important;
+	border-right: 6px solid rgb(185, 185, 185);
+	text-align: center;
+	/*transition: all 1s;*/
+}
+.cookbook-menu .cookbook-menu-name{
+	display: inline-block;
+	color: rgb(155, 155, 155);
+	width: 20px;
+	font-size: 1.4rem;
+	line-height: 1.2;
+	max-width:100%;
+	vertical-align: middle;
+	margin-left: 5px;
+}
+.cookbook-menu img{
+	width: 36px;
+	height: 30px;
+	position: relative;
+	top: 11px;
+	/*transition: all 1s;*/
+}
+#leftControls .mui-active{
+	/*background-image: url(../../../img/cookbook/2.png);
+	width: auto;
+	background-repeat: repeat;
+	background-size: cover;*/
+	/*background: #D42B20;*/
+	transition: all 1s;
+}
+.mui-active .cookbook-menu-item{
+	border-right: 6px solid #AA0000 !important;
+}
+.mui-active .cookbook-menu-name{
+	color: #000000 !important;
+}
+/*右侧*/
+.classify-title{
+	font-size: 16px;
+	color: #D72C22;
+	text-align: left;
+	height: 40px;
+	line-height: 40px;
+	padding-left: 15px;
+	border-bottom: 1px solid #eee;
+	background: #fff;
+}
+.classify-title img{
+	width: 30px;
+	height: 24px;
+	position: relative;
+	top: 7px;
+	margin-right: 10px;
+}
+#rightContents{
+	border-left: 1px solid #eee;
+}
+#segmentedControlContents{
+	padding: 10px;
+}
+/*商品*/
+#rightContents{
+	padding-bottom: 40px;
+}
+#rightContents .mui-control-content{
+	padding: 10px;
+	background: #fff;
+}
+.commodity-item{
+	border-bottom: 1px solid #eee;
+	position: relative;
+}
+.commodity-item img {
+	width: 100%;
+	height: 200px;
+	position: absolute;
+}
+.commodity-item a{
+	display: block;
+	width: 100%;
+	height: 200px;
+	position: relative;
+	margin-bottom: 5px;
+}
+.commodity-row{
+	margin: 0;
+}
+.commodity-row .commodity-name{
+	font-size: 1.5rem;
+	color: #0c0c0c;
+}
+.commodity-row .commodity-price{
+	float: right;
+	font-size: 2rem;
+	font-weight: 600;
+	color: #D72C22;
+	position: relative;
+	top:1px;
+}
+.commodity-row .commodity-price span{
+	color: rgb(185, 185, 185);
+	font-size: 12px;
+	font-weight: normal;
+	margin-left: 5px;
+}
+.commodity-sales{
+	color: rgb(155, 155, 155);
+	font-size: 12px;
+}
+.commodity-index-mark{
+	color: rgb(155, 155, 155);
+	font-size: 12px;
+}
+.commodity-index-mark i{
+	font-size: 16px;
+	color: #D72C22;
+}
+
+/*加载*/
+.goodsContextLoading{
+	display: none;
+	position: absolute;
+	top: 30%;
+	left:50%;
+	transform: translate(-50%, -50%);
+	-webkit-transform: translate(-50%, -50%);
+	-moz-transform: translate(-50%, -50%);
+	-os-transform: translate(-50%, -50%);
+	z-index: 9;
+}
+.goodsContextLoading .mui-spinner{
+	width: 40px;
+	height: 40px;
+}
+
+/*暂无样式*/
+.notData{
+	width: 100%;
+	padding-top: 50px;
+	text-align: center;
+	font-size: 16px;
+	color: #D72C22;
+}
+
+
+/*iphone6*/
+@media screen and (max-width:375px) {
+	
+}
+/*iphone5*/
+@media screen and (max-width:320px) {
+	.classify-title{
+		font-size: 14px;
+	}
+	.commodity-index-mark i{
+		font-size: 14px;
+	}
+	.commodity-item img {
+		height: 150px;
+	}
+	.commodity-item a{
+		height: 150px;
+	}
+}

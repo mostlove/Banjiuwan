@@ -1,0 +1,114 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+
+
+<mapper namespace="com.magicbeans.banjiuwan.mapper.IUserCouponMapper">
+    <resultMap id="BaseUserCoupon" type="com.magicbeans.banjiuwan.beans.UserCoupon">
+        <result column="id" property="id" javaType="java.lang.Integer"/>
+        <result column="user_id" property="userId" javaType="java.lang.Integer"/>
+        <result column="is_valid" property="isValid" javaType="java.lang.Integer"/>
+        <result column="coupon_id" property="couponId" javaType="java.lang.Integer"/>
+        <result column="days" property="days" javaType="java.lang.Integer"/>
+        <result column="start_time" property="startTime" javaType="java.lang.Integer"/>
+        <result column="end_time" property="endTime" javaType="java.lang.Integer"/>
+        <result column="type" property="type" javaType="java.lang.Integer"/>
+        <result column="faceValue" property="faceValue" javaType="java.lang.Integer"/>
+        <result column="needSpend" property="needSpend" javaType="java.lang.Integer"/>
+        <result column="text" property="text" javaType="java.lang.String"/>
+    </resultMap>
+
+    <update id="batchUpdateCouponIsValid">
+        UPDATE `user_coupon`
+        SET `is_valid`=#{isValid}
+        WHERE `id` IN 
+        <foreach collection="ids" index="index" item="id" open="(" close=")" separator=",">
+            #{id}
+        </foreach>
+    </update>
+
+    <insert id="addUserCoupon">
+        INSERT INTO `user_coupon`
+        (`user_id`,`coupon_id`,`start_time`,`end_time`,`text`,`is_valid`,`days`)
+        VALUES
+        (#{userCoupon.userId},#{userCoupon.couponId},#{userCoupon.startTime},#{userCoupon.endTime},#{userCoupon.text}
+        ,#{userCoupon.isValid},#{userCoupon.days})
+    </insert>
+
+    <insert id="batchAddUserCoupon">
+        INSERT INTO `user_coupon`
+        (`user_id`,`coupon_id`,`start_time`,`end_time`,`text`,`is_valid`,`days`)
+        VALUES
+        <foreach collection="coupons" index="index" item="userCoupon" separator=",">
+            (#{userCoupon.userId},#{userCoupon.couponId},#{userCoupon.startTime},#{userCoupon.endTime},#{userCoupon.text}
+            ,#{userCoupon.isValid},#{userCoupon.days})
+        </foreach>
+
+    </insert>
+
+    <update id="updateUserCoupon">
+
+        UPDATE `user_coupon`
+        <set>
+            <if test="userCoupon.userId != null">
+                `user_id`=#{userCoupon.userId},
+            </if>
+            <if test="userCoupon.days != null">
+                `days`=#{userCoupon.days},
+            </if>
+            <if test="userCoupon.couponId != null">
+                `coupon_id`=#{userCoupon.couponId},
+            </if>
+            <if test="userCoupon.startTime != null">
+                `start_time`=#{userCoupon.startTime},
+            </if>
+            <if test="userCoupon.endTime != null">
+                `end_time`=#{userCoupon.endTime},
+            </if>
+            <if test="userCoupon.text != null">
+                `text`=#{userCoupon.text},
+            </if>
+            <if test="userCoupon.isValid != null">
+                `is_valid`=#{userCoupon.isValid},
+            </if>
+        </set>
+        WHERE id=#{userCoupon.id}
+    </update>
+
+    <select id="queryByUser" resultMap="BaseUserCoupon">
+        SELECT uc.*,co.`type`,co.`face_value` AS `faceValue` ,co.`need_spend` AS `needSpend`
+        FROM `user_coupon` uc,`coupon` co WHERE uc.`is_valid` = 1 AND co.`id`=uc.`coupon_id`
+        <if test="userId != null">
+           AND uc.`user_id`=#{userId}
+        </if>
+        <if test="timestamp != null">
+            <![CDATA[
+            AND #{timestamp} <= uc.`end_time`
+            ]]>
+        </if>
+        
+        <if test="limit != null  and  limitSize != null">
+            LIMIT #{limit},#{limitSize}
+        </if>
+
+
+    </select>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</mapper>

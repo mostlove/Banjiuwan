@@ -1,0 +1,114 @@
+/**
+ * 收货地址页面自定义css
+ * */
+
+.mui-content>.mui-table-view:first-child{
+	margin: 0;
+}
+.mui-table-view-cell{
+	color: #929292;
+	font-size: 14px;
+}
+.person-input{
+	width: 200px !important;
+	height: 30px !important;
+	text-align: right;
+	font-size: 14px;
+	padding: 0 !important;
+	margin: 0 !important;
+	border: none !important;
+	background: rgba(0, 0, 0, 0) !important;
+}
+.item-title{
+	top: 6px;
+	position: relative;
+}
+
+.mui-checkbox.mui-left label, .mui-radio.mui-left label{
+	padding-right: 0 !important;
+	padding-left: 50px !important;
+}
+.mui-radio input:before{
+	font-size: 26px !important;
+	position: relative;
+	top: -2px;
+}
+.mui-radio label{
+	font-size: 14px !important;
+	font-family: "微软雅黑";
+	padding: 8px 15px !important;
+}
+.man{
+	left: -78px;
+	position: relative;
+
+}
+.female{
+	position: absolute;
+	top: 0;
+	margin-top: 11px;
+}
+.mui-icon-arrowright{
+	font-size: 18px;
+}
+.default-bar{
+	padding: 6px 0;
+	margin-top: 10px;
+	background: #fff;
+	border-top: 1px solid #c8c7cc;
+	border-bottom: 1px solid #c8c7cc;
+}
+.mui-checkbox input{
+	left: 15px !important;
+}
+.mui-checkbox label{
+	font-size: 14px;
+	color: #929292;
+	font-family: "微软雅黑";
+}
+
+.add-address-div{
+	position: absolute;
+	z-index: 1;
+	bottom: 15px;
+	width: 100%;
+	text-align: center;
+	max-width: 640px;
+}
+.add-address-btn{
+	width: 90%;
+	text-align: center;
+	background: #D72C22;
+	color: #fff;
+	margin: 0 auto;
+	border-radius: 6px;
+	border-color: #D72C22;
+	padding: 10px;
+
+}
+.add-address-btn:active, .add-address-btn:focus{
+	background: #D72C22 !important;
+}
+#currentAddress{
+	max-width: 70%;
+	position: absolute;
+	right: 30px;
+}
+.right-jian{
+	position: absolute;
+	right: 10px;
+	margin-top: 1px;
+}
+.mui-spinner{
+	width: 20px;
+	height: 20px;
+}
+
+/*iphone6*/
+@media screen and (max-width:375px) {
+	
+}
+/*iphone5*/
+@media screen and (max-width:320px) {
+	
+}

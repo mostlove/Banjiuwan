@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:context="http://www.springframework.org/schema/context"
+       xmlns:aop="http://www.springframework.org/schema/aop"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans
+            http://www.springframework.org/schema/beans/spring-beans.xsd
+            http://www.springframework.org/schema/context
+            http://www.springframework.org/schema/context/spring-context-4.3.xsd
+            http://www.springframework.org/schema/aop
+            http://www.springframework.org/schema/aop/spring-aop.xsd">
+
+
+    <!--自动扫描含有@Service将其注入为bean -->
+    <!--<context:component-scan base-package="com.magicbeans.banjiuwan.service" />-->
+    <!-- 激活组件扫描功能,在包cn.ysh.studio.spring.aop及其子包下面自动扫描通过注解配置的组件 -->
+    <!--<context:component-scan base-package="com.magicbeans.banjiuwan.aop"/>-->
+    <!--激活自动代理功能-->
+    <!--<aop:aspectj-autoproxy proxy-target-class="true"/>-->
+
+
+    <bean id="serviceAspect" class="com.magicbeans.banjiuwan.aop.ServiceAspect" />
+    <!-- aop配置 -->
+    <aop:config proxy-target-class="true">
+        <!--切面 -->
+        <aop:aspect ref="serviceAspect">
+            <!-- 切点 -->
+            <aop:pointcut expression="@annotation(com.magicbeans.banjiuwan.aop.ServiceAopLog))" id="pointcutSalePercentage"/>
+            <!--连接通知方法与切点 -->
+           <!-- <aop:around method="log" pointcut-ref="pointcutSalePercentage"/>-->
+            <aop:after-returning pointcut-ref="pointcutSalePercentage" method="log"/>
+        </aop:aspect>
+    </aop:config>
+
+
+
+    <!--<bean id="ehCacheManager" class="org.springframework.cache.ehcache.EhCacheManagerFactoryBean">-->
+    <!--<property name="configLocation" value="classpath:/ehcache.xml" />-->
+    <!--<property name="shared" value="true" />-->
+    <!--</bean>-->
+
+
+    <!--<bean id="salePercentageAspect" class="com.hci.business.aop.SalePercentageAspect" />-->
+    <!--&lt;!&ndash; aop配置 &ndash;&gt;-->
+    <!--<aop:config proxy-target-class="true">-->
+    <!--&lt;!&ndash;切面 &ndash;&gt;-->
+    <!--<aop:aspect ref="salePercentageAspect">-->
+    <!--&lt;!&ndash; 切点 &ndash;&gt;-->
+    <!--<aop:pointcut expression="@annotation(com.hci.business.aop.SalePercentage))" id="pointcutSalePercentage"/>-->
+    <!--&lt;!&ndash;连接通知方法与切点 &ndash;&gt;-->
+    <!--<aop:around method="around" pointcut-ref="pointcutSalePercentage"/>-->
+    <!--</aop:aspect>-->
+    <!--</aop:config>-->
+
+    <!--<aop:aspectj-autoproxy />-->
+    <!--&lt;!&ndash; base-package 扫描的包  use-default-filters="false" 配置自己的规则 &ndash;&gt;-->
+    <!--<context:component-scan base-package="com.magicbeans.banjiuwan.service" use-default-filters="false">-->
+    <!--<context:include-filter type="annotation" expression="org.aspectj.lang.annotation.Aspect" />-->
+    <!--<context:include-filter type="annotation" expression="org.springframework.stereotype.Service" />-->
+    <!--<context:exclude-filter type="annotation" expression="org.springframework.stereotype.Controller" />-->
+    <!--<context:exclude-filter type="annotation" expression="org.springframework.web.bind.annotation.ControllerAdvice" />-->
+    <!--</context:component-scan>-->
+</beans>

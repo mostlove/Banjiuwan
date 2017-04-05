@@ -1,0 +1,188 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+
+
+<mapper namespace="com.magicbeans.banjiuwan.mapper.IShopCarMapper">
+    <resultMap id="BaseShopCar" type="com.magicbeans.banjiuwan.beans.ShopCar">
+        <result column="id" property="id" javaType="java.lang.Integer"/>
+        <result column="user_id" property="userId" javaType="java.lang.Integer"/>
+        <result column="food_id" property="foodId" javaType="java.lang.Integer"/>
+        <result column="food_category_id" property="foodCategoryId" javaType="java.lang.Integer"/>
+        <result column="number" property="number" javaType="java.lang.Integer"/>
+        <result column="child_category_id" property="childCategoryId" javaType="java.lang.Integer"/>
+        <result column="wedding_son_id" property="weddingSonId" javaType="java.lang.Integer"/>
+
+        <result column="sonName" property="name" javaType="java.lang.String"/>
+        <result column="sonPrice" property="price" javaType="java.lang.Double"/>
+        <result column="sonUnits" property="units" javaType="java.lang.String"/>
+        <result column="categoryImg" property="img" javaType="java.lang.String"/>
+        <result column="categoryName" property="categoryName" javaType="java.lang.String"/>
+        <result column="weddingName" property="weddingName" javaType="java.lang.String"/>
+    </resultMap>
+
+
+    <update id="updateShopCar">
+        UPDATE `shop_car`
+        <set>
+            <if test="shopCar.foodId != null">
+                `food_id`=#{shopCar.foodId},
+            </if>
+            <if test="shopCar.foodCategoryId != null">
+                `food_category_id`=#{shopCar.foodCategoryId},
+            </if>
+        </set>
+        WHERE
+          `id`=#{shopCar.id}
+    </update>
+
+    <delete id="delClearShopCar">
+
+        DELETE FROM `shop_car`
+        WHERE `user_id`=#{userId}
+        <if test="bigCategoryId != null">
+
+            <if test="bigCategoryId == 1 ">
+              <!-- 单点 -->
+              <if test="foodCategories != null">
+                  AND `food_category_id` IN
+                  <foreach collection="foodCategories" item="foodCategorie" index="index" close=")" open="(" separator=",">
+                      #{foodCategorie.id}
+                  </foreach>
+              </if>
+            </if>
+            
+            <if test="bigCategoryId == 2">
+                <!-- 套餐 -->
+                AND `food_category_id`=9
+            </if>
+            <if test="bigCategoryId == 3">
+                <!-- 坝坝宴 -->
+                AND `food_category_id`=10
+            </if>
+            <if test="bigCategoryId == 4">
+                <!-- 庆典 -->
+                AND `food_category_id`=13
+            </if>
+            <if test="bigCategoryId == 5">
+                <!-- 演艺伴奏 -->
+                AND `food_category_id`=12
+            </if>
+            <if test="bigCategoryId == 6">
+                <!-- 演艺伴奏 -->
+                AND `food_category_id`=11
+            </if>
+        </if>
+
+    </delete>
+
+    <select id="queryShopCarByItemOtherInfo" resultMap="BaseShopCar">
+        SELECT
+            sc.*
+        FROM
+            wedding_son ws,
+            shop_car sc
+        WHERE
+            ws.id = sc.wedding_son_id
+        AND sc.food_id = #{weddingId}
+        AND sc.food_category_id=13
+        AND sc.user_id = #{userId}
+        AND ws.id IN 
+        <foreach collection="sonIds" index="index" item="sonId" open="(" close=")" separator=",">
+            #{sonId}
+        </foreach>
+    </select>
+
+    <delete id="batchDelShopCar">
+        DELETE FROM `shop_car`
+        WHERE `id` IN
+        <foreach collection="ids" index="index" item="id" open="(" close=")" separator=",">
+            #{id}
+        </foreach>
+    </delete>
+
+    <select id="batchQuery" resultMap="BaseShopCar">
+
+        SELECT
+        sc.*,
+        ws.`name` AS sonName,
+        ws.price AS sonPrice,
+        ws.units AS sonUnits,
+        wcc.img AS categoryImg,
+        wc.category_name AS categoryName,
+        sw.`name` AS weddingName
+        FROM
+        `shop_car` sc,
+        wedding_son ws,
+        wedding_child_category wcc,
+        wedding_category wc,
+        special_wedding sw
+        WHERE
+        sc.child_category_id = wcc.id
+        AND
+        sc.wedding_son_id=ws.id
+        AND
+        wcc.wedding_category_id=wc.id
+        AND
+        sc.food_id=sw.id
+        AND
+        sc.`id` IN
+        <foreach collection="ids" index="index" item="id" close=")" open="(" separator=",">
+            #{id}
+        </foreach>
+
+    </select>
+
+
+    <insert id="addToShopCar">
+        INSERT INTO `shop_car` (`user_id`,`food_id`,`food_category_id`,`child_category_id`,`wedding_son_id`,
+        `child_category_wedding_son_center_id`)
+        VALUES
+        (#{shopCar.userId},#{shopCar.foodId},#{shopCar.foodCategoryId},#{shopCar.childCategoryId},#{shopCar.weddingSonId},
+        #{shopCar.childCategoryWeddingSonCenterId})
+    </insert>
+
+    <delete id="delShopCar">
+        DELETE FROM `shop_car`
+        WHERE `user_id`=#{userId}
+            AND  `food_id`=#{foodId}
+            AND  `food_category_id`=#{foodCategoryId}
+    </delete>
+
+    <select id="queryAllByUser" resultMap="BaseShopCar">
+       SELECT *
+       FROM `shop_car` WHERE user_id=#{userId}
+    </select>
+
+    <select id="queryShopCarByItem" resultMap="BaseShopCar">
+      SELECT * FROM `shop_car`
+      WHERE  `user_id`=#{userId}
+            AND  `food_id`=#{foodId}
+            AND  `food_category_id`=#{foodCategoryId}
+    </select>
+
+    <select id="queryShopCarForWedding" resultMap="BaseShopCar">
+      SELECT * FROM `shop_car`
+      WHERE  `user_id`=#{userId}
+            AND  `food_id`=#{foodId}
+            AND  `food_category_id`=#{foodCategoryId}
+            AND `wedding_son_id`=#{weddingSonId}
+            AND `child_category_id`=#{childCategoryId}
+    </select>
+
+    <update id="updateShoCarNumber">
+        UPDATE `shop_car` SET `number`=#{shopCar.number}
+        WHERE id=#{shopCar.id}
+    </update>
+
+    <delete id="delShopCarById">
+        DELETE FROM `shop_car` WHERE id=#{id}
+    </delete>
+
+    <delete id="delShopByItem">
+        DELETE FROM `shop_car` WHERE  `food_id`=#{foodId}
+            AND  `food_category_id`=#{foodCategoryId}
+    </delete>
+
+
+</mapper>

@@ -1,0 +1,237 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+
+<mapper namespace="com.magicbeans.banjiuwan.mapper.IUserMapper">
+
+    <resultMap id="BaseUser" type="com.magicbeans.banjiuwan.beans.User">
+        <result column="id" property="id" javaType="java.lang.Integer"/>
+        <result column="phone_number" property="phoneNumber" javaType="java.lang.String"/>
+        <result column="user_name" property="userName" javaType="java.lang.String"/>
+        <result column="personal_taste" property="personalTaste" javaType="java.lang.String"/>
+        <result column="like_cuisine" property="likeCuisine" javaType="java.lang.String"/>
+        <result column="pwd" property="password" javaType="java.lang.String"/>
+        <result column="avatar" property="avatar" javaType="java.lang.String"/>
+        <result column="create_time" property="createTime" javaType="java.util.Date"/>
+        <result column="last_login" property="lastLogin" javaType="java.util.Date"/>
+        <result column="update_time" property="updateTime" javaType="java.util.Date"/>
+        <result column="admin_date" property="adminDate" javaType="java.util.Date"/>
+        <result column="is_valid" property="isValid" javaType="java.lang.Integer"/>
+        <result column="accumulate" property="accumulate" javaType="java.lang.Integer"/>
+        <result column="device_type" property="deviceType" javaType="java.lang.Integer"/>
+        <result column="admin_user_id" property="adminUserId" javaType="java.lang.Integer"/>
+        <result column="device_token" property="deviceToken" javaType="java.lang.String"/>
+        <result column="token" property="token" javaType="java.lang.String"/>
+        <result column="remarket" property="reMarket" javaType="java.lang.String"/>
+        <result column="signature" property="signature" javaType="java.lang.String"/>
+        <result column="openId" property="openId" javaType="java.lang.String"/>
+        <result column="adminName" property="adminName" javaType="java.lang.String"/>
+        <result column="balance" property="balance" javaType="java.lang.Double"/>
+    </resultMap>
+
+    <!-- 用户消费统计 -->
+    <select id="statisticsUser" resultType="com.magicbeans.banjiuwan.beans.ConsumptionStatistics">
+        SELECT
+            u.user_name AS userName,
+            u.phone_number AS phoneNumber,
+            (SELECT SUM(balance) FROM recharge_record WHERE userId=u.id
+              <if test="startTime != null and endTime != null">
+                  AND `createTime` BETWEEN #{startTime} AND #{endTime}
+              </if>
+            ) AS sumRecharge,
+            (SELECT SUM(giveBalance) FROM recharge_record WHERE userId=u.id
+                <if test="startTime != null and endTime != null">
+                    AND `createTime` BETWEEN #{startTime} AND #{endTime}
+                </if>
+            ) AS sumGiveRecharge,
+            u.balance AS memberBalance,
+            (SELECT SUM(balance) FROM `order` WHERE user_id=u.id AND `status` != 2009
+                <if test="startTime != null and endTime != null">
+                    AND `create_time` BETWEEN #{startTime} AND #{endTime}
+                </if>
+            ) AS memberSumConsumption,
+            (SELECT SUM(c.face_value) FROM user_coupon uc,coupon c WHERE uc.coupon_id=c.id AND uc.user_id=u.id AND uc.is_valid=1 AND c.type=0) AS couponBalance,
+            (SELECT SUM(coupon) FROM `order` WHERE user_id=u.id AND `status` != 2009
+                <if test="startTime != null and endTime != null">
+                    AND `create_time` BETWEEN #{startTime} AND #{endTime}
+                </if>
+            ) AS couponSumConsumption,
+            (SELECT SUM(c.face_value) FROM user_coupon uc,coupon c WHERE uc.coupon_id=c.id AND uc.user_id=u.id AND uc.is_valid=1 AND c.type=1) AS cashCouponBalance,
+            (SELECT SUM(cash_coupon) FROM `order` WHERE user_id=u.id AND `status` != 2009
+                <if test="startTime != null and endTime != null">
+                    AND `create_time` BETWEEN #{startTime} AND #{endTime}
+                </if>
+            ) AS cashCouponSumConsumption,
+            (SELECT SUM(price) FROM `order` WHERE  user_id=u.id AND `status` != 2009
+                <if test="startTime != null and endTime != null">
+                    AND `create_time` BETWEEN #{startTime} AND #{endTime}
+                </if>
+            ) AS countSumConsumption
+        FROM
+            users u
+        WHERE 1 = 1
+        <if test="userName != null and userName != ''">
+            AND u.user_name LIKE '%${userName}%'
+        </if>
+        <if test="mobile != null and mobile != ''">
+            AND u.phone_number LIKE '%${mobile}%'
+        </if>
+        ORDER BY `countSumConsumption` DESC
+        <if test="limit != null  and limitSize != null">
+            LIMIT #{limit},#{limitSize}
+        </if>
+    </select>
+
+    <select id="countStatisticsUser" resultType="java.lang.Integer">
+      SELECT COUNT(*) FROM  `users` u
+        WHERE 1 = 1
+        <if test="userName != null and userName != ''">
+            AND u.user_name LIKE '%${userName}%'
+        </if>
+        <if test="mobile != null and mobile != ''">
+            AND u.phone_number LIKE '%${mobile}%'
+        </if>
+    </select>
+
+
+    <select id="queryUserById" resultMap="BaseUser">
+        SELECT `id`,`user_name`,`phone_number`,`accumulate`,`device_type`,`device_token`,`balance`,`token`
+        FROM
+        `users`
+        WHERE `id`=#{id}
+    </select>
+
+    <insert id="addUser" useGeneratedKeys="true" keyProperty="user.id">
+        INSERT INTO `users`
+        (`phone_number`,`user_name`,`personal_taste`,`like_cuisine`,`pwd`,`avatar`,`create_time`,`last_login`,`update_time`
+        ,`is_valid`,`accumulate`,`balance`,`device_type`,`device_token`,`token`,`signature`,`admin_user_id`,`openId`,`admin_date`)
+        VALUES
+        (#{user.phoneNumber},#{user.userName},#{user.personalTaste},#{user.likeCuisine},#{user.password},#{user.avatar}
+        ,#{user.createTime},#{user.lastLogin},#{user.updateTime},#{user.isValid},#{user.accumulate},#{user.balance}
+        ,#{user.deviceType},#{user.deviceToken},#{user.token},#{user.signature},#{user.adminUserId},#{user.openId},#{user.adminDate})
+    </insert>
+    
+    <update id="updateUser">
+        UPDATE `users`
+        <set>
+            <if test="user.adminDate != null">
+                `admin_date`=#{user.adminDate},
+            </if>
+            <if test="user.openId != null">
+                `openId`=#{user.openId},
+            </if>
+            <if test="user.deviceType != null">
+                `device_type`=#{user.deviceType},
+            </if>
+            <if test="user.adminUserId != null">
+                `admin_user_id`=#{user.adminUserId},
+            </if>
+            <if test="user.signature != null">
+                `signature`=#{user.signature},
+            </if>
+            <if test="user.deviceToken != null">
+                `device_token`=#{user.deviceToken},
+            </if>
+            <if test="user.token != null">
+                `token`=#{user.token},
+            </if>
+            <if test="user.phoneNumber != null">
+              `phone_number`=#{user.phoneNumber},
+            </if>
+            <if test="user.userName != null">
+                `user_name`=#{user.userName},
+            </if>
+            <if test="user.personalTaste != null">
+                `personal_taste`=#{user.personalTaste},
+            </if>
+            <if test="user.likeCuisine != null">
+                `like_cuisine`=#{user.likeCuisine},
+            </if>
+            <if test="user.password != null">
+                `pwd`=#{user.password},
+            </if>
+            <if test="user.avatar != null">
+                `avatar`=#{user.avatar},
+            </if>
+            <if test="user.lastLogin != null">
+                `last_login`=#{user.lastLogin},
+            </if>
+            <if test="user.updateTime != null">
+                `update_time`=#{user.updateTime},
+            </if>
+            <if test="user.isValid != null">
+                `is_valid`=#{user.isValid},
+            </if>
+            <if test="user.accumulate != null">
+                `accumulate`=#{user.accumulate},
+            </if>
+            <if test="user.balance != null">
+                `balance`=#{user.balance},
+            </if>
+        </set>
+        WHERE id=#{user.id}
+    </update>
+
+    <select id="queryByPhoneAndPwd" resultMap="BaseUser">
+        SELECT * FROM `users`
+        WHERE
+        `phone_number`=#{phoneNumber}
+        <if test="password != null">
+            AND  `pwd`= #{password}
+        </if>
+    </select>
+
+    <select id="queryByPage" resultMap="BaseUser">
+        SELECT u.*,au.user_name AS adminName
+        FROM  `users` u LEFT JOIN `admin_users` au ON u.admin_user_id=au.id
+        WHERE 1=1
+        <if test="phoneNumber != null">
+            AND u.`phone_number` LIKE '%${phoneNumber}%'
+        </if>
+        <if test="userName != null">
+            AND u`user_name` LIKE '%${userName}%'
+        </if>
+        ORDER BY u.`create_time`DESC
+        <if test="limit != null and limitSize != null">
+            LIMIT #{limit},#{limitSize}
+        </if>
+    </select>
+    
+    <select id="countByPage" resultType="java.lang.Integer">
+        SELECT COUNT(*) FROM `users` WHERE 1=1
+        <if test="phoneNumber != null">
+            AND `phone_number` LIKE '%${phoneNumber}%'
+        </if>
+        <if test="userName != null">
+            AND `user_name` LIKE '%${userName}%'
+        </if>
+    </select>
+
+
+    <!-- 获取用户详情 -->
+    <select id="getUserByIdForWeb" resultMap="BaseUser">
+        SELECT *
+        FROM
+        `users`
+        WHERE `id`=#{id}
+    </select>
+
+
+
+    <!-- 填写备注 -->
+    <update id="saveReMarket">
+        UPDATE `users` SET remarket = concat(CASE WHEN remarket IS NULL THEN '' ELSE remarket END,#{reMarket})
+        WHERE id = #{id}
+    </update>
+
+
+
+
+
+
+
+
+
+
+
+</mapper>

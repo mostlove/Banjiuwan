@@ -1,0 +1,191 @@
+*{margin: 0;padding: 0;}
+ul li{list-style: none}
+a{text-decoration: none;}
+img{border:none }
+
+
+body{font: 14px/1.125 microsoft yahei,SimSun,Arial,Helvetica,sans-serif;}
+
+
+.con{
+    width: 100%;
+}
+.con:after{
+    content:"";
+    display: block;
+    clear: both;
+}
+.header{
+    margin: 0 auto;
+    width: 1200px;
+    height: 90px;
+}
+.header>.logodiv{
+    width: 200px;
+    height: 48px;
+    float: left;
+    margin-top: 20px;
+}
+.header>span{
+    display: block;
+    float: left;
+    width: 300px;
+    height: 30px;
+    font-size: 25px;
+    margin-top: 43px;
+    margin-left: 20px;
+}
+.carousel-inner{
+    width: 100%;
+    margin-top: 20px;
+}
+.carousel-inner>div{
+    width:100%;
+    height: 700px;
+}
+.carousel-inner1{
+    background: url("../../img/hotel/1.jpg")no-repeat;
+    background-size:100% 100%;
+}
+.carousel-inner2{
+    background: url("../../img/hotel/2.jpg")no-repeat;
+    background-size:100% 100%;
+}
+.carousel-inner3{
+    background: url("../../img/hotel/3.jpg")no-repeat;
+    background-size:100% 100%;
+}
+.myCarousel{
+    position: relative;
+}
+.registerdiv{
+    width: 350px;
+    background: white;
+    position: absolute;
+    top: 150px;
+    right: 400px;
+    border-radius:10px ;
+}
+.registerdiv:after{
+    content:"";
+    display: block;
+    clear: both;
+    padding-bottom: 20px;
+}
+.registerdiv h3{
+    width: 350px;
+    height: 30px;
+    text-align: center;
+    font-weight: bold;
+    display: inline-block;
+    margin-top: 40px;
+}
+.error{
+    width: 90%;
+    height: 25px;
+    background-color: #FADDDF;
+    margin: 0 auto;
+    margin-top: 26px;
+    border-radius: 20px;
+}
+.error>img{
+    margin: 3px 0 0 15px;
+    float: left;
+}
+.error>span{
+    color: red;
+    float: right;
+    display: block;
+    width: 85%;
+    height: 25px;
+    line-height: 25px;
+    text-align: center;
+}
+.formzh,.formmm{
+    width: 80%;
+    margin: 0 auto;
+    margin-top: 26px;
+    height: 40px;
+}
+.formzh>div,.formmm>div{
+    float: left;
+    height: 30px;
+    width: 30px;
+}
+.formzh input,.formmm input{
+    float: left;
+    height: 30px;
+    font-size: 17px;
+    margin-left: 20px;
+    outline: none;
+    border: 0;
+}
+.cross{
+    text-align: center;
+    line-height: 30px;
+    float: right;
+    height: 30px;
+    width: 30px;
+    font-size: 20px;
+    color: #CCCCCC;
+}
+.cross:hover{
+    color: black;
+}
+.registersubmit{
+    width: 90%;
+    height: 45px;
+    margin: 0 auto;
+    margin-top: 26px;
+}
+.registersubmit input{
+    background: #35CAC4;
+    width: 100%;
+    border-radius: 30px;
+    height: 45px;
+    outline: none;
+    border: 0;
+    color: white;
+    font-size:20px;
+    text-align: center;
+    letter-spacing: 15px;
+}
+.tail{
+    width: 90%;
+    height: 25px;
+    margin: 0 auto;
+    margin-top: 20px;
+    color: black;
+}
+.tailleft{
+    float: left;
+    color: black;
+    font-size: 18px;
+    text-decoration:underline;
+}
+.tailright{
+    float: right;
+    color: black;
+    font-size: 18px;
+}
+.bottom{
+    text-align: center;
+    width: 90%;
+    height: 25px;
+    color: black;
+    font-size: 18px;
+    margin: 0 auto;
+    margin-top: 80px;
+}
+
+@media screen and (max-width:1400px) {
+    .registerdiv {
+        right: 200px;
+    }
+}
+
+@media screen and (max-width:1200px) {
+    .registerdiv {
+        right: 10px;
+    }
+}

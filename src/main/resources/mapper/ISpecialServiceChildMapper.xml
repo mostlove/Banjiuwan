@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+        
+        
+<mapper namespace="com.magicbeans.banjiuwan.mapper.ISpecialServiceChildMapper">
+
+
+    <select id="queryCJ" resultType="com.magicbeans.banjiuwan.beans.SpecialServiceChild">
+        SELECT * FROM  `service_child`
+        WHERE `id`=3
+    </select>
+
+    <update id="updateSpecialServiceChild">
+        UPDATE `service_child` SET `price`=#{specialServiceChild.price} WHERE `id`=#{specialServiceChild.id}
+    </update>
+
+
+    <update id="batchUpdateSpecialServiceChild">
+        <foreach collection="specialServiceChilds" item="specialServiceChild" index="index" separator=";">
+            UPDATE `service_child`
+            <set>
+                `price`= #{specialServiceChild.price}
+            </set>
+            WHERE `id`= #{specialServiceChild.id}
+        </foreach>
+    </update>
+    
+    
+    <select id="queryAllSpecialServiceChild" resultType="com.magicbeans.banjiuwan.beans.SpecialServiceChild">
+        SELECT
+        sc.*
+        <if test="userId != null">
+            , scc.number AS countNumber
+        </if>
+        FROM
+            `service_child` sc
+        LEFT JOIN shop_car scc ON scc.food_category_id = 11
+        AND sc.id = scc.food_id
+        <if test="userId != null">
+            AND scc.user_id = #{userId}
+        </if>
+        GROUP BY sc.id
+
+    </select>
+
+    <select id="queryShopCarByShopCarIds" resultType="com.magicbeans.banjiuwan.beans.ShopCar">
+        SELECT
+            scc.id AS id,
+            sc.`name` AS `name`,
+            sc.price AS price,
+            sc.id AS foodId,
+            scc.food_category_id AS foodCategoryId,
+            scc.number AS number
+        FROM
+            `service_child` sc,
+            shop_car scc
+        WHERE
+            sc.id = scc.food_id
+        AND scc.id IN
+        <foreach collection="ids" item="id" index="index" open="(" close=")" separator=",">
+            #{id}
+        </foreach>
+
+    </select>
+
+
+</mapper>

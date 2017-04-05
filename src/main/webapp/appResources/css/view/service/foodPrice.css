@@ -1,0 +1,198 @@
+/**
+ * 婚庆预约页面自定义css
+ * */
+.mui-content, body, html{
+    min-height: 100%;
+}
+.mui-content{
+    padding-bottom: 0;
+}
+
+/**swiper*/
+.swiper-container {
+    width: 100%;
+    height: 260px;
+    margin-left: auto;
+    margin-right: auto;
+    z-index: 9;
+    top: 0;
+}
+
+.swiper-slide {
+
+}
+
+.swiper-pagination span {
+    background: #fff;
+    transition: 0.3s all;
+}
+
+.swiper-pagination-bullet {
+    opacity: 1;
+    width: 8px;
+    height: 8px;
+}
+
+.swiper-container-horizontal>.swiper-pagination .swiper-pagination-bullet {
+    margin: 0 4px;
+}
+
+.swiper-pagination-bullet-active {
+    background: red !important;
+    transition: 0.3s all;
+}
+.swiper-slide img{
+    width: 100%;
+    height: 100%;
+}
+
+/*搜索栏*/
+.search-bar{
+    padding: 15px 15px 15px 0;
+    margin-top: 10px;
+    background: #fff;
+}
+.search-btn{
+    background: #D72C22;
+    padding: 5px 10px;
+    color: #fff;
+    border-color: #D72C22;
+    width: 100%;
+    text-align: left;
+}
+.search-btn:after{
+    right: 5px;
+    content: '\e581';
+    font-family: Muiicons;
+    font-size: inherit;
+    line-height: 1;
+    position: absolute;
+    top: 50%;
+    display: inline-block;
+    -webkit-transform: translateY(-50%);
+    transform: translateY(-50%);
+    text-decoration: none;
+    color: #fff;
+    -webkit-font-smoothing: antialiased;
+}
+.search-btn:active, .search-btn:focus{
+    background: #D72C22 !important;
+    color: #fff !important;
+}
+.food-bar{
+
+}
+.food-bar .food-table{
+    width: 100%;
+    background: #fff;
+}
+.food-bar .food-table tr td{
+    padding: 15px;
+    text-align: center;
+    font-size: 13px;
+}
+.food-bar .food-table tr{
+    border-bottom: 1px solid #eee;
+}
+table tr:nth-child(2n){
+    border-bottom: none;
+    background: #F2F2F2;
+}
+table thead tr{
+    background: #F2F2F2;
+}
+.food-price{
+    font-size: 16px;
+    font-weight: 600;
+    color: #D72C22;
+}
+.notData{
+    text-align: center;
+    font-size: 12px;
+    color: #929292;
+    padding: 10px;
+}
+
+/*弹窗*/
+.search-popup{
+    max-height: 100px;
+    position: absolute;
+    z-index:9;
+    float: left;
+    width: 100%;
+    margin: 9px 0 0;
+    text-align: left;
+    background-color: #fff;
+    border: 1px solid #ddd;
+    margin-right: -15px;
+    box-shadow: 0 5px 10px rgba(0, 0, 0, 0.1);
+    display: none;
+}
+.search-popup:after{
+    content: "";
+    border: 1px solid #fff;
+    border-width: 0 8px 8px;
+    border-bottom-color: #ddd;
+    position: absolute;
+    width: 0;
+    height: 0;
+    left: 10px;
+    top: -8px;
+    z-index:10;
+}
+.searchDiv{
+    max-height: 100px;
+    overflow: auto;
+}
+.searchUl li{
+    position: relative;
+}
+.searchUl li a{
+    padding: 10px;
+    font-family: Muiicons;
+    font-weight: 400;
+    font-style: normal;
+    line-height: 1;
+    display: inline-block;
+    text-decoration: none;
+    -webkit-font-smoothing: antialiased;
+    width: 100%;
+    color: #000;
+    font-size: 12px;
+}
+.searchUl li a:before{
+    font-size: 30px;
+    content: '\e472';
+    position: absolute;
+    float: right;
+    right: 0;
+    top: 0;
+    color: #D72C22;
+    opacity: 0;
+}
+.searchUl li .active-food:before{
+    opacity: 1;
+}
+.mui-btn, button, input[type=button], input[type=reset], input[type=submit]{
+    line-height: inherit;
+}
+
+
+/*iphone6*/
+@media screen and (max-width:375px) {
+    .swiper-container {
+        height: 250px;
+    }
+}
+/*iphone5*/
+@media screen and (max-width:320px) {
+	.search-btn{
+        font-size: 12px;
+    }
+    .food-bar .food-table tr td{
+        font-size: 12px;
+    }
+    .swiper-container{
+        height: 200px;
+    }
+}

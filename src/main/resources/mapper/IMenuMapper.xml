@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+
+<mapper namespace="com.magicbeans.banjiuwan.mapper.IMenuMapper">
+
+    <resultMap id="BaseMenu" type="com.magicbeans.banjiuwan.beans.Menu">
+        <result column="id" property="id" javaType="java.lang.Integer"/>
+        <result column="url" property="url" javaType="java.lang.String"/>
+        <result column="menu_name" property="menuName" javaType="java.lang.String"/>
+        <result column="remaker" property="remaker" javaType="java.lang.String"/>
+        <result column="sortNumber" property="sortNumber" javaType="java.lang.Integer"/>
+    </resultMap>
+
+    <select id="queryAllMenu" resultMap="BaseMenu">
+        SELECT * FROM `menu`
+    </select>
+
+    <select id="queryMenuByRole" resultMap="BaseMenu">
+        SELECT m.* FROM `menu` m,`role_menu` rm
+        WHERE m.id=rm.meun_id
+        AND rm.role_id=#{roleId}
+        ORDER BY `sortNumber` ASC
+    </select>
+
+</mapper>

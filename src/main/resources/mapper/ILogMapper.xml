@@ -1,0 +1,97 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+
+<mapper namespace="com.magicbeans.banjiuwan.mapper.ILogMapper">
+
+    <resultMap id="BaseLog" type="com.magicbeans.banjiuwan.beans.Log">
+        <result column="id" property="id" javaType="java.lang.Long"/>
+        <result column="operate_type" property="operateType" javaType="java.lang.Integer"/>
+        <result column="to_operate_type" property="toOperateType" javaType="java.lang.Integer"/>
+        <result column="to_operate_id" property="toOperateId" javaType="java.lang.Integer"/>
+        <result column="admin_user_id" property="adminUserId" javaType="java.lang.Integer"/>
+        <result column="describe" property="describe" javaType="java.lang.String"/>
+        <result column="create_time" property="createTime" javaType="java.util.Date"/>
+    </resultMap>
+
+
+    <insert id="save" parameterType="com.magicbeans.banjiuwan.beans.Log" >
+        INSERT INTO `log` (
+            `operate_type`,
+            `to_operate_type`,
+            `admin_user_id`,
+            `to_operate_id`,
+            `ip`,
+            `describe`,
+            `create_time`
+        )
+        VALUES
+            (
+                #{operateType},
+                #{toOperateType},
+                #{adminUserId},
+                #{toOperateId},
+                #{ip},
+                #{describe},
+                now()
+            );
+    </insert>
+
+
+    <select id="list" resultMap="BaseLog" >
+        SELECT l.*,au.user_name AS userName FROM log l , admin_users au
+        WHERE l.admin_user_id = au.id
+        <if test="operateTypes != null and operateTypes.length > 0">
+            AND l.operate_type IN
+            <foreach collection="operateTypes" item="operateType" open="(" close=")" separator=",">
+                #{operateType}
+            </foreach>
+        </if>
+        <if test="toOperateTypes != null and toOperateTypes.length > 0">
+            AND l.to_operate_type IN
+            <foreach collection="toOperateTypes" item="toOperateType" separator="," open="(" close=")" >
+                #{toOperateType}
+            </foreach>
+        </if>
+        <if test="userName != null and userName != ''">
+            AND au.user_name LIKE '%${userName}%'
+        </if>
+        <if test="startTime != null">
+            AND l.create_time >= #{startTime}
+        </if>
+        <if test="endTime != null">
+            AND l.create_time <![CDATA[ <= ]]> #{endTime}
+        </if>
+        ORDER BY l.id DESC
+        <if test="limit != null and limitSize != null">
+            LIMIT #{limit},#{limitSize}
+        </if>
+    </select>
+
+    <select id="listCount" resultType="java.lang.Integer" >
+        SELECT COUNT(*) FROM log l , admin_users au
+        WHERE l.admin_user_id = au.id
+        <if test="operateTypes != null and operateTypes.length > 0">
+            AND l.operate_type IN
+            <foreach collection="operateTypes" item="operateType" open="(" close=")" separator=",">
+                #{operateType}
+            </foreach>
+        </if>
+        <if test="toOperateTypes != null and toOperateTypes.length > 0">
+            AND l.to_operate_type IN
+            <foreach collection="toOperateTypes" item="toOperateType" separator="," open="(" close=")" >
+                #{toOperateType}
+            </foreach>
+        </if>
+        <if test="startTime != null">
+            AND l.create_time >= #{startTime}
+        </if>
+        <if test="endTime != null">
+            AND l.create_time <![CDATA[ <= ]]> #{endTime}
+        </if>
+        <if test="userName != null and userName != ''">
+            AND au.user_name LIKE '%${userName}%'
+        </if>
+        ORDER BY l.id DESC
+    </select>
+</mapper>

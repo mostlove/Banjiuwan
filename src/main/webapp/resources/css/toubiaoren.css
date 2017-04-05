@@ -1,0 +1,68 @@
+.mui-content .user-info{
+	padding: 10px 0;
+	background: #F2F2F2;
+	border-bottom: 1px solid #DCDCDC;
+}
+.mui-content .user-info .top{
+	padding: 20px 15px 20px 20px;
+	background: #fff;
+	border-bottom: 1px solid #DCDCDC;
+}
+.mui-content .media{
+	
+}
+.mui-content .media .media-left{
+	display: table-cell;
+	vertical-align:top;
+	padding-right: 15px;
+}
+.mui-content .media .media-body{
+	display: table-cell;
+	vertical-align: top;
+	position: relative;
+}
+.mui-content .media .media-left img{
+	width: 60px;
+	height: 60px;
+	border-radius: 50%;
+}
+.mui-content .media .media-body p.name{
+	color: #333333;
+	font-size: 16px;
+}
+.mui-content .media .media-body p.price span{
+	color:#FF881F;
+	font-size: 16px;
+}
+.mui-content .media .media-body span.tag{
+	font-size: 12px;
+	position: absolute;
+	top: 4px;
+	right: 0;
+	padding: 0 4px;
+	height: 16px;
+	line-height: 16px;
+	color: #fff;
+	border-radius: 2px;
+	background:#0794FD;
+}
+.mui-content .media a img{
+	width: 26px;
+	height: 26px;
+}
+.mui-content .media a.phone{
+	position: absolute;
+	top: 40px;
+	right: 15px;
+}
+.mui-content .media a.chat{
+	position: absolute;
+	top: 40px;
+	right: 60px;
+}
+.mui-content .bid-details{
+	height: 60px;
+	line-height: 60px;
+	margin-left: 20px;
+	border-bottom: 1px solid #DCDCDC;
+}

@@ -1,0 +1,175 @@
+/**
+ * 个人中心页面自定义css
+ * */
+.mui-bar-nav{
+	box-shadow:none;
+	background: #D72C22;
+}
+.mui-bar-nav .mui-title{
+	font-size: 22px !important;
+	color: #fff !important;
+}
+.mui-table-view-cell>a:not(.mui-btn).mui-active{
+	background: rgba(0,0,0,0);
+}
+
+.my-list-menu .mui-table-view-cell{
+	border-bottom: 1px solid #F2F2F2;
+}
+
+.head-bar{
+	background: #D72C22;
+	padding: 15px;
+}
+.head-bar .user-name{
+	font-size: 24px;
+	margin-top: 6px;
+	color: #fff;
+}
+.head-bar .user-autograph{
+	margin-top: 8px;
+	color: #ccc;
+}
+.head-bar .my-logo{
+	max-width: 80px;
+	width: 80px;
+	height: 80px;
+	border-radius: 50%;
+	border: 2px solid #fff;
+	background: #fff;
+}
+.no-login{
+	color: #fff;
+	font-size: 16px;
+	margin-top: 10px;
+	margin-bottom: 10px !important;
+	margin-left: 10px;
+}
+.click-login-btn{
+	padding: 5px 15px;
+	color: #fff;
+	background: rgba(0, 0, 0, 0);
+	border: 1px solid rgba(255, 255, 255, 0.7);
+	margin-left: 10px;
+	font-size: 12px;
+}
+
+
+.head-bar .mui-table-view{
+	background: rgba(0,0,0,0);
+}
+.head-bar .mui-table-view:before{
+	height: 0;
+}
+.head-bar .mui-table-view:after{
+	height: 0;
+}
+.head-bar .mui-navigate-right:after, .mui-push-right:after{
+	font-size: 28px;
+	right: 0;
+	color: #fff;
+}
+/**菜单栏*/
+.my-menu-bar{
+	width: 100%;
+	background: #FFF;
+	margin: 0 auto;
+	padding: 5px 0;
+}
+.my-menu-bar .my-menu-icon{
+	text-align: center;
+	width: 100%;
+}
+.my-menu-bar .my-menu-icon img{
+	width: 50px;
+	height: 50px;
+}
+.my-menu-bar .my-menu-lable{
+	text-align: center;
+	font-size: 16px;
+	color: #666;
+	width: 100%;
+}
+.my-menu-bar .mui-table-view-cell{
+	border-right: 1px solid #F2F2F2;
+}
+/*列表菜单*/
+.mui-table-view:before{
+	height: 0;
+}
+.mui-table-view:after{
+	height: 0;
+}
+.my-list-menu{
+	margin-top: 10px;
+}
+.my-list-menu .my-list-icon{
+	margin-right: 15px !important;
+	width: 30px;
+	height: 30px;
+}
+.my-list-menu .mui-media-body{
+	line-height: 30px;
+	padding-top: 1px;
+}
+.my-list-menu .mui-media-body p{
+	font-size: 16px;
+	color: #080808;
+}
+.my-list-menu .mui-navigate-right:after, .mui-push-right:after{
+	font-size: 28px;
+	right: 0;
+}
+.my-list-menu .mui-table-view-cell:after{
+	height: 0;
+}
+/*点击退出*/
+.click-out-btn-li{
+	text-align: center;
+	padding-left: 0 !important;
+	padding-right: 0 !important;
+	border-bottom: none;
+}
+.click-out-btn{
+	text-align: center;
+	font-size: 16px;
+	color: #D72C22;
+	width: 100%;
+}
+
+.click-out-btn:active, .click-out-btn:focus{
+	background: rgba(0, 0, 0, 0) !important;
+	color: #D72C22 !important;
+}
+
+.onLine{
+	background: #5E97F6;
+	padding: 2px 15px;
+	color: #fff;
+	text-align: center;
+	border-radius: 30px;
+	font-size: 10px;
+	position: absolute;
+	right: 10px;
+	top: 16px;
+}
+.offLine{
+	background: #B1B1B1;
+	padding: 2px 15px;
+	color: #fff;
+	text-align: center;
+	border-radius: 30px;
+	font-size: 10px;
+	position: absolute;
+	right: 10px;
+	top: 16px;
+}
+
+/*iphone6*/
+@media screen and (max-width:375px) {
+	
+}
+/*iphone5*/
+@media screen and (max-width:320px) {
+	
+}

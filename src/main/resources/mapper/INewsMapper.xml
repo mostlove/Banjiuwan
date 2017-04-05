@@ -1,0 +1,92 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+
+
+<mapper namespace="com.magicbeans.banjiuwan.mapper.INewsMapper">
+    <resultMap id="BaseNews" type="com.magicbeans.banjiuwan.beans.News">
+        <result column="id" property="id" javaType="java.lang.Integer"/>
+        <result column="recommendation_index" property="recommendationIndex" javaType="java.lang.Integer"/>
+        <result column="icon" property="icon" javaType="java.lang.String"/>
+        <result column="img" property="img" javaType="java.lang.String"/>
+        <result column="title" property="title" javaType="java.lang.String"/>
+        <result column="content" property="content" javaType="java.lang.String"/>
+        <result column="create_time" property="createTime" javaType="java.util.Date"/>
+    </resultMap>
+    
+    
+    <insert id="addNews">
+        INSERT INTO `news` (`recommendation_index`,`icon`,`img`,`title`,`content`,`create_time`)
+        VALUES
+        (#{news.recommendationIndex},#{news.icon},#{news.img},#{news.title},#{news.content},NOW())
+    </insert>
+
+    <delete id="delNews">
+        DELETE FROM `news` WHERE id=#{id}
+    </delete>
+
+    <update id="updateNews">
+        UPDATE `news`
+        <set>
+            <if test="news.recommendationIndex != null">
+                `recommendation_index`=#{news.recommendationIndex},
+            </if>
+            <if test="news.icon != null">
+                `icon`=#{news.icon},
+            </if>
+            <if test="news.img != null">
+                `img`=#{news.img},
+            </if>
+            <if test="news.title != null">
+                `title`=#{news.title},
+            </if>
+            <if test="news.content != null">
+                `content`=#{news.content},
+            </if>
+        </set>
+        WHERE id=#{news.id}
+    </update>
+    
+    <select id="queryNewsById" resultMap="BaseNews">
+        SELECT * FROM `news` WHERE id=#{id}
+    </select>
+    
+    <select id="queryByItems" resultMap="BaseNews">
+        SELECT * FROM  `news`
+        WHERE 1=1
+        <if test="title != null">
+            AND `title` LIKE '%${title}%'
+        </if>
+        ORDER BY `create_time` DESC
+        <if test="limit != null and limitSize != null">
+            LIMIT #{limit},#{limitSize}
+        </if>
+    </select>
+
+    <select id="countByItems" resultType="java.lang.Integer">
+        SELECT COUNT(*) FROM  `news`
+        WHERE 1=1
+        <if test="title != null">
+            AND `title` LIKE '%${title}%'
+        </if>
+    </select>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</mapper>

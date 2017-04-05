@@ -1,0 +1,138 @@
+/**
+ * 会员卡页面自定义css
+ * */
+.mui-content, body, html{
+    background: #fff;
+}
+.balance-bar{
+    position: absolute;
+    text-align: center;
+    z-index: 9;
+    top:0;
+    left:50%;
+    transform: translate(-50%, -0%);
+    -webkit-transform: translate(-50%, -0%);
+    -moz-transform: translate(-50%, -0%);
+    -os-transform: translate(-50%, -0%);
+    margin-top: 56px;
+}
+.balance-bar .balance-title{
+    font-size: 16px;
+    color: #F8E2E3;
+    margin-bottom: 10px;
+}
+.balance-bar .balance{
+    font-size: 50px;
+    color: #fff;
+    font-weight:bold;
+}
+.balance-bar .balance span{
+    font-size: 12px;
+    font-weight:normal;
+    color: #F8E2E3;
+}
+.recharge-bar{
+    padding: 15px;
+    padding-left: 0px;
+    padding-top: 30px;
+}
+.recharge-scheme{
+    padding: 10px;
+    text-align: center;
+    border-radius: 4px;
+    border: 1px solid #929292;
+    margin-bottom: 15px;
+}
+.scheme-money{
+    color: #0c0c0c;
+    font-size: 18px;
+}
+.give-money{
+    color: #929292;
+    font-size: 12px;
+}
+.scheme-active{
+    color: #D72C22;
+    border: 1px solid #D72C22;
+    background: url("../../../img/icon/gougou.png") right bottom no-repeat;
+    background-size: 24px;
+}
+.scheme-active .scheme-money, .scheme-active .give-money{
+    color: #D72C22;
+}
+
+.balance-btn-bar{
+    padding: 10px 15px;
+    padding-top: 0;
+}
+.balance-btn{
+    width: 100%;
+    text-align: center;
+    color: #fff;
+    background: #D72C22;
+    padding: 10px;
+    border-color: #D72C22;
+    border-radius: 6px;
+}
+.balance-btn:active, .balance-btn:focus{
+    background: #D72C22 !important;
+}
+.balance-agreement{
+    text-align: center;
+    color: #CECECE;
+    font-size: 12px;
+}
+.balance-agreement a{
+    color: #D72C22;
+}
+
+.mui-backdrop-action.mui-backdrop.mui-active, .mui-bar-backdrop.mui-backdrop.mui-active{
+    z-index: 9998;
+}
+.mui-popover.mui-popover-action.mui-popover-bottom{
+    z-index: 9999;
+}
+.cancelBtn{
+    color: #000;
+}
+.paymentMode{
+    text-align: center;
+}
+.paymentMode img {
+    width: 70px;
+    height: 70px;
+}
+.paymentModeTitle{
+
+}
+.orderMoneyDiv{
+    text-align: center;
+    padding-bottom: 30px;
+    font-size: 16px;
+    color: #000;
+}
+.orderMoney{
+    font-size: 16px;
+    font-weight: 600;
+    color: #D72E22;
+}
+.member-bg{
+    background: #D72C22;
+    height: 200px;
+}
+
+
+/*iphone6*/
+@media screen and (max-width:375px) {
+    .paymentMode img {
+        width: 60px;
+        height: 60px;
+    }
+}
+/*iphone5*/
+@media screen and (max-width:320px) {
+    .paymentMode img {
+        width: 50px;
+        height: 50px;
+    }
+}

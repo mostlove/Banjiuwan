@@ -1,0 +1,236 @@
+/**
+ * 我的订单页面自定义css
+ * */
+
+html,body, .mui-content, .mui-slider-group{
+	height: 100% !important;
+}
+
+.mui-content{
+	padding-top: 0px;
+	padding-bottom: 0;
+}
+
+.mui-slider-indicator{
+	position: fixed !important;
+	z-index: 1000;
+	top:0;
+	margin: 0 auto;
+	max-width: 640px;
+}
+.mui-slider-progress-bar{
+	position: fixed;
+	z-index: 1000;
+	top:50px;
+	margin: 0 auto;
+	max-width: 640px;
+}
+.mui-slider-item {
+	min-height: 300px;
+	height: 100%;
+}
+.mui-slider-group{
+	margin-top: 50px;
+}
+.mui-slider-item .mui-loading {
+	margin-top: 50px;
+}
+.mui-slider .mui-segmented-control.mui-segmented-control-inverted~.mui-slider-group .mui-slider-item{
+	border: none;
+}
+#sliderProgressBar{
+	transition: all 0.3s;
+}
+.mui-segmented-control .mui-control-item{
+	line-height: 50px;
+	color: #000 !important;
+}
+.mui-slider-indicator.mui-segmented-control{
+	background: #fff;
+}
+.mui-segmented-control.mui-segmented-control-inverted~.mui-slider-progress-bar{
+	background-color: #D72C22;
+}
+.mui-slider .mui-slider-group .mui-slider-item .mui-table-view:after, .mui-slider .mui-slider-group .mui-slider-item .mui-table-view:before{
+	height: 1px;
+}
+
+.order-bar{
+	margin-top: 10px;
+	background: #fff;
+}
+.order-bar .order-num{
+	padding: 15px;
+	color: #666;
+	font-size: 14px;
+	border-bottom: 1px solid #F2F2F2;
+}
+.order-bar .order-num a{
+	color: #666;
+}
+.order-bar .order-num .order-status{
+	float: right;
+}
+.status-1{
+	color: #D72C22;
+}
+
+.goods-img{
+	max-width: 100px !important;
+	width: 100px !important;
+	height: 80px !important;
+}
+.goods-name{
+	font-size: 16px !important;
+	color: #000 !important;
+}
+.goods-p{
+	margin-top: 38px;
+}
+.goods-price{
+	font-size: 16px;
+	color: #D72C22;
+}
+.goods-num{
+	float: right;
+	color: #929292;
+	position: relative;
+	top: 2px;
+}
+.service-money{
+	max-width: 100px !important;
+	width: 100px !important;
+	line-height: 21px !important;
+	height: 10px !important;
+	color: #000;
+}
+.use-time-bar{
+	border-bottom: 1px solid #e1e1e1;
+	padding: 15px;
+	color: #000;
+	font-size: 14px;
+}
+.use-time{
+	color: #000;
+	font-size: 13px;
+}
+.total-bar{
+	border-bottom: 1px solid #e1e1e1;
+	padding: 15px;
+	color: #929292;
+	font-size: 14px;
+	text-align: right;
+}
+.total-price{
+	font-size: 18px;
+	color: #D72C22;
+	position: relative;
+	top: 2px;
+}
+.button-bar{
+	border-bottom: 1px solid #e1e1e1;
+	padding: 15px;
+	text-align: right;
+}
+.cancel-btn{
+	padding: 5px 30px;
+	font-size: 12px;
+	background: rgba(0, 0, 0, 0);
+	border: 1px solid #929292;
+	border-radius: 30px;
+	color: #929292;
+	margin-left: 10px;
+}
+.payment-btn{
+	padding: 5px 30px;
+	font-size: 12px;
+	background: #D72C22;
+	border: 1px solid #D72C22;
+	border-radius: 30px;
+	color: #fff;
+	margin-left: 10px;
+}
+.payment-btn:active, .payment-btn:focus{
+	background: #D72C22 !important;
+	color: #fff !important;
+}
+.notOrder{
+	width: 100%;
+	padding-top: 50px;
+	color: #929292;
+	text-align: center;
+	font-size: 14px;
+}
+.status1{
+	color: orange !important;
+}
+.status2{
+	color: #00a0e9 !important;
+}
+.status3{
+	color: #46ae72 !important;
+}
+.status4{
+	color: #624dd0 !important;
+}
+
+.mui-backdrop-action.mui-backdrop.mui-active, .mui-bar-backdrop.mui-backdrop.mui-active{
+	z-index: 9998;
+}
+.mui-popover.mui-popover-action.mui-popover-bottom{
+	z-index: 9999;
+}
+.cancelBtn{
+	color: #000;
+}
+.paymentMode{
+	text-align: center;
+}
+.paymentMode img {
+	width: 70px;
+	height: 70px;
+}
+.paymentModeTitle{
+
+}
+.orderMoneyDiv{
+	text-align: center;
+	padding-bottom: 30px;
+	font-size: 16px;
+	color: #000;
+}
+.orderMoney{
+	font-size: 16px;
+	font-weight: 600;
+	color: #D72E22;
+}
+
+.order-loading{
+	width: 100%;
+	padding-top: 50px;
+	text-align: center;
+}
+.order-loading img{
+	width: 50px !important;
+	height: 50px;
+}
+
+
+
+/*iphone6*/
+@media screen and (max-width:375px) {
+	.paymentMode img {
+		width: 60px;
+		height: 60px;
+	}
+}
+/*iphone5*/
+@media screen and (max-width:320px) {
+	.paymentMode img {
+		width: 50px;
+		height: 50px;
+	}
+	.order-bar .order-num{
+		font-size: 13px;
+	}
+}
